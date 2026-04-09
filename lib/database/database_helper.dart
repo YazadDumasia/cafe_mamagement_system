@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:cafe_mamagement_system/utlis/components/constants.dart';
+
 import '../model/invoices/invoice_model.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
@@ -638,7 +640,8 @@ class DatabaseHelper {
   }
 
   // -------------------- BACKUP & RESTORE --------------------
-  Future<String> backupDatabase({bool encryptBackup = true}) async {
+  Future<String> backupDatabase({bool encryptBackup = true, void Function(double progress, String status)? onProgress}) async {
+    onProgress?.call(0.0, "Requesting permissions...");
     await _requestPermissions();
 
     final sourceFilePath = await getDbPath();
@@ -648,6 +651,7 @@ class DatabaseHelper {
       throw Exception('Database file not found at $sourceFilePath');
     }
 
+    onProgress?.call(0.05, "Closing active database...");
     // Close DB first to avoid locks
     await _dbLock.synchronized(() async {
       if (_database != null) {
@@ -656,32 +660,50 @@ class DatabaseHelper {
       }
     });
 
+    onProgress?.call(0.1, "Creating backup file...");
     // Create backup file
     final backupDir = await _getBackupDirectory();
     final timestamp = DateTime.now().millisecondsSinceEpoch;
     final backupFilename = 'coozy_backup_$timestamp.db';
     final backupFile = File(join(backupDir.path, backupFilename));
 
-    // Copy database
-    await sourceFile.copy(backupFile.absolute.path);
+    // Copy database with stream chunking for progress
+    final totalBytes = await sourceFile.length();
+    int bytesCopied = 0;
+    
+    final readStream = sourceFile.openRead();
+    final writeSink = backupFile.openWrite();
+    
+    await for (final chunk in readStream) {
+      writeSink.add(chunk);
+      bytesCopied += chunk.length;
+      
+      // Progress from 10% to 50%
+      double copyProgress = 0.1 + ((bytesCopied / totalBytes) * 0.4);
+      onProgress?.call(copyProgress, "Copying database file...");
+    }
+    await writeSink.close();
 
     String finalBackupPath = backupFile.path;
 
     // Encrypt backup if requested
     if (encryptBackup) {
-      final encryptedFile = await _encryptFile(backupFile);
+      final encryptedFile = await _encryptFile(backupFile, onProgress: onProgress);
       await backupFile.delete(); // Remove unencrypted backup
       finalBackupPath = encryptedFile.path;
     }
 
+    onProgress?.call(0.95, "Reopening database...");
     // Reopen database
     _database = await _initDatabase();
 
+    onProgress?.call(1.0, "Backup complete!");
     debugPrint('Backup completed: $finalBackupPath');
     return finalBackupPath;
   }
 
-  Future<void> restoreDatabase(String backupFilePath) async {
+  Future<void> restoreDatabase(String backupFilePath, {void Function(double progress, String status)? onProgress}) async {
+    onProgress?.call(0.0, "Requesting permissions...");
     await _requestPermissions();
 
     final backupFile = File(backupFilePath);
@@ -689,6 +711,7 @@ class DatabaseHelper {
       throw Exception('Backup file not found: $backupFilePath');
     }
 
+    onProgress?.call(0.02, "Closing active database...");
     // Close DB first using lock
     await _dbLock.synchronized(() async {
       if (_database != null) {
@@ -703,13 +726,28 @@ class DatabaseHelper {
     // Handle decryption if needed
     File sourceFile;
     if (backupFilePath.endsWith('.enc')) {
-      sourceFile = await _decryptFile(backupFile);
+      sourceFile = await _decryptFile(backupFile, onProgress: onProgress);
     } else {
       sourceFile = backupFile;
+      onProgress?.call(0.5, "Preparing unencrypted backup...");
     }
 
-    // Copy restored database
-    await targetFile.writeAsBytes(await sourceFile.readAsBytes());
+    // Copy restored database mapping progress from 50% to 95%
+    onProgress?.call(0.5, "Restoring database file...");
+    final totalBytes = await sourceFile.length();
+    int bytesCopied = 0;
+    
+    final readStream = sourceFile.openRead();
+    final writeSink = targetFile.openWrite();
+    
+    await for (final chunk in readStream) {
+      writeSink.add(chunk);
+      bytesCopied += chunk.length;
+      
+      double restoreProgress = 0.5 + ((bytesCopied / totalBytes) * 0.45);
+      onProgress?.call(restoreProgress, "Restoring database file...");
+    }
+    await writeSink.close();
 
     // Clean up temporary decrypted file
     if (backupFilePath.endsWith('.enc') &&
@@ -717,9 +755,11 @@ class DatabaseHelper {
       await sourceFile.delete();
     }
 
+    onProgress?.call(0.95, "Reopening database...");
     // Reopen database
     _database = await _initDatabase();
 
+    onProgress?.call(1.0, "Database restored successfully!");
     debugPrint('Database restored from: $backupFilePath');
   }
 
@@ -742,16 +782,21 @@ class DatabaseHelper {
     }
   }
 
-  Future<File> _encryptFile(File inputFile) async {
+  Future<File> _encryptFile(File inputFile, {void Function(double progress, String status)? onProgress}) async {
+    onProgress?.call(0.55, "Preparing encryption securely...");
     final key = encrypt.Key.fromUtf8(secretKey.padRight(32, '0'));
     final iv = encrypt.IV.fromSecureRandom(16);
     final encrypter = encrypt.Encrypter(
       encrypt.AES(key, mode: encrypt.AESMode.cbc),
     );
 
+    onProgress?.call(0.65, "Reading backup data...");
     final inputBytes = await inputFile.readAsBytes();
+    
+    onProgress?.call(0.75, "Encrypting data...");
     final encrypted = encrypter.encryptBytes(inputBytes, iv: iv);
 
+    onProgress?.call(0.85, "Saving encrypted backup...");
     final encryptedFile = File('${inputFile.path}.enc');
     await encryptedFile.writeAsBytes(encrypted.bytes);
 
@@ -759,11 +804,12 @@ class DatabaseHelper {
     final ivFile = File('${inputFile.path}.iv');
     await ivFile.writeAsString(iv.base64);
 
-    debugPrint('Encryption IV saved: ${iv.base64}');
+    Constants.debugLog(DatabaseHelper, 'Encryption IV saved: ${iv.base64}');
     return encryptedFile;
   }
 
-  Future<File> _decryptFile(File encryptedFile) async {
+  Future<File> _decryptFile(File encryptedFile, {void Function(double progress, String status)? onProgress}) async {
+    onProgress?.call(0.05, "Preparing decryption securely...");
     final key = encrypt.Key.fromUtf8(secretKey.padRight(32, '0'));
 
     // Read IV from companion file
@@ -773,18 +819,24 @@ class DatabaseHelper {
       throw Exception('IV file not found for decryption: $ivPath');
     }
 
+    onProgress?.call(0.15, "Reading encryption parameters...");
     final ivBase64 = await ivFile.readAsString();
     final iv = encrypt.IV.fromBase64(ivBase64);
 
     final encrypter = encrypt.Encrypter(
       encrypt.AES(key, mode: encrypt.AESMode.cbc),
     );
+    
+    onProgress?.call(0.25, "Reading encrypted backup data...");
     final encryptedBytes = await encryptedFile.readAsBytes();
+    
+    onProgress?.call(0.35, "Decrypting data...");
     final decrypted = encrypter.decryptBytes(
-      encryptedBytes as encrypt.Encrypted,
+      encrypt.Encrypted(encryptedBytes),
       iv: iv,
     );
 
+    onProgress?.call(0.45, "Saving decrypted temporary file...");
     final decryptedFile = File('${encryptedFile.path}.decrypted');
     await decryptedFile.writeAsBytes(decrypted);
 

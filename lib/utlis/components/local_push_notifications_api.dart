@@ -102,6 +102,47 @@ class NotificationApi {
   }
 
   /*
+   * NotificationApi.showProgressNotification("title","body",progress: 10, maxProgress: 100);
+   */
+  static Future showProgressNotification({
+    int id = 0,
+    String? title,
+    String? body,
+    String? payload,
+    required int progress,
+    required int maxProgress,
+  }) async {
+    _notifications.show(
+      id: id,
+      title: title,
+      body: body,
+      notificationDetails: NotificationDetails(
+        iOS: const DarwinNotificationDetails(
+          presentAlert: true,
+          presentBadge: true,
+          presentSound: false,
+          threadIdentifier: 'coozy_the_cafe_app_progress',
+        ),
+
+        android: AndroidNotificationDetails(
+          'coozy_the_cafe_app_notification_progress',
+          'Database Backup Progress',
+          channelDescription: 'Shows progress for database backups',
+          priority: Priority
+              .low, // Lower priority so it doesn't pop over the screen repeatedly
+          category: AndroidNotificationCategory.progress,
+          importance: Importance.low,
+          showProgress: true,
+          maxProgress: maxProgress,
+          progress: progress,
+          onlyAlertOnce: true,
+        ),
+      ),
+      payload: payload,
+    );
+  }
+
+  /*
    * NotificationApi.showScheduledNotification("title","body",payload:"payload"??"",scheduledDate:DateTime.now().add(Duration(seconds:12)));
    */
   static Future showScheduledNotification({
