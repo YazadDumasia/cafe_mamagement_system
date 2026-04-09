@@ -17,7 +17,7 @@ library;
 
 import 'package:flutter/widgets.dart';
 
-class InvertoryIcon{
+class InvertoryIcon {
   InvertoryIcon._();
 
   static const String _kFontFam = 'InvertoryIcon';

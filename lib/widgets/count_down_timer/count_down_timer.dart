@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CountDownTimer extends AnimatedWidget {
-  const CountDownTimer({super.key, required this.text, required this.animation, this.onPressed, this.textStyle})
-    : super(listenable: animation);
+  const CountDownTimer({
+    super.key,
+    required this.text,
+    required this.animation,
+    this.onPressed,
+    this.textStyle,
+  }) : super(listenable: animation);
   final Animation<int> animation;
   final GestureTapCallback? onPressed;
   final TextStyle? textStyle;

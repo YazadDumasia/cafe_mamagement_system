@@ -1,4 +1,3 @@
-
 // azlistview library
 export 'package:cafe_mamagement_system/widgets/azlistview/src/az_common.dart';
 export 'package:cafe_mamagement_system/widgets/azlistview/src/index_bar.dart';

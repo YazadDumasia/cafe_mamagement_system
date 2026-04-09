@@ -1,5 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
-import 'package:cafe_mamagement_system/utlis/components/constants.dart';
+import '../utlis/components/constants.dart';
 
 import '../model/invoices/invoice_model.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:synchronized/synchronized.dart';
 import '../model/daily_sales_report_entry.dart';
 import '../model/recipe/recipe_model.dart';
+import '../utlis/components/date_util.dart';
 import '../utlis/components/local_push_notifications_api.dart';
 import 'database_dao/recipes_dao.dart';
 import 'database_dao/categories_dao.dart';
@@ -26,7 +28,7 @@ import '../model/category.dart';
 import '../model/sub_category.dart';
 import '../model/menu_item.dart';
 import '../model/customer.dart';
-import '../model/order_model.dart';
+import 'package:cafe_mamagement_system/model/order_model/order_model.dart';
 import '../model/invoices/invoice_item_model.dart';
 import '../model/invoices/payment_transaction_model.dart';
 import '../model/inventory_model/inventory_model.dart';
@@ -640,7 +642,10 @@ class DatabaseHelper {
   }
 
   // -------------------- BACKUP & RESTORE --------------------
-  Future<String> backupDatabase({bool encryptBackup = true, void Function(double progress, String status)? onProgress}) async {
+  Future<String> backupDatabase({
+    bool encryptBackup = true,
+    void Function(double progress, String status)? onProgress,
+  }) async {
     onProgress?.call(0.0, "Requesting permissions...");
     await _requestPermissions();
 
@@ -670,14 +675,14 @@ class DatabaseHelper {
     // Copy database with stream chunking for progress
     final totalBytes = await sourceFile.length();
     int bytesCopied = 0;
-    
+
     final readStream = sourceFile.openRead();
     final writeSink = backupFile.openWrite();
-    
+
     await for (final chunk in readStream) {
       writeSink.add(chunk);
       bytesCopied += chunk.length;
-      
+
       // Progress from 10% to 50%
       double copyProgress = 0.1 + ((bytesCopied / totalBytes) * 0.4);
       onProgress?.call(copyProgress, "Copying database file...");
@@ -688,7 +693,10 @@ class DatabaseHelper {
 
     // Encrypt backup if requested
     if (encryptBackup) {
-      final encryptedFile = await _encryptFile(backupFile, onProgress: onProgress);
+      final encryptedFile = await _encryptFile(
+        backupFile,
+        onProgress: onProgress,
+      );
       await backupFile.delete(); // Remove unencrypted backup
       finalBackupPath = encryptedFile.path;
     }
@@ -702,7 +710,10 @@ class DatabaseHelper {
     return finalBackupPath;
   }
 
-  Future<void> restoreDatabase(String backupFilePath, {void Function(double progress, String status)? onProgress}) async {
+  Future<void> restoreDatabase(
+    String backupFilePath, {
+    void Function(double progress, String status)? onProgress,
+  }) async {
     onProgress?.call(0.0, "Requesting permissions...");
     await _requestPermissions();
 
@@ -736,14 +747,14 @@ class DatabaseHelper {
     onProgress?.call(0.5, "Restoring database file...");
     final totalBytes = await sourceFile.length();
     int bytesCopied = 0;
-    
+
     final readStream = sourceFile.openRead();
     final writeSink = targetFile.openWrite();
-    
+
     await for (final chunk in readStream) {
       writeSink.add(chunk);
       bytesCopied += chunk.length;
-      
+
       double restoreProgress = 0.5 + ((bytesCopied / totalBytes) * 0.45);
       onProgress?.call(restoreProgress, "Restoring database file...");
     }
@@ -782,7 +793,10 @@ class DatabaseHelper {
     }
   }
 
-  Future<File> _encryptFile(File inputFile, {void Function(double progress, String status)? onProgress}) async {
+  Future<File> _encryptFile(
+    File inputFile, {
+    void Function(double progress, String status)? onProgress,
+  }) async {
     onProgress?.call(0.55, "Preparing encryption securely...");
     final key = encrypt.Key.fromUtf8(secretKey.padRight(32, '0'));
     final iv = encrypt.IV.fromSecureRandom(16);
@@ -792,7 +806,7 @@ class DatabaseHelper {
 
     onProgress?.call(0.65, "Reading backup data...");
     final inputBytes = await inputFile.readAsBytes();
-    
+
     onProgress?.call(0.75, "Encrypting data...");
     final encrypted = encrypter.encryptBytes(inputBytes, iv: iv);
 
@@ -808,7 +822,216 @@ class DatabaseHelper {
     return encryptedFile;
   }
 
-  Future<File> _decryptFile(File encryptedFile, {void Function(double progress, String status)? onProgress}) async {
+  Future<String> backupCurrentDayOrdersAndInvoices({
+    bool encryptBackup = true,
+    void Function(double progress, String status)? onProgress,
+  }) async {
+    final now = DateTime.now().toUtc();
+    final startDate = DateTime.utc(now.year, now.month, now.day);
+    final endDate = DateTime.utc(now.year, now.month, now.day, 23, 59, 59, 999);
+    return backupOrdersAndInvoicesRange(
+      startDate,
+      endDate,
+      filePrefix: 'coozy_daily_orders_invoices',
+      encryptBackup: encryptBackup,
+      onProgress: onProgress,
+    );
+  }
+
+  Future<String> backupCurrentWeekOrdersAndInvoices({
+    bool encryptBackup = true,
+    void Function(double progress, String status)? onProgress,
+  }) async {
+    final now = DateTime.now().toUtc();
+    final startOfWeek = DateTime.utc(
+      now.year,
+      now.month,
+      now.day,
+    ).subtract(Duration(days: now.weekday - 1));
+    final endDate = DateTime.utc(now.year, now.month, now.day, 23, 59, 59, 999);
+    return backupOrdersAndInvoicesRange(
+      startOfWeek,
+      endDate,
+      filePrefix: 'coozy_weekly_orders_invoices',
+      encryptBackup: encryptBackup,
+      onProgress: onProgress,
+    );
+  }
+
+  Future<String> backupOrdersAndInvoicesRange(
+    DateTime startDate,
+    DateTime endDate, {
+    String filePrefix = 'coozy_orders_invoices',
+    bool encryptBackup = true,
+    void Function(double progress, String status)? onProgress,
+  }) async {
+    onProgress?.call(0.0, 'Preparing order/invoice backup...');
+    final db = await database;
+    final startIso = startDate.toIso8601String();
+    final endIso = endDate.toIso8601String();
+    const int batchSize = 200;
+
+    onProgress?.call(0.1, 'Counting matching orders...');
+    final List<Map<String, Object?>> orderCountResult = await db.rawQuery(
+      'SELECT COUNT(*) as count FROM ${DatabaseTables.ordersTable} WHERE creationDate >= ? AND creationDate <= ?',
+      [startIso, endIso],
+    );
+    final int totalOrders =
+        int.tryParse(orderCountResult.first['count'].toString()) ?? 0;
+
+    onProgress?.call(0.15, 'Counting matching invoices...');
+    final List<Map<String, Object?>> invoiceCountResult = await db.rawQuery(
+      'SELECT COUNT(*) as count FROM ${DatabaseTables.invoicesTable} WHERE createdDate >= ? AND createdDate <= ?',
+      [startIso, endIso],
+    );
+    final int totalInvoices =
+        int.tryParse(invoiceCountResult.first['count'].toString()) ?? 0;
+
+    onProgress?.call(0.2, 'Creating backup file...');
+    final backupDir = await _getBackupDirectory();
+    final startLabel = DateUtil.formatDateLabel(startDate);
+    final endLabel = DateUtil.formatDateLabel(endDate);
+    final backupFilename = '${filePrefix}_${startLabel}_to_$endLabel.json';
+    final backupFile = File(join(backupDir.path, backupFilename));
+    final IOSink sink = backupFile.openWrite();
+
+    sink.write('{\n');
+    sink.write(
+      '  "generatedDate": "${DateTime.now().toUtc().toIso8601String()}",\n',
+    );
+    sink.write('  "range": {\n');
+    sink.write('    "startDate": "$startIso",\n');
+    sink.write('    "endDate": "$endIso"\n');
+    sink.write('  },\n');
+    sink.write('  "orders": [\n');
+
+    bool firstOrder = true;
+    int processedOrders = 0;
+
+    for (int offset = 0; offset < totalOrders; offset += batchSize) {
+      final List<Map<String, Object?>> orderMaps = await db.query(
+        DatabaseTables.ordersTable,
+        where: 'creationDate >= ? AND creationDate <= ?',
+        whereArgs: [startIso, endIso],
+        orderBy: 'creationDate DESC, id DESC',
+        limit: batchSize,
+        offset: offset,
+      );
+
+      for (final orderMap in orderMaps) {
+        final orderId = orderMap['id'] as int?;
+        if (orderId != null) {
+          final orderItems = await db.query(
+            DatabaseTables.orderItemsTable,
+            where: 'orderId = ?',
+            whereArgs: [orderId],
+          );
+          orderMap['orderItems'] = orderItems;
+        }
+
+        final String orderJson = const JsonEncoder.withIndent(
+          '  ',
+        ).convert(orderMap);
+        final String indentedOrderJson = orderJson
+            .split('\n')
+            .map((line) => '    $line')
+            .join('\n');
+
+        if (!firstOrder) {
+          sink.write(',\n');
+        }
+        sink.write(indentedOrderJson);
+        firstOrder = false;
+
+        processedOrders++;
+        if (totalOrders > 0) {
+          final double progress = 0.2 + (processedOrders / totalOrders) * 0.25;
+          onProgress?.call(progress.clamp(0.2, 0.45), 'Backing up orders...');
+        }
+      }
+    }
+
+    sink.write('\n  ],\n');
+    sink.write('  "invoices": [\n');
+
+    bool firstInvoice = true;
+    int processedInvoices = 0;
+
+    for (int offset = 0; offset < totalInvoices; offset += batchSize) {
+      final List<Map<String, Object?>> invoiceMaps = await db.query(
+        DatabaseTables.invoicesTable,
+        where: 'createdDate >= ? AND createdDate <= ?',
+        whereArgs: [startIso, endIso],
+        orderBy: 'createdDate DESC, id DESC',
+        limit: batchSize,
+        offset: offset,
+      );
+
+      for (final invoiceMap in invoiceMaps) {
+        final invoiceId = invoiceMap['id'] as int?;
+        if (invoiceId != null) {
+          final invoiceItems = await db.query(
+            DatabaseTables.invoiceItemsTable,
+            where: 'invoiceId = ?',
+            whereArgs: [invoiceId],
+          );
+          final payments = await db.query(
+            DatabaseTables.paymentTransactionsTable,
+            where: 'invoiceId = ?',
+            whereArgs: [invoiceId],
+          );
+          invoiceMap['items'] = invoiceItems;
+          invoiceMap['payments'] = payments;
+        }
+
+        final String invoiceJson = const JsonEncoder.withIndent(
+          '  ',
+        ).convert(invoiceMap);
+        final String indentedInvoiceJson = invoiceJson
+            .split('\n')
+            .map((line) => '    $line')
+            .join('\n');
+
+        if (!firstInvoice) {
+          sink.write(',\n');
+        }
+        sink.write(indentedInvoiceJson);
+        firstInvoice = false;
+
+        processedInvoices++;
+        if (totalInvoices > 0) {
+          final double progress =
+              0.45 + (processedInvoices / totalInvoices) * 0.25;
+          onProgress?.call(progress.clamp(0.45, 0.7), 'Backing up invoices...');
+        }
+      }
+    }
+
+    sink.write('\n  ]\n');
+    sink.write('}\n');
+    await sink.close();
+
+    onProgress?.call(0.75, 'Finalizing backup...');
+    String finalBackupPath = backupFile.path;
+
+    if (encryptBackup) {
+      final encryptedFile = await _encryptFile(
+        backupFile,
+        onProgress: onProgress,
+      );
+      await backupFile.delete();
+      finalBackupPath = encryptedFile.path;
+    }
+
+    onProgress?.call(1.0, 'Backup complete!');
+    debugPrint('Orders and invoices backup completed: $finalBackupPath');
+    return finalBackupPath;
+  }
+
+  Future<File> _decryptFile(
+    File encryptedFile, {
+    void Function(double progress, String status)? onProgress,
+  }) async {
     onProgress?.call(0.05, "Preparing decryption securely...");
     final key = encrypt.Key.fromUtf8(secretKey.padRight(32, '0'));
 
@@ -826,10 +1049,10 @@ class DatabaseHelper {
     final encrypter = encrypt.Encrypter(
       encrypt.AES(key, mode: encrypt.AESMode.cbc),
     );
-    
+
     onProgress?.call(0.25, "Reading encrypted backup data...");
     final encryptedBytes = await encryptedFile.readAsBytes();
-    
+
     onProgress?.call(0.35, "Decrypting data...");
     final decrypted = encrypter.decryptBytes(
       encrypt.Encrypted(encryptedBytes),

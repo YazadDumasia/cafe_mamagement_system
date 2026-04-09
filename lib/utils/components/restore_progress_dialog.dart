@@ -78,7 +78,8 @@ class _RestoreProgressDialogState extends State<RestoreProgressDialog> {
           NotificationApi.showNotification(
             id: 998,
             title: "Restore Failed",
-            body: "An error occurred during database restore. Please check logs.",
+            body:
+                "An error occurred during database restore. Please check logs.",
           );
         } else {
           setState(() {
@@ -117,11 +118,17 @@ class _RestoreProgressDialogState extends State<RestoreProgressDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (_error != null)
-            Icon(Icons.error_outline,
-                color: Theme.of(context).colorScheme.error, size: 48)
+            Icon(
+              Icons.error_outline,
+              color: Theme.of(context).colorScheme.error,
+              size: 48,
+            )
           else if (_isFinished)
-            const Icon(Icons.check_circle_outline,
-                color: Colors.green, size: 48)
+            const Icon(
+              Icons.check_circle_outline,
+              color: Colors.green,
+              size: 48,
+            )
           else
             const CircularProgressIndicator(),
           const SizedBox(height: 20),

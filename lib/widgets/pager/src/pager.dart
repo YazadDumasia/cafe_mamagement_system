@@ -44,12 +44,19 @@ class Pager extends StatelessWidget {
     this.itemsPerPageTextStyle,
     this.dropDownMenuItemTextStyle,
     this.itemsPerPageAlignment = Alignment.center,
-  }) : 
-    currentItemsPerPageNotifier = currentItemsPerPageNotifierParam,
-    itemsPerPageList = itemsPerPageListParam ?? <int>[] {
-    assert(totalPages > 0 && pagesView > 0, 'Fatal Error: Make sure the totalPages and pagesView fields are greater than zero.');
+  }) : currentItemsPerPageNotifier = currentItemsPerPageNotifierParam,
+       itemsPerPageList = itemsPerPageListParam ?? <int>[] {
+    assert(
+      totalPages > 0 && pagesView > 0,
+      'Fatal Error: Make sure the totalPages and pagesView fields are greater than zero.',
+    );
     if (showItemsPerPage) {
-      assert(currentItemsPerPageNotifierParam != null && itemsPerPageListParam != null && itemsPerPageListParam.isNotEmpty, 'Fatal error: OnItemsPerPageChanged must be implemented or itemsPerPageList is null or empty.');
+      assert(
+        currentItemsPerPageNotifierParam != null &&
+            itemsPerPageListParam != null &&
+            itemsPerPageListParam.isNotEmpty,
+        'Fatal error: OnItemsPerPageChanged must be implemented or itemsPerPageList is null or empty.',
+      );
     }
   }
 
@@ -75,9 +82,17 @@ class Pager extends StatelessWidget {
     return ValueListenableBuilder<int>(
       valueListenable: currentPageNotifier,
       builder: (context, currentPage, child) {
-        int effectivePagesView = totalPages < pagesView ? totalPages : pagesView;
-        int getPageEnd(int currentPage) => currentPage + effectivePagesView > totalPages ? totalPages + 1 : currentPage + effectivePagesView;
-        int getPageStart(int pageEnd, int currentPage) => pageEnd == totalPages + 1 ? pageEnd - effectivePagesView : currentPage;
+        int effectivePagesView = totalPages < pagesView
+            ? totalPages
+            : pagesView;
+        int getPageEnd(int currentPage) =>
+            currentPage + effectivePagesView > totalPages
+            ? totalPages + 1
+            : currentPage + effectivePagesView;
+        int getPageStart(int pageEnd, int currentPage) =>
+            pageEnd == totalPages + 1
+            ? pageEnd - effectivePagesView
+            : currentPage;
         int pageEnd = getPageEnd(currentPage);
         int pageStart = getPageStart(pageEnd, currentPage);
         return SizedBox(
@@ -96,23 +111,24 @@ class Pager extends StatelessWidget {
                   children: <Widget>[
                     IconButton(
                       tooltip: 'First Page',
-                      onPressed: currentPage > 1 ? () {
-                        currentPageNotifier.value = 1;
-                        onPageChanged(1);
-                      } : null,
+                      onPressed: currentPage > 1
+                          ? () {
+                              currentPageNotifier.value = 1;
+                              onPageChanged(1);
+                            }
+                          : null,
                       splashRadius: 25,
-                      icon: Icon(
-                        Icons.first_page,
-                        color: pageChangeIconColor,
-                      ),
+                      icon: Icon(Icons.first_page, color: pageChangeIconColor),
                     ),
                     IconButton(
                       tooltip: 'Previous',
-                      onPressed: currentPage > 1 ? () {
-                        int newPage = currentPage - 1;
-                        currentPageNotifier.value = newPage;
-                        onPageChanged(newPage);
-                      } : null,
+                      onPressed: currentPage > 1
+                          ? () {
+                              int newPage = currentPage - 1;
+                              currentPageNotifier.value = newPage;
+                              onPageChanged(newPage);
+                            }
+                          : null,
                       splashRadius: 25,
                       icon: Icon(
                         Icons.chevron_left,
@@ -133,12 +149,16 @@ class Pager extends StatelessWidget {
                               },
                               style: ElevatedButton.styleFrom(
                                 shape: const CircleBorder(),
-                                backgroundColor: currentPage == i ? numberButtonSelectedColor : null,
+                                backgroundColor: currentPage == i
+                                    ? numberButtonSelectedColor
+                                    : null,
                               ),
                               child: Text(
                                 '$i',
                                 style: TextStyle(
-                                  color: currentPage == i ? numberTextSelectedColor : numberTextUnselectedColor,
+                                  color: currentPage == i
+                                      ? numberTextSelectedColor
+                                      : numberTextUnselectedColor,
                                 ),
                               ),
                             ),
@@ -147,11 +167,13 @@ class Pager extends StatelessWidget {
                     ),
                     IconButton(
                       tooltip: 'Next Page',
-                      onPressed: currentPage < totalPages ? () {
-                        int newPage = currentPage + 1;
-                        currentPageNotifier.value = newPage;
-                        onPageChanged(newPage);
-                      } : null,
+                      onPressed: currentPage < totalPages
+                          ? () {
+                              int newPage = currentPage + 1;
+                              currentPageNotifier.value = newPage;
+                              onPageChanged(newPage);
+                            }
+                          : null,
                       splashRadius: 25,
                       icon: Icon(
                         Icons.chevron_right,
@@ -160,15 +182,14 @@ class Pager extends StatelessWidget {
                     ),
                     IconButton(
                       tooltip: 'Last Page',
-                      onPressed: currentPage < totalPages ? () {
-                        currentPageNotifier.value = totalPages;
-                        onPageChanged(totalPages);
-                      } : null,
+                      onPressed: currentPage < totalPages
+                          ? () {
+                              currentPageNotifier.value = totalPages;
+                              onPageChanged(totalPages);
+                            }
+                          : null,
                       splashRadius: 25,
-                      icon: Icon(
-                        Icons.last_page,
-                        color: pageChangeIconColor,
-                      ),
+                      icon: Icon(Icons.last_page, color: pageChangeIconColor),
                     ),
                   ],
                 ),
@@ -177,7 +198,11 @@ class Pager extends StatelessWidget {
                 Align(
                   alignment: itemsPerPageAlignment,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                    padding: const EdgeInsets.only(
+                      left: 10,
+                      right: 10,
+                      bottom: 10,
+                    ),
                     child: ItemsPerPage(
                       currentItemsPerPageNotifier: currentItemsPerPageNotifier!,
                       itemsPerPage: itemsPerPageList,
@@ -226,7 +251,9 @@ class ItemsPerPage extends StatelessWidget {
             return DropdownMenuItem<int>(
               value: value,
               child: Text(
-                itemsPerPageText != null ? '$itemsPerPageText $value' : '$value',
+                itemsPerPageText != null
+                    ? '$itemsPerPageText $value'
+                    : '$value',
                 style: dropDownMenuItemTextStyle,
               ),
             );

@@ -164,7 +164,7 @@ class _CircularParticleState extends State<CircularParticle>
     }
   }
 
-  void onTapGesture(final double tapdx,final  double tapdy) {
+  void onTapGesture(final double tapdx, final double tapdy) {
     awayAnimationController = AnimationController(
       duration: widget.awayAnimationDuration,
       vsync: this,

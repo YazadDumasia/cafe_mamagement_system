@@ -8,7 +8,7 @@ class Country {
     required this.name,
     required this.minLength,
     required this.maxLength,
-    this.currencySymbol='',
+    this.currencySymbol = '',
     this.regionCode = '',
   });
 
@@ -19,7 +19,7 @@ class Country {
       name: map['name']!,
       isoCode: map['isoCode']!,
       iso3Code: map['iso3Code']!,
-      currencySymbol: map['currencySymbol']??'',
+      currencySymbol: map['currencySymbol'] ?? '',
       phoneCode: map['phoneCode']!,
       minLength: map['minLength']!,
       maxLength: map['maxLength']!,

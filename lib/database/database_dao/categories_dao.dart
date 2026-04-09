@@ -237,7 +237,9 @@ class CategoriesDao {
       );
 
       final List<Object?> results = await batch.commit();
-      return (results.isNotEmpty && results[0] is int) ? results[0] as int : null;
+      return (results.isNotEmpty && results[0] is int)
+          ? results[0] as int
+          : null;
     });
   }
 

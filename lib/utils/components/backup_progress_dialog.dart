@@ -7,13 +7,17 @@ class BackupProgressDialog extends StatefulWidget {
   final bool encryptBackup;
 
   const BackupProgressDialog({
-    super.key, 
-    required this.repository, 
+    super.key,
+    required this.repository,
     this.encryptBackup = true,
   });
 
   /// Displays the backup progress dialog
-  static Future<void> show(BuildContext context, {required RestaurantRepository repository, bool encryptBackup = true}) {
+  static Future<void> show(
+    BuildContext context, {
+    required RestaurantRepository repository,
+    bool encryptBackup = true,
+  }) {
     return showDialog(
       context: context,
       barrierDismissible: false, // Prevent dismissing while backing up
@@ -50,7 +54,7 @@ class _BackupProgressDialogState extends State<BackupProgressDialog> {
               _progress = progress;
               _status = status;
             });
-            
+
             // Update Android Notification progress
             NotificationApi.showProgressNotification(
               id: 999, // Unique ID for backup progress
@@ -62,7 +66,7 @@ class _BackupProgressDialogState extends State<BackupProgressDialog> {
           }
         },
       );
-      
+
       if (mounted) {
         if (_progress < 1.0) {
           // Dev mode _executeWithLogging suppresses exceptions and returns null
@@ -74,7 +78,8 @@ class _BackupProgressDialogState extends State<BackupProgressDialog> {
           NotificationApi.showNotification(
             id: 999,
             title: "Backup Failed",
-            body: "An error occurred during database backup. Please check logs.",
+            body:
+                "An error occurred during database backup. Please check logs.",
           );
         } else {
           setState(() {
@@ -94,7 +99,7 @@ class _BackupProgressDialogState extends State<BackupProgressDialog> {
           _error = e.toString();
           _status = "Backup Failed";
         });
-        
+
         NotificationApi.showNotification(
           id: 999,
           title: "Backup Failed",
@@ -112,9 +117,17 @@ class _BackupProgressDialogState extends State<BackupProgressDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (_error != null)
-            Icon(Icons.error_outline, color: Theme.of(context).colorScheme.error, size: 48)
+            Icon(
+              Icons.error_outline,
+              color: Theme.of(context).colorScheme.error,
+              size: 48,
+            )
           else if (_isFinished)
-            const Icon(Icons.check_circle_outline, color: Colors.green, size: 48)
+            const Icon(
+              Icons.check_circle_outline,
+              color: Colors.green,
+              size: 48,
+            )
           else
             const CircularProgressIndicator(),
           const SizedBox(height: 20),

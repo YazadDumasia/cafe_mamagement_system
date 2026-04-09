@@ -11,26 +11,33 @@ class DateUtil {
   static const String dateFormat1 = 'yyyy-MM-dd HH:mm'; // "2022-02-21 04:14"
   static const String dateFormat2 = 'dd-MM-yyyy HH:mm'; // "21-02-2022 04:14"
   static const String dateFormat3 = 'dd-MMM-yyyy HH:mm'; // "21-Feb-2022 04:14"
-  static const String dateFormat4 = 'yy-MM-dd hh:mm:ss aaa'; // "22-02-21 04:15:03 AM"
-  static const String dateFormat5 = 'MM-dd-yy hh:mm:ss aaa'; // "02-21-22 04:15:03 AM"
-  static const String dateFormat6 = 'dd-MM-yy hh:mm:ss aaa'; // "21-02-22 04:15:03 AM"
+  static const String dateFormat4 =
+      'yy-MM-dd hh:mm:ss aaa'; // "22-02-21 04:15:03 AM"
+  static const String dateFormat5 =
+      'MM-dd-yy hh:mm:ss aaa'; // "02-21-22 04:15:03 AM"
+  static const String dateFormat6 =
+      'dd-MM-yy hh:mm:ss aaa'; // "21-02-22 04:15:03 AM"
   static const String dateFormat7 = 'yyyy-MM-dd'; // "2022-02-21"
   static const String dateFormat8 = 'MM-dd-yyyy'; // "02-21-2022"
   static const String dateFormat9 = 'dd-MM-yyyy'; // "21-02-2022"
   static const String dateFormat10 = 'dd-MMM-yyyy'; // "21-Feb-2022"
-  static const String dateFormat11 = 'dd/MM/yyyy hh:mm:ss aaa'; // "11/02/2022 04:16:58 AM"
+  static const String dateFormat11 =
+      'dd/MM/yyyy hh:mm:ss aaa'; // "11/02/2022 04:16:58 AM"
   static const String dateFormat12 = 'eeee'; // "Friday"
   static const String dateFormat13 = 'EEE'; // "Fri"
   static const String dateFormat14 = 'MMMM'; // "February"
-  static const String dateFormat15 = 'dd-MM-yyyy hh:mm:ss aaa'; // "11-02-2022 04:16:58 AM"
-  static const String dateFormat16 = 'dd-MM-yyyy hh:mm aaa'; // "11-02-2022 04:16 AM"
+  static const String dateFormat15 =
+      'dd-MM-yyyy hh:mm:ss aaa'; // "11-02-2022 04:16:58 AM"
+  static const String dateFormat16 =
+      'dd-MM-yyyy hh:mm aaa'; // "11-02-2022 04:16 AM"
 
   // Time format constants
   static const String timeFormat1 = 'hh:mm:ss aaa'; // "04:16:58 AM"
   static const String timeFormat2 = 'hh:mm aaa'; // "04:16 AM"
 
   /// Current timestamp in UTC ISO 8601 format.
-  static String get currentTimestamp => DateTime.now().toUtc().toIso8601String();
+  static String get currentTimestamp =>
+      DateTime.now().toUtc().toIso8601String();
 
   /// Formats a UTC time string to local time using the specified date format.
   /// Returns null if the input is null or parsing fails.
@@ -56,7 +63,10 @@ class DateUtil {
         return DateFormat(dateFormat).format(convertLocal);
       }
     } catch (e) {
-      Constants.debugLog(DateUtil, 'localFormatDateTime: error - ${e.toString()}');
+      Constants.debugLog(
+        DateUtil,
+        'localFormatDateTime: error - ${e.toString()}',
+      );
     }
     return null;
   }
@@ -69,7 +79,10 @@ class DateUtil {
         return DateFormat(dateFormat).parse(utcTime).toLocal();
       }
     } catch (e) {
-      Constants.debugLog(DateUtil, 'stringToLocalDate: error - ${e.toString()}');
+      Constants.debugLog(
+        DateUtil,
+        'stringToLocalDate: error - ${e.toString()}',
+      );
     }
     return null;
   }
@@ -163,7 +176,10 @@ class DateUtil {
         return parsedDateTime.toLocal();
       }
     } catch (e) {
-      Constants.debugLog(DateUtil, 'stringToLocalDateTime: error - ${e.toString()}');
+      Constants.debugLog(
+        DateUtil,
+        'stringToLocalDateTime: error - ${e.toString()}',
+      );
     }
     return null;
   }
@@ -204,11 +220,16 @@ class DateUtil {
     return DateFormat(pattern).format(dateTime);
   }
 
+  /// Formats a date into a compact YYYYMMDD label for filenames.
+  static String formatDateLabel(DateTime date) {
+    return '${date.year.toString().padLeft(4, '0')}'
+        '${date.month.toString().padLeft(2, '0')}'
+        '${date.day.toString().padLeft(2, '0')}';
+  }
+
   /// Parses a time string to TimeOfDay using the specified format.
   static TimeOfDay parseTimeOfDay(String time, String? format) {
-    final DateTime? dateTime = DateFormat(
-      format ?? timeFormat2,
-    ).tryParse(time);
+    final DateTime? dateTime = DateFormat(format ?? timeFormat2).tryParse(time);
     return TimeOfDay(hour: dateTime?.hour ?? 0, minute: dateTime?.minute ?? 0);
   }
 
@@ -224,7 +245,7 @@ class DateUtil {
   static String? calculateRemainingTime({
     required String? format,
     required String? fromTime,
-   required  String? toTime,
+    required String? toTime,
     String? localeTxtDays,
     String? localeTxtHours,
     String? localeTxtMinutes,

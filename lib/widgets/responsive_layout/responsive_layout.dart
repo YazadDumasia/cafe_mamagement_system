@@ -47,4 +47,3 @@ class ResponsiveLayout extends StatelessWidget {
     );
   }
 }
-

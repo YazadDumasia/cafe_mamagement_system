@@ -115,7 +115,8 @@ class OrdersDao {
           'costPrice': orderItem.costPrice,
           'remarks': orderItem.remarks ?? '',
           'creationDate':
-              orderItem.creationDate ?? DateTime.now().toUtc().toIso8601String(),
+              orderItem.creationDate ??
+              DateTime.now().toUtc().toIso8601String(),
         });
       }
       await batch.commit(noResult: true);

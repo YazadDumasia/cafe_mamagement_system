@@ -28,17 +28,11 @@ class LocalManager {
       key: PreferencesKeys.userLanguage,
       value: userLanguage,
     );
-    await setBoolValue(
-      key: PreferencesKeys.appEnableDarkTheme,
-      value: false,
-    );
+    await setBoolValue(key: PreferencesKeys.appEnableDarkTheme, value: false);
     await setBoolValue(key: PreferencesKeys.isFirstApp, value: false);
     await setBoolValue(key: PreferencesKeys.isLoggedIn, value: false);
     await setBoolValue(key: PreferencesKeys.commonFirstTime, value: false);
-    await setBoolValue(
-      key: PreferencesKeys.appEnableDarkTheme,
-      value: false,
-    );
+    await setBoolValue(key: PreferencesKeys.appEnableDarkTheme, value: false);
   }
 
   Future<void> clearAllSaveFirst() async {
@@ -56,10 +50,7 @@ class LocalManager {
       await setBoolValue(key: PreferencesKeys.isFirstApp, value: true);
       await setBoolValue(key: PreferencesKeys.isLoggedIn, value: false);
       await setBoolValue(key: PreferencesKeys.commonFirstTime, value: false);
-      await setBoolValue(
-        key: PreferencesKeys.appEnableDarkTheme,
-        value: false,
-      );
+      await setBoolValue(key: PreferencesKeys.appEnableDarkTheme, value: false);
     }
   }
 

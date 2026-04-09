@@ -1,4 +1,4 @@
-import '../../utlis/utlis.dart' as utlis;
+import '../../utlis/utils.dart' as utlis;
 
 class LanguagePreferences {
   // static const String _key = 'user_language';

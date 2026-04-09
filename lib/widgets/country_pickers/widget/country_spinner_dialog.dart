@@ -34,7 +34,8 @@ class CountrySpinnerDialog<T> extends StatefulWidget {
   final Widget Function(T item, bool isSelected)? itemBuilder;
 
   @override
-  State<CountrySpinnerDialog<T>> createState() => _CountrySpinnerDialogState<T>();
+  State<CountrySpinnerDialog<T>> createState() =>
+      _CountrySpinnerDialogState<T>();
 }
 
 class _CountrySpinnerDialogState<T> extends State<CountrySpinnerDialog<T>> {

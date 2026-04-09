@@ -29,8 +29,7 @@ class ItemsPerPage extends StatelessWidget {
             Text(
               itemsPerPageText ?? 'Items per page: ',
               style:
-                  itemsPerPageTextStyle ??
-                  const TextStyle(color: Colors.grey),
+                  itemsPerPageTextStyle ?? const TextStyle(color: Colors.grey),
             ),
             const SizedBox(width: 16),
             DropdownButton<int>(

@@ -16,7 +16,7 @@ final List<Country> countryList = <Country>[
     name: 'Albania',
     iso3Code: 'ALB',
     minLength: 9,
-    maxLength: 9, 
+    maxLength: 9,
     currencySymbol: 'L',
   ),
   Country(
@@ -188,7 +188,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'BLR',
     minLength: 10,
     maxLength: 10,
-    currencySymbol: 'Br', 
+    currencySymbol: 'Br',
   ),
   Country(
     isoCode: 'BE',
@@ -216,7 +216,6 @@ final List<Country> countryList = <Country>[
     minLength: 8,
     maxLength: 8,
     currencySymbol: 'CFA',
-
   ),
   Country(
     isoCode: 'BM',
@@ -476,7 +475,7 @@ final List<Country> countryList = <Country>[
     name: 'Cook Islands',
     iso3Code: 'COK',
     minLength: 5,
-    maxLength: 5, 
+    maxLength: 5,
     currencySymbol: '\$',
   ),
   Country(
@@ -890,7 +889,7 @@ final List<Country> countryList = <Country>[
     name: 'Holy See (Vatican City State)',
     iso3Code: 'VAT',
     minLength: 10,
-    maxLength: 10,  
+    maxLength: 10,
     currencySymbol: '€',
   ),
   Country(
@@ -1369,7 +1368,6 @@ final List<Country> countryList = <Country>[
     minLength: 7,
     maxLength: 7,
     currencySymbol: '\$',
-
   ),
   Country(
     isoCode: 'MA',

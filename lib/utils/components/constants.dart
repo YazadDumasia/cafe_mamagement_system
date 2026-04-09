@@ -294,7 +294,7 @@ class Constants {
         default:
           buildMode = 'debug';
       }
-  
+
       debugLog(Constants, 'getCurrentPlatformBuildMode: $buildMode');
       return buildMode;
     } catch (e) {
