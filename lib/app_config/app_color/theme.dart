@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class MaterialTheme {
   const MaterialTheme(this.textTheme);
+
   final TextTheme textTheme;
 
   static ColorScheme lightScheme() {
@@ -341,7 +342,7 @@ class MaterialTheme {
     visualDensity: VisualDensity.adaptivePlatformDensity,
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: colorScheme.primary,
-      selectionColor: colorScheme.primary.withOpacity(0.7),
+      selectionColor: colorScheme.primary.withValues(alpha: 0.7),
       selectionHandleColor: colorScheme.primary,
     ),
     textTheme: textTheme.apply(
@@ -374,6 +375,7 @@ class ExtendedColor {
     required this.darkHighContrast,
     required this.darkMediumContrast,
   });
+
   final Color seed, value;
   final ColorFamily light;
   final ColorFamily lightHighContrast;

@@ -1,5 +1,5 @@
 import '../database/database_helper.dart' as dh;
-import '../utlis/utlis.dart' as cs show Constants;
+import '../utils/components/constants.dart';
 
 class RestaurantRepository {
   final _databaseHelper = dh.DatabaseHelper.instance;
@@ -18,7 +18,7 @@ class RestaurantRepository {
     Future<T> Function() operation, {
     bool trackExecutionTime = false,
   }) async {
-    final buildmode = await cs.Constants.getCurrentPlatformBuildMode();
+    final buildmode = await Constants.getCurrentPlatformBuildMode();
     if (buildmode == 'release') {
       return await operation();
     } else {
@@ -29,7 +29,7 @@ class RestaurantRepository {
 
         if (stopwatch != null) {
           stopwatch.stop();
-          cs.Constants.debugLog(
+          Constants.debugLog(
             RestaurantRepository,
             "Execution time:$methodName:${stopwatch.elapsedMilliseconds} ms",
           );
@@ -39,15 +39,12 @@ class RestaurantRepository {
       } catch (e) {
         if (stopwatch != null) {
           stopwatch.stop();
-          cs.Constants.debugLog(
+          Constants.debugLog(
             RestaurantRepository,
             "Error in $methodName:$e, time:${stopwatch.elapsedMilliseconds} ms",
           );
         } else {
-          cs.Constants.debugLog(
-            RestaurantRepository,
-            'Error in $methodName: $e',
-          );
+          Constants.debugLog(RestaurantRepository, 'Error in $methodName: $e');
         }
       }
     }

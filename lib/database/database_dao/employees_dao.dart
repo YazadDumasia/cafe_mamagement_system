@@ -2,7 +2,7 @@ import '../../model/attendance/attendance.dart';
 import '../../model/attendance/employee.dart';
 import '../../model/attendance/leave.dart';
 import 'package:sqflite/sqflite.dart';
-import '../../utlis/components/date_util.dart';
+import '../../utils/components/date_util.dart';
 import '../database_tables.dart';
 
 class EmployeesDao {

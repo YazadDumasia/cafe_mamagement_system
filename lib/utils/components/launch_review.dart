@@ -1,7 +1,8 @@
-import '../utlis.dart'; // Ensure Constants is available here
 import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+
+import 'constants.dart';
 
 class LaunchReview {
   // Launch method with dynamic iOS App ID and optional custom error message

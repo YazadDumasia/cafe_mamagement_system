@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import '../../model/category.dart';
 import '../../model/sub_category.dart';
-import '../../utlis/utlis.dart';
+import '../../utils/components/constants.dart';
 import '../database_tables.dart';
 import '../database_helper.dart';
 

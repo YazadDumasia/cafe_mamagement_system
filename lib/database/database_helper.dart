@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import '../utlis/components/constants.dart';
 
 import '../model/invoices/invoice_model.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +11,9 @@ import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:synchronized/synchronized.dart';
 import '../model/daily_sales_report_entry.dart';
 import '../model/recipe/recipe_model.dart';
-import '../utlis/components/date_util.dart';
-import '../utlis/components/local_push_notifications_api.dart';
+import '../utils/components/constants.dart';
+import '../utils/components/date_util.dart';
+import '../utils/components/local_push_notifications_api.dart';
 import 'database_dao/recipes_dao.dart';
 import 'database_dao/categories_dao.dart';
 import 'database_dao/menu_items_dao.dart';

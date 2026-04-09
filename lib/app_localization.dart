@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:cafe_mamagement_system/utils/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'app_config/config/language_preferences.dart' as language_preferences;
 import 'model/language_model/language_model.dart' as language_model;
-import 'utlis/components/constants.dart' as constants;
 
 class AppLocalizations {
   AppLocalizations(this.locale, this.language);
@@ -32,18 +32,12 @@ class AppLocalizations {
 
   String? translate(String key, {Map<String, String>? params}) {
     if (_localizedStrings == null) {
-      constants.Constants.debugLog(
-        AppLocalizations,
-        'Please check json file path.',
-      );
+      Constants.debugLog(AppLocalizations, 'Please check json file path.');
       return null;
     }
 
     if (!_localizedStrings!.containsKey(key)) {
-      constants.Constants.debugLog(
-        AppLocalizations,
-        'String key is not found: $key',
-      );
+      Constants.debugLog(AppLocalizations, 'String key is not found: $key');
       return null;
     }
 

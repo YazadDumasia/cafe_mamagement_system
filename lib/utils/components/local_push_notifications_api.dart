@@ -4,7 +4,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import '../utlis.dart';
+import 'constants.dart';
 
 class NotificationApi {
   static final FlutterLocalNotificationsPlugin _notifications =

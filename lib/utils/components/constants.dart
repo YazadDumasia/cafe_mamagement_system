@@ -3,7 +3,6 @@ import 'dart:math' as math;
 
 import '../../gen/assets.gen.dart';
 import '../../model/translator_language/translator_language.dart';
-import '../utlis.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:platform_info/platform_info.dart' as plt_info;
 import 'package:flutter/foundation.dart' show kDebugMode;
@@ -14,6 +13,9 @@ import 'package:lottie/lottie.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timeago/timeago.dart' as timeago;
+
+import 'global.dart';
+import 'local_keys_enum.dart';
 
 class Constants {
   static Map<String, String> hashMap = <String, String>{};

@@ -2,7 +2,7 @@ import 'package:sqflite/sqflite.dart';
 import '../../model/menu_item.dart';
 import '../../model/menu_item_review.dart';
 import '../../model/daily_sales_report_entry.dart';
-import '../../utlis/components/constants.dart';
+import '../../utils/components/constants.dart';
 import '../database_tables.dart';
 
 class MenuItemsDao {

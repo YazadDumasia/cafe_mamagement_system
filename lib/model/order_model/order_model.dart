@@ -1,4 +1,4 @@
-import 'customer.dart';
+import '../customer.dart';
 import 'order_item.dart';
 
 enum OrderStatus {

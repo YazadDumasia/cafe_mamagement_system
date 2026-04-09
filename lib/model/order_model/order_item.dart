@@ -1,4 +1,4 @@
-import 'menu_item.dart';
+import '../menu_item.dart';
 
 enum OrderItemStatus {
   newOrder, // 0

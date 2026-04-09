@@ -2,7 +2,7 @@ import '../../model/inventory_model/inventory_model.dart';
 import '../../model/purchase_model/purchase_model.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../utlis/components/constants.dart';
+import '../../utils/components/constants.dart';
 import '../database_tables.dart';
 
 class InventoryDao {

@@ -1,18 +1,19 @@
-import '../../utlis/utils.dart' as utlis;
+import '../../utils/components/local_keys_enum.dart';
+import '../../utils/components/local_manager.dart';
 
 class LanguagePreferences {
   // static const String _key = 'user_language';
 
   static Future<String> getLanguageCode() async {
-    final String? data = utlis.LocalManager.instance.getStringValue(
-      key: utlis.PreferencesKeys.userLanguage,
+    final String? data = LocalManager.instance.getStringValue(
+      key: PreferencesKeys.userLanguage,
     );
     return data ?? 'en';
   }
 
   static Future<void> setLanguageCode(String languageCode) async {
-    await utlis.LocalManager.instance.setStringValue(
-      key: utlis.PreferencesKeys.userLanguage,
+    await LocalManager.instance.setStringValue(
+      key: PreferencesKeys.userLanguage,
       value: languageCode,
     );
   }

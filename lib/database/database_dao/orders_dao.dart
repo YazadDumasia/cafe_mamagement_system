@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
-import '../../model/order_model.dart';
-import '../../model/order_item.dart';
+import '../../model/order_model/order_model.dart';
+import '../../model/order_model/order_item.dart';
 import '../database_tables.dart';
 
 class OrdersDao {
