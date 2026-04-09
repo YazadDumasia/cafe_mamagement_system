@@ -216,6 +216,7 @@ final List<Country> countryList = <Country>[
     minLength: 8,
     maxLength: 8,
     currencySymbol: 'CFA',
+
   ),
   Country(
     isoCode: 'BM',
@@ -233,6 +234,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'BTN',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'Nu.',
   ),
   Country(
     isoCode: 'BO',
@@ -241,6 +243,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'BOL',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'Bs.',
   ),
   Country(
     isoCode: 'BA',
@@ -249,6 +252,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'BIH',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'KM',
   ),
   Country(
     isoCode: 'BW',
@@ -257,6 +261,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'BWA',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'P',
   ),
   Country(
     isoCode: 'BV',
@@ -265,6 +270,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'BVT',
     minLength: 15,
     maxLength: 15,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'BR',
@@ -273,6 +279,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'BRA',
     minLength: 11,
     maxLength: 11,
+    currencySymbol: 'R\$',
   ),
   Country(
     isoCode: 'IO',
@@ -281,6 +288,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'IOT',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'BN',
@@ -289,6 +297,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'BRN',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'BG',
@@ -297,6 +306,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'BGR',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'лв',
   ),
   Country(
     isoCode: 'BF',
@@ -305,6 +315,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'BFA',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'CFA',
   ),
   Country(
     isoCode: 'BI',
@@ -313,6 +324,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'BDI',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'FBu',
   ),
   Country(
     isoCode: 'KH',
@@ -321,6 +333,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'KHM',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '៛',
   ),
   Country(
     isoCode: 'CM',
@@ -329,6 +342,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'CMR',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'FCFA',
   ),
   Country(
     isoCode: 'CA',
@@ -337,6 +351,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'CAN',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'CV',
@@ -345,6 +360,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'CPV',
     maxLength: 7,
     minLength: 7,
+    currencySymbol: 'Esc',
   ),
   Country(
     isoCode: 'BQ',
@@ -353,6 +369,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'BES',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'KY',
@@ -361,6 +378,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'CYM',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'CF',
@@ -369,6 +387,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'CAF',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'CFA',
   ),
   Country(
     isoCode: 'TD',
@@ -377,6 +396,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'TCD',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'CFA',
   ),
   Country(
     isoCode: 'CL',
@@ -385,6 +405,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'CHL',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'CN',
@@ -393,6 +414,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'CHN',
     minLength: 11,
     maxLength: 12,
+    currencySymbol: '¥',
   ),
   Country(
     isoCode: 'CX',
@@ -401,6 +423,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'CXR',
     minLength: 15,
     maxLength: 15,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'CC',
@@ -409,6 +432,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'CCK',
     minLength: 15,
     maxLength: 15,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'CO',
@@ -417,6 +441,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'COL',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'KM',
@@ -425,6 +450,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'COM',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: 'KMF',
   ),
   Country(
     isoCode: 'CG',
@@ -433,6 +459,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'COG',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: 'CFA',
   ),
   Country(
     isoCode: 'CD',
@@ -441,6 +468,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'COD',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'CFA',
   ),
   Country(
     isoCode: 'CK',
@@ -448,7 +476,8 @@ final List<Country> countryList = <Country>[
     name: 'Cook Islands',
     iso3Code: 'COK',
     minLength: 5,
-    maxLength: 5,
+    maxLength: 5, 
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'CR',
@@ -457,6 +486,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'CRI',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: '₡',
   ),
   Country(
     isoCode: 'HR',
@@ -465,6 +495,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'HRV',
     minLength: 12,
     maxLength: 12,
+    currencySymbol: 'kn',
   ),
   Country(
     isoCode: 'CU',
@@ -473,6 +504,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'CUB',
     minLength: 6,
     maxLength: 6,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'CW',
@@ -489,6 +521,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'CYP',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'CZ',
@@ -497,6 +530,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'CZE',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'Kč',
   ),
   Country(
     isoCode: 'CI',
@@ -505,6 +539,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'CIV',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: 'CFA',
   ),
   Country(
     isoCode: 'DK',
@@ -513,6 +548,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'DNK',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'kr',
   ),
   Country(
     isoCode: 'DJ',
@@ -521,6 +557,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'DJI',
     minLength: 6,
     maxLength: 6,
+    currencySymbol: 'Fdj',
   ),
   Country(
     isoCode: 'DM',
@@ -529,6 +566,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'DMA',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'DO',
@@ -537,6 +575,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'DOM',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'EC',
@@ -545,6 +584,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'ECU',
     maxLength: 9,
     minLength: 9,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'EG',
@@ -553,6 +593,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'EGY',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '£',
   ),
   Country(
     isoCode: 'SV',
@@ -561,6 +602,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SLV',
     minLength: 11,
     maxLength: 11,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'GB-ENG',
@@ -569,6 +611,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GBR',
     maxLength: 11,
     minLength: 10,
+    currencySymbol: '£',
   ),
   Country(
     isoCode: 'GQ',
@@ -577,6 +620,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GNQ',
     minLength: 6,
     maxLength: 6,
+    currencySymbol: 'CFA',
   ),
   Country(
     isoCode: 'ER',
@@ -585,6 +629,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'ERI',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: 'Nfk',
   ),
   Country(
     isoCode: 'EE',
@@ -593,6 +638,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'EST',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'ET',
@@ -601,6 +647,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'ETH',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'Br',
   ),
   Country(
     isoCode: 'FK',
@@ -609,6 +656,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'FLK',
     minLength: 15,
     maxLength: 15,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'FO',
@@ -617,6 +665,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'FRO',
     minLength: 6,
     maxLength: 6,
+    currencySymbol: 'kr',
   ),
   Country(
     isoCode: 'FJ',
@@ -625,6 +674,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'FJI',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'FI',
@@ -633,6 +683,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'FIN',
     minLength: 12,
     maxLength: 12,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'FR',
@@ -641,6 +692,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'FRA',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'GF',
@@ -649,6 +701,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GUF',
     minLength: 15,
     maxLength: 15,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'PF',
@@ -657,6 +710,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'PYF',
     minLength: 6,
     maxLength: 6,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'TF',
@@ -665,6 +719,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'ATF',
     minLength: 15,
     maxLength: 15,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'GA',
@@ -673,6 +728,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GAB',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: 'CFA',
   ),
   Country(
     isoCode: 'GM',
@@ -681,6 +737,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GMB',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: 'D',
   ),
   Country(
     isoCode: 'GE',
@@ -689,6 +746,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GEO',
     minLength: 8,
     maxLength: 9,
+    currencySymbol: '₾',
   ),
   Country(
     isoCode: 'DE',
@@ -697,6 +755,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'DEU',
     minLength: 9,
     maxLength: 13,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'GH',
@@ -705,6 +764,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GHA',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '₵',
   ),
   Country(
     isoCode: 'GI',
@@ -713,6 +773,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GIB',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: '£',
   ),
   Country(
     isoCode: 'GR',
@@ -721,6 +782,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GRC',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'GL',
@@ -729,6 +791,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GRL',
     minLength: 6,
     maxLength: 6,
+    currencySymbol: 'kr',
   ),
   Country(
     isoCode: 'GD',
@@ -737,6 +800,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GRD',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'GP',
@@ -745,6 +809,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GLP',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'GU',
@@ -753,6 +818,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GUM',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'GT',
@@ -761,6 +827,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GTM',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'Q',
   ),
   Country(
     isoCode: 'GG',
@@ -769,6 +836,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GGY',
     minLength: 6,
     maxLength: 6,
+    currencySymbol: '£',
   ),
   Country(
     isoCode: 'GN',
@@ -777,6 +845,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GIN',
     minLength: 8,
     maxLength: 9,
+    currencySymbol: 'CFA',
   ),
   Country(
     isoCode: 'GW',
@@ -785,6 +854,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GNB',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: 'CFA',
   ),
   Country(
     isoCode: 'GY',
@@ -793,6 +863,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GUY',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'HT',
@@ -801,6 +872,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'HTI',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'G',
   ),
   Country(
     isoCode: 'HM',
@@ -809,6 +881,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'HMD',
     minLength: 15,
     maxLength: 15,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'VA',
@@ -816,7 +889,8 @@ final List<Country> countryList = <Country>[
     name: 'Holy See (Vatican City State)',
     iso3Code: 'VAT',
     minLength: 10,
-    maxLength: 10,
+    maxLength: 10,  
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'HN',
@@ -825,6 +899,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'HND',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'L',
   ),
   Country(
     isoCode: 'HK',
@@ -833,6 +908,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'HKG',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'HK\$',
   ),
   Country(
     isoCode: 'HU',
@@ -841,6 +917,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'HUN',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'Ft',
   ),
   Country(
     isoCode: 'IS',
@@ -849,6 +926,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'ISL',
     minLength: 7,
     maxLength: 9,
+    currencySymbol: 'kr',
   ),
   Country(
     isoCode: 'IN',
@@ -866,6 +944,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'IDN',
     minLength: 10,
     maxLength: 13,
+    currencySymbol: 'Rp',
   ),
   Country(
     isoCode: 'IR',
@@ -874,6 +953,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'IRN',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '﷼',
   ),
   Country(
     isoCode: 'IQ',
@@ -882,6 +962,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'IRQ',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: 'ع.د',
   ),
   Country(
     isoCode: 'IE',
@@ -890,6 +971,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'IRL',
     minLength: 7,
     maxLength: 9,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'IM',
@@ -898,6 +980,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'IMN',
     minLength: 6,
     maxLength: 6,
+    currencySymbol: '£',
   ),
   Country(
     isoCode: 'IL',
@@ -906,6 +989,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'ISR',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '₪',
   ),
   Country(
     isoCode: 'IT',
@@ -914,6 +998,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'ITA',
     minLength: 9,
     maxLength: 10,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'JM',
@@ -922,6 +1007,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'JAM',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'JP',
@@ -930,6 +1016,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'JPN',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '¥',
   ),
   Country(
     isoCode: 'JE',
@@ -938,6 +1025,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'JEY',
     minLength: 6,
     maxLength: 6,
+    currencySymbol: '£',
   ),
   Country(
     isoCode: 'JO',
@@ -946,6 +1034,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'JOR',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'JD',
   ),
   Country(
     isoCode: 'KZ',
@@ -954,6 +1043,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'KAZ',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '₸',
   ),
   Country(
     isoCode: 'KE',
@@ -962,6 +1052,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'KEN',
     maxLength: 9,
     minLength: 9,
+    currencySymbol: 'KSh',
   ),
   Country(
     isoCode: 'KI',
@@ -970,6 +1061,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'KIR',
     minLength: 5,
     maxLength: 5,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'KP',
@@ -978,6 +1070,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'PRK',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '₩',
   ),
   Country(
     isoCode: 'KR',
@@ -986,6 +1079,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'KOR',
     minLength: 11,
     maxLength: 11,
+    currencySymbol: '₩',
   ),
   Country(
     isoCode: 'XK',
@@ -994,6 +1088,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'KOS',
     minLength: 8,
     maxLength: 9,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'KW',
@@ -1002,6 +1097,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'KWT',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'KD',
   ),
   Country(
     isoCode: 'KG',
@@ -1010,6 +1106,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'KGZ',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'сом',
   ),
   Country(
     isoCode: 'LA',
@@ -1018,6 +1115,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'LAO',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '₭',
   ),
   Country(
     isoCode: 'LV',
@@ -1026,6 +1124,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'LVA',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'LB',
@@ -1034,6 +1133,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'LBN',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: '£',
   ),
   Country(
     isoCode: 'LS',
@@ -1042,6 +1142,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'LSO',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'L',
   ),
   Country(
     isoCode: 'LR',
@@ -1050,6 +1151,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'LBR',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'LY',
@@ -1058,6 +1160,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'LBY',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'ل.د',
   ),
   Country(
     isoCode: 'LI',
@@ -1066,6 +1169,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'LIE',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'CHF',
   ),
   Country(
     isoCode: 'LT',
@@ -1074,6 +1178,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'LTU',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'LU',
@@ -1082,6 +1187,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'LUX',
     minLength: 11,
     maxLength: 11,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'MO',
@@ -1090,6 +1196,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MAC',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'MOP\$',
   ),
   Country(
     isoCode: 'MK',
@@ -1098,6 +1205,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MKD',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'ден',
   ),
   Country(
     isoCode: 'MG',
@@ -1106,6 +1214,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MDG',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: 'Ar',
   ),
   Country(
     isoCode: 'MW',
@@ -1114,6 +1223,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MWI',
     minLength: 7,
     maxLength: 9,
+    currencySymbol: 'MK',
   ),
   Country(
     isoCode: 'MY',
@@ -1122,6 +1232,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MYS',
     minLength: 10,
     maxLength: 11,
+    currencySymbol: 'RM',
   ),
   Country(
     isoCode: 'MV',
@@ -1130,6 +1241,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MDV',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: 'MVR',
   ),
   Country(
     isoCode: 'ML',
@@ -1138,6 +1250,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MLI',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'CFA',
   ),
   Country(
     isoCode: 'MT',
@@ -1146,6 +1259,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MLT',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'MH',
@@ -1154,6 +1268,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MHL',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'MQ',
@@ -1162,6 +1277,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MTQ',
     minLength: 15,
     maxLength: 15,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'MR',
@@ -1170,6 +1286,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MRT',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'UM',
   ),
   Country(
     isoCode: 'MU',
@@ -1178,6 +1295,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MUS',
     minLength: 7,
     maxLength: 8,
+    currencySymbol: '₨',
   ),
   Country(
     isoCode: 'YT',
@@ -1186,6 +1304,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MYT',
     minLength: 15,
     maxLength: 15,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'MX',
@@ -1194,6 +1313,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MEX',
     minLength: 11,
     maxLength: 11,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'FM',
@@ -1202,6 +1322,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'FSM',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'MD',
@@ -1210,6 +1331,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MDA',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: 'L',
   ),
   Country(
     isoCode: 'MC',
@@ -1218,6 +1340,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MCO',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'MN',
@@ -1226,6 +1349,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MNG',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: '₮',
   ),
   Country(
     isoCode: 'ME',
@@ -1234,6 +1358,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MNE',
     minLength: 12,
     maxLength: 12,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'MS',
@@ -1242,6 +1367,8 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MSR',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
+
   ),
   Country(
     isoCode: 'MA',
@@ -1250,6 +1377,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MAR',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: ' MAD',
   ),
   Country(
     isoCode: 'MZ',
@@ -1258,6 +1386,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MOZ',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'MTn',
   ),
   Country(
     isoCode: 'MM',
@@ -1266,6 +1395,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MMR',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'K',
   ),
   Country(
     isoCode: 'NA',
@@ -1274,6 +1404,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'NAM',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'NR',
@@ -1282,6 +1413,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'NRU',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'NP',
@@ -1290,6 +1422,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'NPL',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '₨',
   ),
   Country(
     isoCode: 'NL',
@@ -1298,6 +1431,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'NLD',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'AN',
@@ -1314,6 +1448,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'NCL',
     minLength: 6,
     maxLength: 6,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'NZ',
@@ -1322,6 +1457,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'NZL',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'NI',
@@ -1330,6 +1466,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'NIC',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'C\$',
   ),
   Country(
     isoCode: 'NE',
@@ -1338,6 +1475,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'NER',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'CFA',
   ),
   Country(
     isoCode: 'NG',
@@ -1346,6 +1484,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'NGA',
     minLength: 10,
     maxLength: 11,
+    currencySymbol: '₦',
   ),
   Country(
     isoCode: 'NU',
@@ -1354,6 +1493,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'NIU',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'NF',
@@ -1362,6 +1502,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'NFK',
     minLength: 15,
     maxLength: 15,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'GB-NIR',
@@ -1370,6 +1511,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GBR',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '£',
   ),
   Country(
     isoCode: 'MP',
@@ -1378,6 +1520,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MNP',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'NO',
@@ -1386,6 +1529,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'NOR',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'kr',
   ),
   Country(
     isoCode: 'OM',
@@ -1394,6 +1538,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'OMN',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'ر.ع.',
   ),
   Country(
     isoCode: 'PK',
@@ -1402,6 +1547,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'PAK',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '₨',
   ),
   Country(
     isoCode: 'PW',
@@ -1410,6 +1556,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'PLW',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'PS',
@@ -1418,6 +1565,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'PSE',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '₪',
   ),
   Country(
     isoCode: 'PA',
@@ -1426,6 +1574,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'PAN',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'B/.',
   ),
   Country(
     isoCode: 'PG',
@@ -1434,6 +1583,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'PNG',
     minLength: 11,
     maxLength: 11,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'PY',
@@ -1442,6 +1592,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'PRY',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '₲',
   ),
   Country(
     isoCode: 'PE',
@@ -1450,6 +1601,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'PER',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'S/',
   ),
   Country(
     isoCode: 'PH',
@@ -1458,6 +1610,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'PHL',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '₱',
   ),
   Country(
     isoCode: 'PN',
@@ -1466,6 +1619,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'PCN',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'PL',
@@ -1474,6 +1628,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'POL',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'zł',
   ),
   Country(
     isoCode: 'PT',
@@ -1482,6 +1637,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'PRT',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'PR',
@@ -1490,6 +1646,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'PRI',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'QA',
@@ -1498,6 +1655,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'QAT',
     minLength: 3,
     maxLength: 8,
+    currencySymbol: 'QAR',
   ),
   Country(
     isoCode: 'RO',
@@ -1506,6 +1664,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'ROU',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'lei',
   ),
   Country(
     isoCode: 'RU',
@@ -1514,6 +1673,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'RUS',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '₽',
   ),
   Country(
     isoCode: 'RW',
@@ -1522,6 +1682,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'RWA',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'FRw',
   ),
   Country(
     isoCode: 'RE',
@@ -1530,6 +1691,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'REU',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'BL',
@@ -1538,6 +1700,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'BLM',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'SH',
@@ -1546,6 +1709,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SHN',
     minLength: 4,
     maxLength: 4,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'KN',
@@ -1554,6 +1718,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'KNA',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'LC',
@@ -1562,6 +1727,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'LCA',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'MF',
@@ -1570,6 +1736,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'MAF',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'PM',
@@ -1578,6 +1745,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SPM',
     minLength: 6,
     maxLength: 6,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'VC',
@@ -1586,6 +1754,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'VCT',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'WS',
@@ -1594,6 +1763,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'WSM',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: 'WS\$',
   ),
   Country(
     isoCode: 'SM',
@@ -1602,6 +1772,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SMR',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'ST',
@@ -1610,6 +1781,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'STP',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: 'Db',
   ),
   Country(
     isoCode: 'SA',
@@ -1618,6 +1790,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SAU',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '﷼',
   ),
   Country(
     isoCode: 'GB-SCT',
@@ -1626,6 +1799,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GBR',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '£',
   ),
   Country(
     isoCode: 'SN',
@@ -1634,6 +1808,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SEN',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'CFA',
   ),
   Country(
     isoCode: 'RS',
@@ -1642,6 +1817,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SRB',
     minLength: 12,
     maxLength: 12,
+    currencySymbol: 'din',
   ),
   Country(
     isoCode: 'SC',
@@ -1650,6 +1826,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SYC',
     minLength: 6,
     maxLength: 6,
+    currencySymbol: 'SRe',
   ),
   Country(
     isoCode: 'SL',
@@ -1658,6 +1835,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SLE',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'Le',
   ),
   Country(
     isoCode: 'SG',
@@ -1666,6 +1844,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SGP',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'SX',
@@ -1674,6 +1853,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SXM',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'SK',
@@ -1682,6 +1862,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SVK',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'SI',
@@ -1690,6 +1871,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SVN',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'SB',
@@ -1698,6 +1880,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SLB',
     minLength: 5,
     maxLength: 5,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'SO',
@@ -1706,6 +1889,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SOM',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'Sh.So.',
   ),
   Country(
     isoCode: 'ZA',
@@ -1714,6 +1898,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'ZAF',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'R',
   ),
   Country(
     isoCode: 'GS',
@@ -1722,6 +1907,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SGS',
     minLength: 15,
     maxLength: 15,
+    currencySymbol: '£',
   ),
   Country(
     isoCode: 'SS',
@@ -1730,6 +1916,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SSD',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '£',
   ),
   Country(
     isoCode: 'ES',
@@ -1738,6 +1925,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'ESP',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '€',
   ),
   Country(
     isoCode: 'LK',
@@ -1746,6 +1934,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'LKA',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '₨',
   ),
   Country(
     isoCode: 'SD',
@@ -1754,6 +1943,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SDN',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '£',
   ),
   Country(
     isoCode: 'SR',
@@ -1762,6 +1952,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SUR',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'SJ',
@@ -1770,6 +1961,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SJM',
     minLength: 15,
     maxLength: 15,
+    currencySymbol: 'kr',
   ),
   Country(
     isoCode: 'SZ',
@@ -1778,6 +1970,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SWZ',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'E',
   ),
   Country(
     isoCode: 'SE',
@@ -1786,6 +1979,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SWE',
     minLength: 7,
     maxLength: 13,
+    currencySymbol: 'kr',
   ),
   Country(
     isoCode: 'CH',
@@ -1794,6 +1988,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'CHE',
     minLength: 9,
     maxLength: 12,
+    currencySymbol: 'CHF',
   ),
   Country(
     isoCode: 'SY',
@@ -1802,6 +1997,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'SYR',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '£',
   ),
   Country(
     isoCode: 'TW',
@@ -1810,6 +2006,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'TWN',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'NT\$',
   ),
   Country(
     isoCode: 'TJ',
@@ -1818,14 +2015,16 @@ final List<Country> countryList = <Country>[
     iso3Code: 'TJK',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'SM',
   ),
   Country(
     isoCode: 'TZ',
     phoneCode: '255',
-    name: 'Tanzania, United Republic of',
+    name: 'Tanzania, United Republic of Tanzania',
     iso3Code: 'TZA',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'TSh',
   ),
   Country(
     isoCode: 'TH',
@@ -1834,6 +2033,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'THA',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '฿',
   ),
   Country(
     isoCode: 'TL',
@@ -1842,6 +2042,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'TLS',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'TG',
@@ -1850,6 +2051,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'TGO',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'CFA',
   ),
   Country(
     isoCode: 'TK',
@@ -1858,6 +2060,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'TKL',
     minLength: 4,
     maxLength: 4,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'TO',
@@ -1866,6 +2069,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'TON',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: 'T\$',
   ),
   Country(
     isoCode: 'TT',
@@ -1874,6 +2078,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'TTO',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'TN',
@@ -1882,6 +2087,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'TUN',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'TND',
   ),
   Country(
     isoCode: 'TR',
@@ -1890,6 +2096,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'TUR',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '₺',
   ),
   Country(
     isoCode: 'TM',
@@ -1898,6 +2105,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'TKM',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: 'TMT',
   ),
   Country(
     isoCode: 'TC',
@@ -1906,6 +2114,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'TCA',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'TV',
@@ -1914,6 +2123,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'TUV',
     minLength: 6,
     maxLength: 6,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'UG',
@@ -1922,6 +2132,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'UGA',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'USh',
   ),
   Country(
     isoCode: 'UA',
@@ -1930,6 +2141,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'UKR',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '₴',
   ),
   Country(
     isoCode: 'AE',
@@ -1938,6 +2150,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'ARE',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'د.إ',
   ),
   Country(
     isoCode: 'GB',
@@ -1946,6 +2159,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GBR',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '£',
   ),
   Country(
     isoCode: 'US',
@@ -1954,6 +2168,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'USA',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'UY',
@@ -1962,6 +2177,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'URY',
     minLength: 8,
     maxLength: 8,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'UM',
@@ -1970,6 +2186,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'UMI',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'UZ',
@@ -1978,6 +2195,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'UZB',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'UZS',
   ),
   Country(
     isoCode: 'VU',
@@ -1986,14 +2204,16 @@ final List<Country> countryList = <Country>[
     iso3Code: 'VUT',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: 'VT',
   ),
   Country(
     isoCode: 'VE',
     phoneCode: '58',
-    name: 'Venezuela, Bolivarian Republic of',
+    name: 'Venezuela, Bolivarian Republic of Venezuela',
     iso3Code: 'VEN',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: 'Bs',
   ),
   Country(
     isoCode: 'VN',
@@ -2002,6 +2222,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'VNM',
     minLength: 11,
     maxLength: 11,
+    currencySymbol: '₫',
   ),
   Country(
     isoCode: 'VG',
@@ -2010,6 +2231,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'VGB',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'VI',
@@ -2018,6 +2240,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'VIR',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'GB-WLS',
@@ -2026,6 +2249,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'GBR',
     minLength: 7,
     maxLength: 10,
+    currencySymbol: '£',
   ),
   Country(
     isoCode: 'WF',
@@ -2034,6 +2258,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'WLF',
     minLength: 6,
     maxLength: 6,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'EH',
@@ -2042,6 +2267,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'ESH',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'MAD',
   ),
   Country(
     isoCode: 'YE',
@@ -2050,6 +2276,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'YEM',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: '﷼',
   ),
   Country(
     isoCode: 'ZM',
@@ -2058,6 +2285,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'ZMB',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'ZK',
   ),
   Country(
     isoCode: 'ZW',
@@ -2066,6 +2294,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'ZWE',
     minLength: 9,
     maxLength: 9,
+    currencySymbol: 'Z\$',
   ),
   Country(
     isoCode: 'AX',
@@ -2074,5 +2303,6 @@ final List<Country> countryList = <Country>[
     iso3Code: 'ALA',
     minLength: 15,
     maxLength: 15,
+    currencySymbol: '€',
   ),
 ];
