@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:cafe_mamagement_system/utils/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'app_config/config/language_preferences.dart' as language_preferences;
-import 'model/language_model/language_model.dart' as language_model;
+import 'language_preferences.dart' as language_preferences;
+import '../../model/language_model/language_model.dart' as language_model;
 
 class AppLocalizations {
   AppLocalizations(this.locale, this.language);

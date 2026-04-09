@@ -1,4 +1,5 @@
 export 'config/app_config.dart';
+export 'config/app_localization.dart';
 export 'config/language_preferences.dart';
 export 'app_color/theme.dart';
 export 'app_color/util.dart';
