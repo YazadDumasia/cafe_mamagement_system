@@ -1,6 +1,6 @@
 export 'package:cafe_mamagement_system/utlis/components/animate_gradient.dart';
 export 'package:cafe_mamagement_system/utlis/components/constants.dart';
-export 'package:cafe_mamagement_system/app_icons/custom_icons.dart';
+export 'package:cafe_mamagement_system/app_config/app_icons/custom_icons.dart';
 export 'package:cafe_mamagement_system/utlis/components/date_util.dart';
 export 'package:cafe_mamagement_system/utlis/components/global.dart';
 export 'package:cafe_mamagement_system/utlis/components/local_push_notifications_api.dart';
@@ -11,6 +11,6 @@ export 'package:cafe_mamagement_system/utlis/components/sprung.dart';
 export 'package:cafe_mamagement_system/utlis/components/top_login.dart';
 export 'package:cafe_mamagement_system/utlis/components/wobble_animation_widget.dart';
 export 'package:cafe_mamagement_system/utlis/components/frosted_glass_widget.dart';
-export 'package:cafe_mamagement_system/app_icons/menu_icons_icons.dart';
+export 'package:cafe_mamagement_system/app_config/app_icons/menu_icons_icons.dart';
 export 'package:cafe_mamagement_system/utlis/components/local_manager.dart';
 export 'package:cafe_mamagement_system/utlis/components/local_keys_enum.dart';
