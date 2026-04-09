@@ -145,7 +145,6 @@ class _AnimateGradientState extends State<AnimateGradient>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _controller.dispose();
     super.dispose();
   }

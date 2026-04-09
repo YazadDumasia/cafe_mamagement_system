@@ -48,7 +48,7 @@ class CircularParticle extends StatefulWidget {
   final bool connectDots; //not recommended
 
   @override
-  _CircularParticleState createState() => _CircularParticleState();
+  State<CircularParticle> createState() => _CircularParticleState();
 }
 
 class _CircularParticleState extends State<CircularParticle>
@@ -164,7 +164,7 @@ class _CircularParticleState extends State<CircularParticle>
     }
   }
 
-  void onTapGesture(double tapdx, double tapdy) {
+  void onTapGesture(final double tapdx,final  double tapdy) {
     awayAnimationController = AnimationController(
       duration: widget.awayAnimationDuration,
       vsync: this,
@@ -236,7 +236,7 @@ class _CircularParticleState extends State<CircularParticle>
     }
   }
 
-  void onHover(tapdx, tapdy) {
+  void onHover(final double tapdx, final double tapdy) {
     {
       awayAnimationController = AnimationController(
         duration: widget.awayAnimationDuration,

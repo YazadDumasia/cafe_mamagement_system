@@ -21,37 +21,36 @@ class MenuIcons {
   MenuIcons._();
 
   static const String _kFontFam = 'MenuIcons';
-  static const String? _kFontPkg = null;
-  static const IconData round_table = IconData(0xe800, fontFamily: _kFontFam);
-  static const IconData menu_placeholder = IconData(
+  static const IconData roundTable = IconData(0xe800, fontFamily: _kFontFam);
+  static const IconData menuPlaceholder = IconData(
     0xe801,
     fontFamily: _kFontFam,
   );
-  static const IconData menu_empty_paceholder = IconData(
+  static const IconData menuEmptyPlaceholder = IconData(
     0xe802,
     fontFamily: _kFontFam,
   );
-  static const IconData check_list = IconData(0xe803, fontFamily: _kFontFam);
-  static const IconData serving_time = IconData(0xe804, fontFamily: _kFontFam);
-  static const IconData coooking_time = IconData(0xe805, fontFamily: _kFontFam);
-  static const IconData total_cooking_time = IconData(
+  static const IconData checkList = IconData(0xe803, fontFamily: _kFontFam);
+  static const IconData servingTime = IconData(0xe804, fontFamily: _kFontFam);
+  static const IconData coookingTime = IconData(0xe805, fontFamily: _kFontFam);
+  static const IconData totalCookingTime = IconData(
     0xe806,
     fontFamily: _kFontFam,
   );
-  static const IconData recipe_book_icon = IconData(
+  static const IconData recipeBookIcon = IconData(
     0xe807,
     fontFamily: _kFontFam,
   );
   static const IconData recipe = IconData(0xe808, fontFamily: _kFontFam);
-  static const IconData recipe_cooking_book = IconData(
+  static const IconData recipeCookingBook = IconData(
     0xe809,
     fontFamily: _kFontFam,
   );
-  static const IconData recipe_bookmark = IconData(
+  static const IconData recipeBookmark = IconData(
     0xe80a,
     fontFamily: _kFontFam,
   );
-  static const IconData recipe_bookmark_outline = IconData(
+  static const IconData recipeBookmarkOutline = IconData(
     0xe80b,
     fontFamily: _kFontFam,
   );

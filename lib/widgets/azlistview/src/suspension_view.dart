@@ -58,7 +58,7 @@ class SuspensionView extends StatefulWidget {
   final EdgeInsets? padding;
 
   @override
-  _SuspensionViewState createState() => _SuspensionViewState();
+  State<SuspensionView> createState() => _SuspensionViewState();
 }
 
 class _SuspensionViewState extends State<SuspensionView> {

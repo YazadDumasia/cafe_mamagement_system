@@ -14,7 +14,7 @@ class PulseAnimation extends StatefulWidget {
   final int duration;
 
   @override
-  _PulseAnimationState createState() => _PulseAnimationState();
+  State<PulseAnimation> createState() => _PulseAnimationState();
 }
 
 class _PulseAnimationState extends State<PulseAnimation>

@@ -79,6 +79,18 @@ class CountryPickerUtils {
     }
   }
 
+  static Country getCountryByCurrencySymbol(String currencySymbol) {
+    try {
+      return countryList.firstWhere(
+        (country) => country.currencySymbol == currencySymbol,
+      );
+    } catch (error) {
+      throw Exception(
+        'The initialValue provided is not a supported phone code!',
+      );
+    }
+  }
+
   static List<Country>? getAllCountriesByMinLength(int minLength) {
     try {
       return countryList

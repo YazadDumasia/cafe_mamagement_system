@@ -36,7 +36,7 @@ class EmployeesDao {
     return await db.transaction<int>((Transaction txn) async {
       final currentDate = DateUtil.dateToString(
         DateTime.now(),
-        DateUtil.DATE_FORMAT15,
+        DateUtil.dateFormat15,
       );
       return await txn.update(
         DatabaseTables.employeesTable,
@@ -146,7 +146,7 @@ class EmployeesDao {
   Future<int> deleteAttendance(int id) async {
     final String? currentDate = DateUtil.dateToString(
       DateTime.now(),
-      DateUtil.DATE_FORMAT15,
+      DateUtil.dateFormat15,
     );
     return await db.transaction<int>((txn) async {
       final Batch batch = txn.batch();
@@ -189,17 +189,21 @@ class EmployeesDao {
 
   ///Insert a new leave record
   Future<int> addLeave(Leave leave) async {
-    return await db.insert(DatabaseTables.leavesTable, leave.toMap());
+    return await db.transaction<int>((Transaction txn) async {
+      return await txn.insert(DatabaseTables.leavesTable, leave.toMap());
+    });
   }
 
   ///Update a single leave record
   Future<int> updateLeave(Leave leave) async {
-    return await db.update(
-      DatabaseTables.leavesTable,
-      leave.toMap(),
-      where: 'id = ?',
-      whereArgs: <Object?>[leave.id],
-    );
+    return await db.transaction<int>((Transaction txn) async {
+      return await txn.update(
+        DatabaseTables.leavesTable,
+        leave.toMap(),
+        where: 'id = ?',
+        whereArgs: <Object?>[leave.id],
+      );
+    });
   }
 
   ///Update multiple leave records in batch
@@ -227,7 +231,7 @@ class EmployeesDao {
           'isDeleted': 1,
           'modificationDate': DateUtil.dateToString(
             DateTime.now(),
-            DateUtil.DATE_FORMAT15,
+            DateUtil.dateFormat15,
           ),
         },
         where: 'id = ?',

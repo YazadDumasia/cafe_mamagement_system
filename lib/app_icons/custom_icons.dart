@@ -24,6 +24,6 @@ class CustomIcon {
 
   static const IconData smartphone = IconData(0xe800, fontFamily: _kFontFam);
   static const IconData password = IconData(0xe801, fontFamily: _kFontFam);
-  static const IconData open_message = IconData(0xe802, fontFamily: _kFontFam);
-  static const IconData delivered_msg = IconData(0xe803, fontFamily: _kFontFam);
+  static const IconData openMessage = IconData(0xe802, fontFamily: _kFontFam);
+  static const IconData deliveredMessage = IconData(0xe803, fontFamily: _kFontFam);
 }

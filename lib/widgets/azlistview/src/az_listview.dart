@@ -93,7 +93,7 @@ class AzListView extends StatefulWidget {
   final IndexBarOptions indexBarOptions;
 
   @override
-  _AzListViewState createState() => _AzListViewState();
+  State<AzListView> createState() => _AzListViewState();
 }
 
 class _AzListViewState extends State<AzListView> {

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 class CountDownTimer extends AnimatedWidget {
-  CountDownTimer({super.key,required this.text, this.animation, this.onPressed, this.textStyle})
-    : super(listenable: animation!);
-  Animation<int>? animation;
-  GestureTapCallback? onPressed;
+  const CountDownTimer({super.key, required this.text, required this.animation, this.onPressed, this.textStyle})
+    : super(listenable: animation);
+  final Animation<int> animation;
+  final GestureTapCallback? onPressed;
   final TextStyle? textStyle;
-  String text = '';
+  final String text;
 
   @override
   Theme build(BuildContext context) {
-    String time = '(${animation!.value})';
-    if (animation!.value == 0) {
+    String time = '(${animation.value})';
+    if (animation.value == 0) {
       time = '';
     }
     return Theme(
@@ -23,7 +23,7 @@ class CountDownTimer extends AnimatedWidget {
           customBorder: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5)),
           ),
-          onTap: animation!.value == 0 ? onPressed : null,
+          onTap: animation.value == 0 ? onPressed : null,
           child: Padding(
             padding: const EdgeInsets.only(
               left: 10,

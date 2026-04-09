@@ -263,7 +263,7 @@ class IndexBar extends StatefulWidget {
   final IndexBarController? controller;
 
   @override
-  _IndexBarState createState() => _IndexBarState();
+  State<IndexBar> createState() => _IndexBarState();
 }
 
 class _IndexBarState extends State<IndexBar> {
@@ -512,7 +512,7 @@ class BaseIndexBar extends StatefulWidget {
   final IndexBarDragNotifier? indexBarDragNotifier;
 
   @override
-  _BaseIndexBarState createState() => _BaseIndexBarState();
+  State<BaseIndexBar> createState() => _BaseIndexBarState();
 }
 
 class _BaseIndexBarState extends State<BaseIndexBar> {

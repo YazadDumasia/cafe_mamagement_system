@@ -87,7 +87,7 @@ class OrderModel {
     final List<Map<String, dynamic>> itemData = orderItems
         .map((item) => item!.toJson())
         .toList();
-    final int? statusIndex = status?.index;
+    // final int? statusIndex = status?.index;
     return <String, dynamic>{
       'id': id,
       'tableInfoId': tableInfoId,

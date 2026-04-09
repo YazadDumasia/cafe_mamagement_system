@@ -14,27 +14,29 @@ class CategoriesDao {
 
   /// Add a category
   Future<int?> addCategory(Category category) async {
-    // Use a subquery to get the maximum sortOrderIndex
-    final List<Map<String, dynamic>>
-    maxSortRecordIndexResult = await db.rawQuery(
-      'SELECT COALESCE(MAX(position), -1) AS maxIndex FROM ${DatabaseTables.categoriesTable}',
-    );
-
-    final int maxSortRecordIndex =
-        Sqflite.firstIntValue(maxSortRecordIndexResult) ?? -1;
-
-    // Automatically generate sortOrderIndex based on the last position
-    category.position = maxSortRecordIndex + 1;
-
-    final Category? model = await getCategoryBasedOnName(name: category.name);
-    if (model == null) {
-      return await db.insert(
-        DatabaseTables.categoriesTable,
-        category.toJson(),
-        conflictAlgorithm: ConflictAlgorithm.replace,
+    return await db.transaction<int?>((Transaction txn) async {
+      // Use a subquery to get the maximum sortOrderIndex
+      final List<Map<String, dynamic>>
+      maxSortRecordIndexResult = await txn.rawQuery(
+        'SELECT COALESCE(MAX(position), -1) AS maxIndex FROM ${DatabaseTables.categoriesTable}',
       );
-    }
-    return null;
+
+      final int maxSortRecordIndex =
+          Sqflite.firstIntValue(maxSortRecordIndexResult) ?? -1;
+
+      // Automatically generate sortOrderIndex based on the last position
+      category.position = maxSortRecordIndex + 1;
+
+      final Category? model = await getCategoryBasedOnName(name: category.name);
+      if (model == null) {
+        return await txn.insert(
+          DatabaseTables.categoriesTable,
+          category.toJson(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+      return null;
+    });
   }
 
   /// Get all categories
@@ -53,23 +55,25 @@ class CategoriesDao {
   Future<int?> updateCategory(Category category) async {
     Constants.debugLog(DatabaseHelper, 'updateCategory: ${category.toJson()}');
 
-    try {
-      final Batch batch = db.batch();
-      batch.update(
-        DatabaseTables.categoriesTable,
-        category.toJson(),
-        where: 'id = ?',
-        whereArgs: <Object?>[category.id],
-      );
+    return await db.transaction<int?>((Transaction txn) async {
+      try {
+        final Batch batch = txn.batch();
+        batch.update(
+          DatabaseTables.categoriesTable,
+          category.toJson(),
+          where: 'id = ?',
+          whereArgs: <Object?>[category.id],
+        );
 
-      final List<Object?> results = await batch.commit();
-      return (results.isNotEmpty && results[0] is int)
-          ? results[0] as int
-          : null;
-    } catch (e) {
-      Constants.debugLog(DatabaseHelper, 'updateCategory:Error: $e');
-      return null;
-    }
+        final List<Object?> results = await batch.commit();
+        return (results.isNotEmpty && results[0] is int)
+            ? results[0] as int
+            : null;
+      } catch (e) {
+        Constants.debugLog(DatabaseHelper, 'updateCategory:Error: $e');
+        return null;
+      }
+    });
   }
 
   /// Get a category based on its name.
@@ -175,11 +179,13 @@ class CategoriesDao {
 
   ///Create a new subcategory
   Future<int> createSubcategory(SubCategory subcategory) async {
-    return await db.insert(
-      DatabaseTables.subcategoriesTable,
-      subcategory.toJson(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    return await db.transaction<int>((Transaction txn) async {
+      return await txn.insert(
+        DatabaseTables.subcategoriesTable,
+        subcategory.toJson(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    });
   }
 
   /// Get all subcategories
@@ -219,42 +225,46 @@ class CategoriesDao {
 
   /// Update a subcategory
   Future<int?> updateSubcategory(SubCategory subcategory) async {
-    final Map<String, dynamic> data = subcategory.toJson();
+    return await db.transaction<int?>((Transaction txn) async {
+      final Map<String, dynamic> data = subcategory.toJson();
 
-    final Batch batch = db.batch();
-    batch.update(
-      DatabaseTables.subcategoriesTable,
-      data,
-      where: 'id = ?',
-      whereArgs: <Object?>[subcategory.id],
-    );
+      final Batch batch = txn.batch();
+      batch.update(
+        DatabaseTables.subcategoriesTable,
+        data,
+        where: 'id = ?',
+        whereArgs: <Object?>[subcategory.id],
+      );
 
-    final List<Object?> results = await batch.commit();
-    return (results.isNotEmpty && results[0] is int) ? results[0] as int : null;
+      final List<Object?> results = await batch.commit();
+      return (results.isNotEmpty && results[0] is int) ? results[0] as int : null;
+    });
   }
 
   /// Delete a subcategory
   Future<int?> deleteSubcategory(int id) async {
-    try {
-      final Batch batch = db.batch();
-      batch.delete(
-        DatabaseTables.subcategoriesTable,
-        where: 'id = ?',
-        whereArgs: <Object?>[id],
-      );
+    return await db.transaction<int?>((Transaction txn) async {
+      try {
+        final Batch batch = txn.batch();
+        batch.delete(
+          DatabaseTables.subcategoriesTable,
+          where: 'id = ?',
+          whereArgs: <Object?>[id],
+        );
 
-      final List<Object?> results = await batch.commit();
-      return (results.isNotEmpty && results[0] is int)
-          ? results[0] as int
-          : null;
-    } catch (e, stacktrace) {
-      // Log the error for debugging
-      Constants.debugLog(
-        DatabaseHelper,
-        'deleteSubcategory:Error: $e stacktrace: $stacktrace',
-      );
-      return null; // Return null or custom error code as needed
-    }
+        final List<Object?> results = await batch.commit();
+        return (results.isNotEmpty && results[0] is int)
+            ? results[0] as int
+            : null;
+      } catch (e, stacktrace) {
+        // Log the error for debugging
+        Constants.debugLog(
+          DatabaseHelper,
+          'deleteSubcategory:Error: $e stacktrace: $stacktrace',
+        );
+        return null; // Return null or custom error code as needed
+      }
+    });
   }
 
   /// Delete all subcategories base on categoryId in batches

@@ -5,13 +5,11 @@ import '../../gen/assets.gen.dart';
 import '../../model/translator_language/translator_language.dart';
 import '../utlis.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:platform_info/platform_info.dart' as plt_info;
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:lottie/lottie.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,34 +19,6 @@ class Constants {
   static Map<String, String> hashMap = <String, String>{};
   static String kValidHexPattern = r'^#?[0-9a-fA-F]{1,8}';
 
-  Future<bool> _requestPermission(Permission permission) async {
-    final PermissionStatus status = await permission.status;
-    switch (status) {
-      case PermissionStatus.granted:
-        return true;
-
-      case PermissionStatus.denied:
-        final PermissionStatus result = await permission.request();
-        return result == PermissionStatus.granted;
-
-      case PermissionStatus.permanentlyDenied:
-        try {
-          return openAppSettings().then(
-            (value) async => await _requestPermission(permission),
-          );
-        } catch (e) {
-          Constants.debugLog(
-            Constants,
-            'Constants:_requestPermission:permanentlyDenied:Error:$e',
-          );
-          return false;
-        }
-
-      default:
-        return false;
-    }
-  }
-
   bool isFutureDate(String dateString) {
     try {
       final DateTime? bookingDate = DateTime.tryParse(dateString)?.toUtc();
@@ -56,7 +26,6 @@ class Constants {
       return (bookingDate?.isAfter(today) ?? false) ||
           (bookingDate?.isAtSameMomentAs(today) ?? false);
     } catch (e) {
-      print(e);
       return false;
     }
   }
@@ -67,7 +36,6 @@ class Constants {
       final DateTime today = DateTime.now().toUtc();
       return (bookingDate?.isAfter(today) ?? false);
     } catch (e) {
-      print(e);
       return false;
     }
   }
@@ -179,12 +147,12 @@ class Constants {
   static Future<bool> isFirstTime(String? str) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final bool firstTime =
-        prefs.getBool(str ?? PreferencesKeys.COMMON_FIRST_TIME.toString()) ??
+        prefs.getBool(str ?? PreferencesKeys.commonFirstTime.toString()) ??
         true;
     if (firstTime) {
       // first time
       await prefs.setBool(
-        str ?? PreferencesKeys.COMMON_FIRST_TIME.toString(),
+        str ?? PreferencesKeys.commonFirstTime.toString(),
         false,
       );
       return true;
@@ -212,7 +180,6 @@ class Constants {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }
@@ -238,7 +205,6 @@ class Constants {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }
@@ -251,7 +217,6 @@ class Constants {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }
@@ -264,7 +229,6 @@ class Constants {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }
@@ -277,7 +241,6 @@ class Constants {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }
@@ -290,14 +253,13 @@ class Constants {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }
 
   static Future<String> getCurrentPlatform() async {
     try {
-      if (plt_info.platform.type == plt_info.HostPlatformType.js()) {
+      if (plt_info.platform.type == const plt_info.HostPlatformType.js()) {
         return 'Web';
       }
 
@@ -312,7 +274,6 @@ class Constants {
         _ => 'Unknown platform',
       };
     } catch (e) {
-      print('getCurrentPlatform error: $e');
       return 'Unknown platform';
     }
   }
@@ -320,16 +281,20 @@ class Constants {
   static Future<String> getCurrentPlatformBuildMode() async {
     try {
       String? buildMode = '';
-      if (plt_info.platform.buildMode == plt_info.BuildMode.release) {
-        buildMode = 'release';
-      } else if (plt_info.platform.buildMode == plt_info.BuildMode.profile) {
-        buildMode = 'profile';
-      } else if (plt_info.platform.buildMode == plt_info.BuildMode.debug) {
-        buildMode = 'debug';
-      } else {
-        buildMode = 'debug';
+      switch (plt_info.platform.buildMode) {
+        case plt_info.BuildMode.debug:
+          buildMode = 'debug';
+          break;
+        case plt_info.BuildMode.profile:
+          buildMode = 'profile';
+          break;
+        case plt_info.BuildMode.release:
+          buildMode = 'release';
+          break;
+        default:
+          buildMode = 'debug';
       }
-
+  
       debugLog(Constants, 'getCurrentPlatformBuildMode: $buildMode');
       return buildMode;
     } catch (e) {
@@ -601,7 +566,6 @@ class Constants {
     Timer? counter;
 
     counter = Timer(showForHowDuration ?? const Duration(seconds: 3), () {
-      print('Timer callback executed');
       counter?.cancel();
       navigatorKey.currentState?.pop();
     });
@@ -610,15 +574,12 @@ class Constants {
       context: context,
       barrierDismissible: barrierDismissible ?? false,
       builder: (BuildContext context) {
-        return WillPopScope(
-          onWillPop: () async {
-            // Prevent manual dismissal by the user
-            print('manual dismissal is been call by the user');
-            if (counter!.isActive) {
-              print('counter been cancel. ');
+        return PopScope(
+          canPop: true,
+          onPopInvokedWithResult: (didPop, result) {
+            if (didPop && counter!.isActive) {
               counter.cancel();
             }
-            return true;
           },
           child: dialog,
         );
@@ -922,71 +883,71 @@ class Constants {
     );
   }
 
-  static Future<Position?> getCurrentLocation({
-    required BuildContext context,
-    LocationAccuracy? desiredAccuracy,
-  }) async {
-    // LocationPermission permission = await Geolocator.checkPermission();
-    PermissionStatus? permission;
-    bool serviceEnabled;
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return await Geolocator.openLocationSettings().then((value) async {
-        return await getCurrentLocation(
-          context: context,
-          desiredAccuracy: desiredAccuracy,
-        );
-      });
-    }
+  // static Future<Position?> getCurrentLocation({
+  //   required final BuildContext? context,
+  //   LocationAccuracy? desiredAccuracy,
+  // }) async {
+  //   // LocationPermission permission = await Geolocator.checkPermission();
+  //   PermissionStatus? permission;
+  //   bool serviceEnabled;
+  //   serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  //   if (!serviceEnabled) {
+  //     return await Geolocator.openLocationSettings().then((value) async {
+  //       return await getCurrentLocation(
+  //         context: context!,
+  //         desiredAccuracy: desiredAccuracy,
+  //       );
+  //     });
+  //   }
 
-    permission = await Permission.location.status;
+  //   permission = await Permission.location.status;
 
-    if (permission == PermissionStatus.permanentlyDenied) {
-      if (Constants.isMobileApp()) {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('Location permissions required'),
-              content: const Text(
-                'Please go to app settings and grant location permissions.',
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text('CANCEL'),
-                  onPressed: () => Navigator.pop(context),
-                ),
-                TextButton(
-                  child: const Text('OPEN APP SETTINGS'),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      } else {
-        return Future.error('Location permissions are denied.');
-      }
-    } else if (permission == PermissionStatus.denied) {
-      // The user has denied location permissions.
-      permission = await Permission.location.request();
-      if (permission == PermissionStatus.granted) {
-        return await getCurrentLocation(
-          context: context,
-          desiredAccuracy: desiredAccuracy,
-        );
-      } else {
-        return Future.error('Location permissions are denied.');
-      }
-    }
-    // Get the current location.
-    return await Geolocator.getCurrentPosition(
-      forceAndroidLocationManager: Constants.isAndroid(),
-      desiredAccuracy: LocationAccuracy.medium,
-    );
-  }
+  //   if (permission == PermissionStatus.permanentlyDenied) {
+  //     if (Constants.isMobileApp()) {
+  //       showDialog(
+  //         context: context,
+  //         builder: (BuildContext context) {
+  //           return AlertDialog(
+  //             title: const Text('Location permissions required'),
+  //             content: const Text(
+  //               'Please go to app settings and grant location permissions.',
+  //             ),
+  //             actions: <Widget>[
+  //               TextButton(
+  //                 child: const Text('CANCEL'),
+  //                 onPressed: () => Navigator.pop(context),
+  //               ),
+  //               TextButton(
+  //                 child: const Text('OPEN APP SETTINGS'),
+  //                 onPressed: () {
+  //                   Navigator.pop(context);
+  //                 },
+  //               ),
+  //             ],
+  //           );
+  //         },
+  //       );
+  //     } else {
+  //       return Future.error('Location permissions are denied.');
+  //     }
+  //   } else if (permission == PermissionStatus.denied) {
+  //     // The user has denied location permissions.
+  //     permission = await Permission.location.request();
+  //     if (permission == PermissionStatus.granted) {
+  //       return await getCurrentLocation(
+  //         context: context,
+  //         desiredAccuracy: desiredAccuracy,
+  //       );
+  //     } else {
+  //       return Future.error('Location permissions are denied.');
+  //     }
+  //   }
+  //   // Get the current location.
+  //   return await Geolocator.getCurrentPosition(
+  //     forceAndroidLocationManager: Constants.isAndroid(),
+  //     desiredAccuracy: LocationAccuracy.medium,
+  //   );
+  // }
 
   static void showToastMsg({required String? msg, bool? isForShortDuration}) {
     Fluttertoast.showToast(

@@ -25,12 +25,12 @@ class OrderItem {
   }); // Reference to the selected variation
 
   factory OrderItem.fromJson(Map<String, dynamic> json) {
-    final int? statusIndex = json['status'] == null
-        ? 0
-        : json['status'] as int?;
-    final OrderItemStatus? status = statusIndex != null
-        ? OrderItemStatus.values[statusIndex]
-        : null;
+    // final int? statusIndex = json['status'] == null
+    //     ? 0
+    //     : json['status'] as int?;
+    // final OrderItemStatus? status = statusIndex != null
+    //     ? OrderItemStatus.values[statusIndex]
+    //     : null;
 
     return OrderItem(
       id: json['id'],

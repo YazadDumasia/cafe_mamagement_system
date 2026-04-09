@@ -17,18 +17,17 @@ library;
 
 import 'package:flutter/widgets.dart';
 
-class Menu_search {
-  Menu_search._();
+class MenuSearchIcons {
+  MenuSearchIcons._();
 
   static const String _kFontFam = 'Menu_search';
-  static const String? _kFontPkg = null;
 
-  static const IconData menu_search = IconData(0xe800, fontFamily: _kFontFam);
-  static const IconData fill_order_add_btn = IconData(
+  static const IconData menuSearch = IconData(0xe800, fontFamily: _kFontFam);
+  static const IconData fillOrderAddBtn = IconData(
     0xe801,
     fontFamily: _kFontFam,
   );
-  static const IconData order_border_add_btn = IconData(
+  static const IconData orderBorderAddBtn = IconData(
     0xe802,
     fontFamily: _kFontFam,
   );

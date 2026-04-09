@@ -9,7 +9,7 @@ class BlurWidget extends StatefulWidget {
   final double? sigmaY;
 
   @override
-  _BlurWidgetState createState() => _BlurWidgetState();
+  State<BlurWidget> createState() => _BlurWidgetState();
 }
 
 class _BlurWidgetState extends State<BlurWidget> {

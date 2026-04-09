@@ -13,7 +13,9 @@ class InvoicesDao {
   /// INSERT INVOICE
   /// ------------------------------
   Future<int> insertInvoice(InvoiceModel invoice) async {
-    return await db.insert(DatabaseTables.invoicesTable, invoice.toJson());
+    return await db.transaction<int>((Transaction txn) async {
+      return await txn.insert(DatabaseTables.invoicesTable, invoice.toJson());
+    });
   }
 
   /// ------------------------------
@@ -47,23 +49,27 @@ class InvoicesDao {
   /// UPDATE INVOICE
   /// ------------------------------
   Future<int> updateInvoice(InvoiceModel invoice) async {
-    return await db.update(
-      DatabaseTables.invoicesTable,
-      invoice.toJson(),
-      where: 'id = ?',
-      whereArgs: [invoice.id],
-    );
+    return await db.transaction<int>((Transaction txn) async {
+      return await txn.update(
+        DatabaseTables.invoicesTable,
+        invoice.toJson(),
+        where: 'id = ?',
+        whereArgs: [invoice.id],
+      );
+    });
   }
 
   /// ------------------------------
   /// DELETE INVOICE
   /// ------------------------------
   Future<int> deleteInvoice(int id) async {
-    return await db.delete(
-      DatabaseTables.invoicesTable,
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    return await db.transaction<int>((Transaction txn) async {
+      return await txn.delete(
+        DatabaseTables.invoicesTable,
+        where: 'id = ?',
+        whereArgs: [id],
+      );
+    });
   }
 
   /// ======================================================
@@ -72,18 +78,22 @@ class InvoicesDao {
 
   /// INSERT SINGLE ITEM
   Future<int> insertInvoiceItem(InvoiceItemModel item) async {
-    return await db.insert(DatabaseTables.invoiceItemsTable, item.toJson());
+    return await db.transaction<int>((Transaction txn) async {
+      return await txn.insert(DatabaseTables.invoiceItemsTable, item.toJson());
+    });
   }
 
   /// INSERT MULTIPLE ITEMS
   Future<void> insertInvoiceItems(List<InvoiceItemModel> items) async {
-    final batch = db.batch();
+    await db.transaction((Transaction txn) async {
+      final batch = txn.batch();
 
-    for (final item in items) {
-      batch.insert(DatabaseTables.invoiceItemsTable, item.toJson());
-    }
+      for (final item in items) {
+        batch.insert(DatabaseTables.invoiceItemsTable, item.toJson());
+      }
 
-    await batch.commit(noResult: true);
+      await batch.commit(noResult: true);
+    });
   }
 
   /// GET ITEMS OF INVOICE
@@ -99,11 +109,13 @@ class InvoicesDao {
 
   /// DELETE ITEMS
   Future<int> deleteInvoiceItems(int invoiceId) async {
-    return await db.delete(
-      DatabaseTables.invoiceItemsTable,
-      where: 'invoiceId = ?',
-      whereArgs: [invoiceId],
-    );
+    return await db.transaction<int>((Transaction txn) async {
+      return await txn.delete(
+        DatabaseTables.invoiceItemsTable,
+        where: 'invoiceId = ?',
+        whereArgs: [invoiceId],
+      );
+    });
   }
 
   /// ======================================================
@@ -112,23 +124,27 @@ class InvoicesDao {
 
   /// INSERT PAYMENT
   Future<int> insertPaymentTransaction(PaymentTransactionModel payment) async {
-    return await db.insert(
-      DatabaseTables.paymentTransactionsTable,
-      payment.toJson(),
-    );
+    return await db.transaction<int>((Transaction txn) async {
+      return await txn.insert(
+        DatabaseTables.paymentTransactionsTable,
+        payment.toJson(),
+      );
+    });
   }
 
   /// INSERT MULTIPLE PAYMENTS
   Future<void> insertPaymentTransactions(
     List<PaymentTransactionModel> payments,
   ) async {
-    final batch = db.batch();
+    await db.transaction((Transaction txn) async {
+      final batch = txn.batch();
 
-    for (final payment in payments) {
-      batch.insert(DatabaseTables.paymentTransactionsTable, payment.toJson());
-    }
+      for (final payment in payments) {
+        batch.insert(DatabaseTables.paymentTransactionsTable, payment.toJson());
+      }
 
-    await batch.commit(noResult: true);
+      await batch.commit(noResult: true);
+    });
   }
 
   /// GET PAYMENTS OF INVOICE
@@ -146,11 +162,13 @@ class InvoicesDao {
 
   /// DELETE PAYMENTS
   Future<int> deleteInvoicePayments(int invoiceId) async {
-    return await db.delete(
-      DatabaseTables.paymentTransactionsTable,
-      where: 'invoiceId = ?',
-      whereArgs: [invoiceId],
-    );
+    return await db.transaction<int>((Transaction txn) async {
+      return await txn.delete(
+        DatabaseTables.paymentTransactionsTable,
+        where: 'invoiceId = ?',
+        whereArgs: [invoiceId],
+      );
+    });
   }
 
   /// ======================================================

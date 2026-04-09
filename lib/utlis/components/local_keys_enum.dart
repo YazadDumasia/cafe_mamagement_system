@@ -1,9 +1,9 @@
 enum PreferencesKeys {
-  TOKEN,
-  IS_FIRST_APP,
-  IS_LOGGED_IN,
-  APP_ENABLE_DARK_THEME,
-  USER_LANGUAGE,
-  COMMON_FIRST_TIME,
-  RECIPELIST,
+  token,
+  isFirstApp,
+  isLoggedIn,
+  appEnableDarkTheme,
+  userLanguage,
+  commonFirstTime,
+  recipeList,
 }

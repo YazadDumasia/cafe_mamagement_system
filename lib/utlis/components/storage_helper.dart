@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:cafe_mamagement_system/utlis/components/constants.dart';
 import 'package:path_provider/path_provider.dart';
 
 class StorageHelper {
@@ -33,7 +34,7 @@ class StorageHelper {
       final File file = await _getLocalFile(fileName);
       return await file.readAsString();
     } catch (e) {
-      print('Error reading file: $e');
+      Constants.debugLog(StorageHelper, 'Error reading file: $e');
       return null;
     }
   }

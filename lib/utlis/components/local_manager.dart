@@ -19,45 +19,45 @@ class LocalManager {
 
   Future<void> clearAll() async {
     final String? userLanguage = getStringValue(
-      key: PreferencesKeys.USER_LANGUAGE,
+      key: PreferencesKeys.userLanguage,
     );
     await DatabaseHelper.instance.clearDatabase();
     await _preferences!.clear();
     await DefaultCacheManager().emptyCache();
     await setStringValue(
-      key: PreferencesKeys.USER_LANGUAGE,
+      key: PreferencesKeys.userLanguage,
       value: userLanguage,
     );
     await setBoolValue(
-      key: PreferencesKeys.APP_ENABLE_DARK_THEME,
+      key: PreferencesKeys.appEnableDarkTheme,
       value: false,
     );
-    await setBoolValue(key: PreferencesKeys.IS_FIRST_APP, value: false);
-    await setBoolValue(key: PreferencesKeys.IS_LOGGED_IN, value: false);
-    await setBoolValue(key: PreferencesKeys.COMMON_FIRST_TIME, value: false);
+    await setBoolValue(key: PreferencesKeys.isFirstApp, value: false);
+    await setBoolValue(key: PreferencesKeys.isLoggedIn, value: false);
+    await setBoolValue(key: PreferencesKeys.commonFirstTime, value: false);
     await setBoolValue(
-      key: PreferencesKeys.APP_ENABLE_DARK_THEME,
+      key: PreferencesKeys.appEnableDarkTheme,
       value: false,
     );
   }
 
   Future<void> clearAllSaveFirst() async {
     if (_preferences != null) {
-      // bool theme_flag=getBoolValue(PreferencesKeys.APP_ENABLE_DARK_THEME);
+      // bool theme_flag=getBoolValue(PreferencesKeys.appEnableDarkTheme);
       final String? userLanguage = getStringValue(
-        key: PreferencesKeys.USER_LANGUAGE,
+        key: PreferencesKeys.userLanguage,
       );
       await _preferences!.clear();
       await DefaultCacheManager().emptyCache();
       await setStringValue(
-        key: PreferencesKeys.USER_LANGUAGE,
+        key: PreferencesKeys.userLanguage,
         value: userLanguage,
       );
-      await setBoolValue(key: PreferencesKeys.IS_FIRST_APP, value: true);
-      await setBoolValue(key: PreferencesKeys.IS_LOGGED_IN, value: false);
-      await setBoolValue(key: PreferencesKeys.COMMON_FIRST_TIME, value: false);
+      await setBoolValue(key: PreferencesKeys.isFirstApp, value: true);
+      await setBoolValue(key: PreferencesKeys.isLoggedIn, value: false);
+      await setBoolValue(key: PreferencesKeys.commonFirstTime, value: false);
       await setBoolValue(
-        key: PreferencesKeys.APP_ENABLE_DARK_THEME,
+        key: PreferencesKeys.appEnableDarkTheme,
         value: false,
       );
     }
@@ -100,10 +100,10 @@ class LocalManager {
   bool getBoolValue({required PreferencesKeys? key}) =>
       _preferences?.getBool(key.toString()) ?? false;
 
-  bool get isLoggedIn => getBoolValue(key: PreferencesKeys.IS_LOGGED_IN);
+  bool get isLoggedIn => getBoolValue(key: PreferencesKeys.isLoggedIn);
 
   set isLoggedIn(bool value) =>
-      setBoolValue(key: PreferencesKeys.IS_LOGGED_IN, value: value);
+      setBoolValue(key: PreferencesKeys.isLoggedIn, value: value);
 }
 
 //await LocalManager.instance.setStringValue(

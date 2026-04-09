@@ -11,7 +11,9 @@ class CustomersDao {
   // Customer CRUD operations
   /// Create a new customer
   Future<int> createCustomer(Customer customer) async {
-    return await db.insert(DatabaseTables.customersTable, customer.toJson());
+    return await db.transaction<int>((Transaction txn) async {
+      return await txn.insert(DatabaseTables.customersTable, customer.toJson());
+    });
   }
 
   /// Get a single customer by ID

@@ -3,22 +3,21 @@ import 'package:flutter/material.dart';
 // Typedefs
 typedef Transformer<T> = String? Function(T item);
 
-class ScrollPicker<T> extends StatefulWidget {
-  ScrollPicker({
+class CountrySpinnerDialog<T> extends StatefulWidget {
+  CountrySpinnerDialog({
     required this.items,
     required this.selectedItem,
     required this.onChanged,
-    required double diameterRatio,
+    required this.diameterRatio,
     super.key,
     this.showDivider = true,
     this.transformer,
     this.itemBuilder,
     FixedExtentScrollController? scrollController,
-  }) : scrollController = scrollController ?? FixedExtentScrollController(),
-       diameterRatio = diameterRatio ?? 100.0;
+  }) : scrollController = scrollController ?? FixedExtentScrollController();
 
-  FixedExtentScrollController? scrollController;
-  double diameterRatio;
+  final FixedExtentScrollController? scrollController;
+  final double diameterRatio;
 
   // Events
   final ValueChanged<T> onChanged;
@@ -35,11 +34,11 @@ class ScrollPicker<T> extends StatefulWidget {
   final Widget Function(T item, bool isSelected)? itemBuilder;
 
   @override
-  _ScrollPickerState createState() => _ScrollPickerState<T>(selectedItem);
+  State<CountrySpinnerDialog<T>> createState() => _CountrySpinnerDialogState<T>();
 }
 
-class _ScrollPickerState<T> extends State<ScrollPicker<T>> {
-  _ScrollPickerState(this.selectedValue);
+class _CountrySpinnerDialogState<T> extends State<CountrySpinnerDialog<T>> {
+  _CountrySpinnerDialogState();
 
   // Default fallback value if measurement is not available.
   static const double fallbackItemHeight = 50.0;
@@ -48,7 +47,7 @@ class _ScrollPickerState<T> extends State<ScrollPicker<T>> {
   double? autoItemHeight;
   final GlobalKey _measurementKey = GlobalKey();
 
-  T selectedValue;
+  late T selectedValue;
 
   late ScrollController scrollController;
   double widgetHeight = 0;
@@ -57,14 +56,15 @@ class _ScrollPickerState<T> extends State<ScrollPicker<T>> {
   void initState() {
     super.initState();
 
+    selectedValue = widget.selectedItem;
     final int initialItem = widget.items.indexOf(selectedValue);
     scrollController =
         widget.scrollController ??
-        FixedExtentScrollController(initialItem: initialItem ?? 0);
+        FixedExtentScrollController(initialItem: initialItem);
   }
 
   @override
-  void didUpdateWidget(covariant ScrollPicker<T> oldWidget) {
+  void didUpdateWidget(covariant CountrySpinnerDialog<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     // Optionally re-measure if the items change.
     WidgetsBinding.instance.addPostFrameCallback((_) => _measureItemHeight());

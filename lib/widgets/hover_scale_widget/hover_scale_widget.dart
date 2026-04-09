@@ -12,7 +12,7 @@ class HoverScaleWidget extends StatefulWidget {
   final Duration duration;
 
   @override
-  _HoverScaleWidgetState createState() => _HoverScaleWidgetState();
+  State<HoverScaleWidget> createState() => _HoverScaleWidgetState();
 }
 
 class _HoverScaleWidgetState extends State<HoverScaleWidget> {
@@ -27,8 +27,11 @@ class _HoverScaleWidgetState extends State<HoverScaleWidget> {
         valueListenable: _isHovering,
         builder: (context, isHovering, child) => AnimatedContainer(
           duration: widget.duration,
-          transform: Matrix4.identity()
-            ..scale(isHovering ? widget.scaleFactor : 1.0),
+          transform: Matrix4.diagonal3Values(
+            isHovering ? widget.scaleFactor : 1.0,
+            isHovering ? widget.scaleFactor : 1.0,
+            1.0,
+          ),
           child: child,
         ),
         child: widget.child,

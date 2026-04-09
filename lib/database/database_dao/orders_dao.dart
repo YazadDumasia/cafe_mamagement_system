@@ -77,47 +77,49 @@ class OrdersDao {
 
   /// Update Order
   Future<void> updateOrder(OrderModel order) async {
-    // Update the order table
-    final Map<String, dynamic> orderData = order.toJson();
-    orderData.remove('customer');
-    orderData.remove('orderItems');
+    await db.transaction((Transaction txn) async {
+      // Update the order table
+      final Map<String, dynamic> orderData = order.toJson();
+      orderData.remove('customer');
+      orderData.remove('orderItems');
 
-    await db.update(
-      DatabaseTables.ordersTable,
-      orderData,
-      where: 'id = ?',
-      whereArgs: <Object?>[order.id],
-    );
+      await txn.update(
+        DatabaseTables.ordersTable,
+        orderData,
+        where: 'id = ?',
+        whereArgs: <Object?>[order.id],
+      );
 
-    // Delete existing order items for the order
-    await db.delete(
-      DatabaseTables.orderItemsTable,
-      where: 'orderId = ?',
-      whereArgs: <Object?>[order.id],
-    );
+      // Delete existing order items for the order
+      await txn.delete(
+        DatabaseTables.orderItemsTable,
+        where: 'orderId = ?',
+        whereArgs: <Object?>[order.id],
+      );
 
-    // Insert the updated order items
-    final Batch batch = db.batch();
-    for (final OrderItem? orderItem in order.orderItems) {
-      batch.insert(DatabaseTables.orderItemsTable, <String, Object?>{
-        'orderId': order.id,
-        'itemId': orderItem!.itemId,
-        'quantity': orderItem.quantity,
-        'status': orderItem.status,
-        'isMenuItem':
-            (orderItem.isMenuItem != null && orderItem.isMenuItem == true)
-            ? 1
-            : 0,
-        'menuItemId': orderItem.menuItem?.id,
-        'selectedVariationId': orderItem.selectedVariation?.id,
-        'sellingPrice': orderItem.sellingPrice,
-        'costPrice': orderItem.costPrice,
-        'remarks': orderItem.remarks ?? '',
-        'creationDate':
-            orderItem.creationDate ?? DateTime.now().toUtc().toIso8601String(),
-      });
-    }
-    await batch.commit(noResult: true);
+      // Insert the updated order items
+      final Batch batch = txn.batch();
+      for (final OrderItem? orderItem in order.orderItems) {
+        batch.insert(DatabaseTables.orderItemsTable, <String, Object?>{
+          'orderId': order.id,
+          'itemId': orderItem!.itemId,
+          'quantity': orderItem.quantity,
+          'status': orderItem.status,
+          'isMenuItem':
+              (orderItem.isMenuItem != null && orderItem.isMenuItem == true)
+              ? 1
+              : 0,
+          'menuItemId': orderItem.menuItem?.id,
+          'selectedVariationId': orderItem.selectedVariation?.id,
+          'sellingPrice': orderItem.sellingPrice,
+          'costPrice': orderItem.costPrice,
+          'remarks': orderItem.remarks ?? '',
+          'creationDate':
+              orderItem.creationDate ?? DateTime.now().toUtc().toIso8601String(),
+        });
+      }
+      await batch.commit(noResult: true);
+    });
   }
 
   /// Read a Single Order by ID:

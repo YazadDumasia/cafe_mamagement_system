@@ -152,7 +152,7 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
   }
 
   Widget _buildBottomPicker(Widget picker, BuildContext context) {
-    final MediaQueryData mediaQueryData = MediaQuery.of(context);
+    // final MediaQueryData mediaQueryData = MediaQuery.of(context);
 
     return Theme(
       data: Theme.of(context),
@@ -196,7 +196,7 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
   // }
 
   Widget _buildPicker() {
-    return ScrollPicker<Country>(
+    return CountrySpinnerDialog<Country>(
       scrollController: _scrollController,
 
       diameterRatio: widget.diameterRatio,
