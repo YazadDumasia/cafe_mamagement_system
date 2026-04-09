@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CountDownTimer extends AnimatedWidget {
-  CountDownTimer({super.key, this.animation, this.onPressed, this.textStyle})
+  CountDownTimer({super.key,required this.text, this.animation, this.onPressed, this.textStyle})
     : super(listenable: animation!);
   Animation<int>? animation;
   GestureTapCallback? onPressed;
   final TextStyle? textStyle;
+  String text = '';
 
   @override
   Theme build(BuildContext context) {
@@ -31,7 +32,7 @@ class CountDownTimer extends AnimatedWidget {
               right: 10,
             ),
             child: Text(
-              'Resend $time',
+              '$text $time',
               style: textStyle ?? Theme.of(context).textTheme.bodyMedium,
             ),
           ),

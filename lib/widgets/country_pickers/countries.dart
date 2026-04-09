@@ -513,6 +513,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'CUW',
     minLength: 7,
     maxLength: 7,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'CY',
@@ -1440,6 +1441,7 @@ final List<Country> countryList = <Country>[
     iso3Code: 'AN',
     minLength: 10,
     maxLength: 10,
+    currencySymbol: '\$',
   ),
   Country(
     isoCode: 'NC',

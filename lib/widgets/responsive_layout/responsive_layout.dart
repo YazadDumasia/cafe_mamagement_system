@@ -1,5 +1,16 @@
 import 'package:flutter/material.dart';
 
+/*
+
+'''dart 
+ResponsiveLayout(
+  mobile: Text('Mobile layout'),
+  tablet: Text('Tablet layout'),
+  desktop: Text('Desktop layout'),
+)
+'''
+ */
+
 class ResponsiveLayout extends StatelessWidget {
   const ResponsiveLayout({
     required this.mobile,
@@ -37,10 +48,3 @@ class ResponsiveLayout extends StatelessWidget {
   }
 }
 
-/*
-ResponsiveLayout(
-  mobile: Text('Mobile layout'),
-  tablet: Text('Tablet layout'),
-  desktop: Text('Desktop layout'),
-)
- */
