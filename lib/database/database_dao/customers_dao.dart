@@ -16,6 +16,37 @@ class CustomersDao {
     });
   }
 
+  /// Insert multiple customers in batch
+  Future<void> insertCustomersBatch(List<Customer> customers) async {
+    if (customers.isEmpty) return;
+
+    await db.transaction((Transaction txn) async {
+      final Batch batch = txn.batch();
+      for (final Customer customer in customers) {
+        batch.insert(DatabaseTables.customersTable, customer.toJson());
+      }
+      await batch.commit(noResult: true);
+    });
+  }
+
+  /// Update multiple customers in batch
+  Future<void> updateCustomersBatch(List<Customer> customers) async {
+    if (customers.isEmpty) return;
+
+    await db.transaction((Transaction txn) async {
+      final Batch batch = txn.batch();
+      for (final Customer customer in customers) {
+        batch.update(
+          DatabaseTables.customersTable,
+          customer.toJson(),
+          where: 'id = ?',
+          whereArgs: [customer.id],
+        );
+      }
+      await batch.commit(noResult: true);
+    });
+  }
+
   /// Get a single customer by ID
   Future<Customer?> getCustomer(int id) async {
     final maps = await db.query(

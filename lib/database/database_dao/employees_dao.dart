@@ -31,6 +31,37 @@ class EmployeesDao {
     });
   }
 
+  /// Insert multiple employees in batch
+  Future<void> insertEmployeesBatch(List<Employee> employees) async {
+    if (employees.isEmpty) return;
+
+    await db.transaction((Transaction txn) async {
+      final Batch batch = txn.batch();
+      for (final Employee employee in employees) {
+        batch.insert(DatabaseTables.employeesTable, employee.toMap());
+      }
+      await batch.commit(noResult: true);
+    });
+  }
+
+  /// Update multiple employees in batch
+  Future<void> updateEmployeesBatch(List<Employee> employees) async {
+    if (employees.isEmpty) return;
+
+    await db.transaction((Transaction txn) async {
+      final Batch batch = txn.batch();
+      for (final Employee employee in employees) {
+        batch.update(
+          DatabaseTables.employeesTable,
+          employee.toMap(),
+          where: 'id = ?',
+          whereArgs: <Object?>[employee.id],
+        );
+      }
+      await batch.commit(noResult: true);
+    });
+  }
+
   /// Soft delete an employee by marking `isDeleted` and update the modification date
   Future<int> deleteSoftEmployee(int id) async {
     return await db.transaction<int>((Transaction txn) async {

@@ -1085,7 +1085,7 @@ class DatabaseHelper {
 
   void scheduleDailyBusinessReport({TimeOfDay? reportTime}) {
     // Default to 11:00 PM if not specified
-    NotificationApi.init(initSchedluled: true);
+    NotificationApi.init(initScheduled: true);
     NotificationApi.requestNotificationPermission();
 
     final DateTime now = DateTime.now();
@@ -1098,7 +1098,7 @@ class DatabaseHelper {
       0,
     );
 
-    NotificationApi.showScheduledNotificationDailyBase(
+    NotificationApi.showDailyNotification(
       time: dailyTime,
       title: "Daily Business Report",
       body: "Click to generate your daily business excel report.",

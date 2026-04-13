@@ -72,6 +72,69 @@ class MenuItemsDao {
     });
   }
 
+  /// Insert multiple menu items in batch
+  Future<void> insertMenuItemsBatch(List<MenuItem> menuItems) async {
+    if (menuItems.isEmpty) return;
+
+    await db.transaction((Transaction txn) async {
+      final Batch variationBatch = txn.batch();
+      for (final MenuItem menuItem in menuItems) {
+        final int menuItemId = await txn.insert(
+          DatabaseTables.menuItemsTable,
+          menuItem.toJson(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+
+        if (menuItem.variations != null && menuItem.variations!.isNotEmpty) {
+          for (final MenuItemVariation variation in menuItem.variations!) {
+            variation.menuItemId = menuItemId;
+            variationBatch.insert(
+              DatabaseTables.menuItemVariationsTable,
+              variation.toJson(),
+              conflictAlgorithm: ConflictAlgorithm.replace,
+            );
+          }
+        }
+      }
+      await variationBatch.commit(noResult: true);
+    });
+  }
+
+  /// Update multiple menu items in batch
+  Future<void> updateMenuItemsBatch(List<MenuItem> menuItems) async {
+    if (menuItems.isEmpty) return;
+
+    await db.transaction((Transaction txn) async {
+      final Batch batch = txn.batch();
+      for (final MenuItem menuItem in menuItems) {
+        batch.update(
+          DatabaseTables.menuItemsTable,
+          menuItem.toJson(),
+          where: 'id = ?',
+          whereArgs: [menuItem.id],
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+        batch.delete(
+          DatabaseTables.menuItemVariationsTable,
+          where: 'menuItemId = ?',
+          whereArgs: [menuItem.id],
+        );
+
+        if (menuItem.variations != null && menuItem.variations!.isNotEmpty) {
+          for (final MenuItemVariation variation in menuItem.variations!) {
+            variation.menuItemId = menuItem.id;
+            batch.insert(
+              DatabaseTables.menuItemVariationsTable,
+              variation.toJson(),
+              conflictAlgorithm: ConflictAlgorithm.replace,
+            );
+          }
+        }
+      }
+      await batch.commit(noResult: true);
+    });
+  }
+
   /// Get a single menu item by ID
   Future<MenuItem?> getMenuItemById(int id) async {
     final List<Map<String, Object?>> itemMaps = await db.query(

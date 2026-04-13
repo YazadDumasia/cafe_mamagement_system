@@ -76,6 +76,41 @@ class CategoriesDao {
     });
   }
 
+  /// Insert multiple categories in batch
+  Future<void> insertCategoriesBatch(List<Category> categories) async {
+    if (categories.isEmpty) return;
+
+    await db.transaction((Transaction txn) async {
+      final Batch batch = txn.batch();
+      for (final Category category in categories) {
+        batch.insert(
+          DatabaseTables.categoriesTable,
+          category.toJson(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+      await batch.commit(noResult: true);
+    });
+  }
+
+  /// Update multiple categories in batch
+  Future<void> updateCategoriesBatch(List<Category> categories) async {
+    if (categories.isEmpty) return;
+
+    await db.transaction((Transaction txn) async {
+      final Batch batch = txn.batch();
+      for (final Category category in categories) {
+        batch.update(
+          DatabaseTables.categoriesTable,
+          category.toJson(),
+          where: 'id = ?',
+          whereArgs: <Object?>[category.id],
+        );
+      }
+      await batch.commit(noResult: true);
+    });
+  }
+
   /// Get a category based on its name.
   Future<Category?> getCategoryBasedOnName({String? name}) async {
     if (name != null && name.isNotEmpty) {
@@ -240,6 +275,41 @@ class CategoriesDao {
       return (results.isNotEmpty && results[0] is int)
           ? results[0] as int
           : null;
+    });
+  }
+
+  /// Insert multiple subcategories in batch
+  Future<void> insertSubcategoriesBatch(List<SubCategory> subcategories) async {
+    if (subcategories.isEmpty) return;
+
+    await db.transaction((Transaction txn) async {
+      final Batch batch = txn.batch();
+      for (final SubCategory subcategory in subcategories) {
+        batch.insert(
+          DatabaseTables.subcategoriesTable,
+          subcategory.toJson(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+      await batch.commit(noResult: true);
+    });
+  }
+
+  /// Update multiple subcategories in batch
+  Future<void> updateSubcategoriesBatch(List<SubCategory> subcategories) async {
+    if (subcategories.isEmpty) return;
+
+    await db.transaction((Transaction txn) async {
+      final Batch batch = txn.batch();
+      for (final SubCategory subcategory in subcategories) {
+        batch.update(
+          DatabaseTables.subcategoriesTable,
+          subcategory.toJson(),
+          where: 'id = ?',
+          whereArgs: <Object?>[subcategory.id],
+        );
+      }
+      await batch.commit(noResult: true);
     });
   }
 

@@ -18,6 +18,37 @@ class InvoicesDao {
     });
   }
 
+  /// Insert multiple invoices in batch
+  Future<void> insertInvoicesBatch(List<InvoiceModel> invoices) async {
+    if (invoices.isEmpty) return;
+
+    await db.transaction((Transaction txn) async {
+      final Batch batch = txn.batch();
+      for (final InvoiceModel invoice in invoices) {
+        batch.insert(DatabaseTables.invoicesTable, invoice.toJson());
+      }
+      await batch.commit(noResult: true);
+    });
+  }
+
+  /// Update multiple invoices in batch
+  Future<void> updateInvoicesBatch(List<InvoiceModel> invoices) async {
+    if (invoices.isEmpty) return;
+
+    await db.transaction((Transaction txn) async {
+      final Batch batch = txn.batch();
+      for (final InvoiceModel invoice in invoices) {
+        batch.update(
+          DatabaseTables.invoicesTable,
+          invoice.toJson(),
+          where: 'id = ?',
+          whereArgs: [invoice.id],
+        );
+      }
+      await batch.commit(noResult: true);
+    });
+  }
+
   /// ------------------------------
   /// GET INVOICE BY ID
   /// ------------------------------

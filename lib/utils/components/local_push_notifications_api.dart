@@ -13,8 +13,10 @@ class NotificationApi {
   static final BehaviorSubject<String?> onNotification =
       BehaviorSubject<String?>();
 
-  static Future init({bool initSchedluled = false}) async {
-    const DarwinInitializationSettings iosSetting =
+  static bool _timezoneInitialized = false;
+
+  static Future<void> init({bool initScheduled = false}) async {
+    const DarwinInitializationSettings iosSettings =
         DarwinInitializationSettings(
           requestAlertPermission: true,
           requestBadgePermission: true,
@@ -25,39 +27,44 @@ class NotificationApi {
           defaultPresentSound: true,
         );
 
-    const AndroidInitializationSettings andriodSetting =
+    const AndroidInitializationSettings androidSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher');
+
     const InitializationSettings settings = InitializationSettings(
-      android: andriodSetting,
-      iOS: iosSetting,
+      android: androidSettings,
+      iOS: iosSettings,
     );
+
     await _notifications.initialize(
+      
       settings: settings,
       onDidReceiveNotificationResponse: (details) async {
-        onNotification.add(details.payload.toString());
+        onNotification.add(details.payload);
       },
       onDidReceiveBackgroundNotificationResponse: (details) async {
-        onNotification.add(details.payload.toString());
+        onNotification.add(details.payload);
       },
     );
 
-    if (initSchedluled) {
-      try {
-        tz.initializeTimeZones();
-        final locationTimezone = await FlutterTimezone.getLocalTimezone();
-        final locationName = locationTimezone.identifier;
-        Constants.debugLog(
-          NotificationApi,
-          'FlutterNativeTimezone:Location:\t${locationTimezone.localizedName?.name ?? ''}',
-        );
-        Constants.debugLog(
-          NotificationApi,
-          'FlutterNativeTimezone:Location:\t$locationName',
-        );
-        tz.setLocalLocation(tz.getLocation(locationName));
-      } catch (e) {
-        Constants.debugLog(NotificationApi, 'FlutterNativeTimezone:Error:\t$e');
-      }
+    if (!initScheduled || _timezoneInitialized) {
+      return;
+    }
+
+    try {
+      tz.initializeTimeZones();
+      final timezoneInfo = await FlutterTimezone.getLocalTimezone();
+      final locationName = timezoneInfo.identifier;
+      Constants.debugLog(
+        NotificationApi,
+        'FlutterTimezone location: $locationName',
+      );
+      tz.setLocalLocation(tz.getLocation(locationName));
+      _timezoneInitialized = true;
+    } catch (e, st) {
+      Constants.debugLog(
+        NotificationApi,
+        'FlutterTimezone init error: $e\n$st',
+      );
     }
   }
 
@@ -83,16 +90,13 @@ class NotificationApi {
     }
   }
 
-  /*
-   * NotificationApi.showNotification("title","body",payload:"payload"??"");
-   */
-  static Future showNotification({
+  static Future<void> showNotification({
     int id = 0,
     String? title,
     String? body,
     String? payload,
   }) async {
-    _notifications.show(
+    await _notifications.show(
       id: id,
       title: title,
       body: body,
@@ -101,10 +105,7 @@ class NotificationApi {
     );
   }
 
-  /*
-   * NotificationApi.showProgressNotification("title","body",progress: 10, maxProgress: 100);
-   */
-  static Future showProgressNotification({
+  static Future<void> showProgressNotification({
     int id = 0,
     String? title,
     String? body,
@@ -112,7 +113,7 @@ class NotificationApi {
     required int progress,
     required int maxProgress,
   }) async {
-    _notifications.show(
+    await _notifications.show(
       id: id,
       title: title,
       body: body,
@@ -123,13 +124,11 @@ class NotificationApi {
           presentSound: false,
           threadIdentifier: 'coozy_the_cafe_app_progress',
         ),
-
         android: AndroidNotificationDetails(
           'coozy_the_cafe_app_notification_progress',
           'Database Backup Progress',
           channelDescription: 'Shows progress for database backups',
-          priority: Priority
-              .low, // Lower priority so it doesn't pop over the screen repeatedly
+          priority: Priority.low,
           category: AndroidNotificationCategory.progress,
           importance: Importance.low,
           showProgress: true,
@@ -142,17 +141,14 @@ class NotificationApi {
     );
   }
 
-  /*
-   * NotificationApi.showScheduledNotification("title","body",payload:"payload"??"",scheduledDate:DateTime.now().add(Duration(seconds:12)));
-   */
-  static Future showScheduledNotification({
+  static Future<void> showScheduledNotification({
     required DateTime scheduledDate,
     int id = 0,
     String? title,
     String? body,
     String? payload,
   }) async {
-    _notifications.zonedSchedule(
+    await _notifications.zonedSchedule(
       id: id,
       title: title,
       body: body,
@@ -160,32 +156,26 @@ class NotificationApi {
       notificationDetails: await _notificationDetails(),
       payload: payload,
       androidScheduleMode: AndroidScheduleMode.exact,
-      // uiLocalNotificationDateInterpretation:UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.dateAndTime,
     );
   }
 
-  /*
-   * NotificationApi.showScheduledNotification("title","body",payload:"payload"??"",scheduledDate:DateTime.now().add(Duration(seconds:12)));
-   */
-  static Future showScheduledNotificationDailyBase({
+  static Future<void> showDailyNotification({
     required DateTime time,
     int id = 0,
     String? title,
     String? body,
     String? payload,
   }) async {
-    _notifications.zonedSchedule(
+    await _notifications.zonedSchedule(
       id: id,
       title: title,
       body: body,
-      // tz.TZDateTime.from(scheduledDate, tz.local),
       scheduledDate: _scheduledDaily(time),
       notificationDetails: await _notificationDetails(),
       payload: payload,
       androidScheduleMode: AndroidScheduleMode.exact,
-      // uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.dateAndTime,
+      matchDateTimeComponents: DateTimeComponents.time,
     );
   }
 
@@ -200,12 +190,13 @@ class NotificationApi {
       time.minute,
       time.second,
     );
+
     return scheduledDate.isBefore(now)
         ? scheduledDate.add(const Duration(days: 1))
         : scheduledDate;
   }
 
-  static Future _notificationDetails() async {
+  static Future<NotificationDetails> _notificationDetails() async {
     return const NotificationDetails(
       iOS: DarwinNotificationDetails(
         presentAlert: true,
@@ -214,13 +205,21 @@ class NotificationApi {
         threadIdentifier: 'coozy_the_cafe_app',
       ),
       android: AndroidNotificationDetails(
-        'coozy_the_cafe_app_notification', //channel id
-        'coozy_the_cafe_app_Notification',
-        channelDescription: 'Coozy the cafe all Notification from thee app',
+        'coozy_the_cafe_app_notification',
+        'Coozy Cafe App Notifications',
+        channelDescription: 'All notifications sent by the Coozy cafe app',
         priority: Priority.high,
         category: AndroidNotificationCategory.service,
         importance: Importance.max,
       ),
     );
+  }
+
+  static Future<void> cancel(int id) async {
+    await _notifications.cancel(id: id);
+  }
+
+  static Future<void> cancelAll() async {
+    await _notifications.cancelAll();
   }
 }

@@ -105,6 +105,25 @@ class RecipesDao {
     return (results.isNotEmpty && results[0] is int) ? results as int : null;
   }
 
+  /// Update multiple recipes in batch
+  Future<void> updateRecipesBatch(List<RecipeModel> recipes) async {
+    if (recipes.isEmpty) return;
+
+    await db.transaction((Transaction txn) async {
+      final Batch batch = txn.batch();
+      for (final RecipeModel recipe in recipes) {
+        batch.update(
+          DatabaseTables.recipeModelTable,
+          recipe.toJson(),
+          where: 'recipe_id = ?',
+          whereArgs: <Object?>[recipe.id],
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+      await batch.commit(noResult: true);
+    });
+  }
+
   ///Delete Recipes
   Future<int?> deleteRecipe({int? id}) async {
     if (id == null) return 0;

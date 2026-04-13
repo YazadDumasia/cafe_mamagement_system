@@ -123,6 +123,114 @@ class OrdersDao {
     });
   }
 
+  /// Insert multiple orders in batch
+  Future<void> insertOrdersBatch(List<OrderModel> orders) async {
+    if (orders.isEmpty) return;
+
+    await db.transaction((Transaction txn) async {
+      for (final OrderModel order in orders) {
+        int? customerId;
+
+        if (order.customer != null) {
+          customerId = await txn.insert(
+            DatabaseTables.customersTable,
+            order.customer!.toJson(),
+            conflictAlgorithm: ConflictAlgorithm.replace,
+          );
+        }
+
+        final Map<String, Object?> orderData = order.toJson();
+        orderData.remove('customer');
+        orderData.remove('orderItems');
+
+        if (customerId != null) {
+          orderData['customerId'] = customerId;
+        } else if (order.customer != null) {
+          orderData['customerName'] = order.customer!.name;
+          orderData['phoneNumber'] = order.customer!.phoneNumber;
+        }
+
+        final int orderId = await txn.insert(
+          DatabaseTables.ordersTable,
+          orderData,
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+
+        final Batch itemBatch = txn.batch();
+        for (final OrderItem? orderItem in order.orderItems) {
+          itemBatch.insert(DatabaseTables.orderItemsTable, <String, Object?>{
+            'orderId': orderId,
+            'itemId': orderItem!.itemId,
+            'quantity': orderItem.quantity,
+            'status': orderItem.status,
+            'isMenuItem':
+                (orderItem.isMenuItem != null && orderItem.isMenuItem == true)
+                ? 1
+                : 0,
+            'menuItemId': orderItem.menuItem?.id,
+            'selectedVariationId': orderItem.selectedVariation?.id,
+            'sellingPrice': orderItem.sellingPrice,
+            'costPrice': orderItem.costPrice,
+            'remarks': orderItem.remarks ?? '',
+            'creationDate':
+                orderItem.creationDate ??
+                DateTime.now().toUtc().toIso8601String(),
+          });
+        }
+        await itemBatch.commit(noResult: true);
+      }
+    });
+  }
+
+  /// Update multiple orders in batch
+  Future<void> updateOrdersBatch(List<OrderModel> orders) async {
+    if (orders.isEmpty) return;
+
+    await db.transaction((Transaction txn) async {
+      for (final OrderModel order in orders) {
+        final Map<String, Object?> orderData = order.toJson();
+        orderData.remove('customer');
+        orderData.remove('orderItems');
+
+        await txn.update(
+          DatabaseTables.ordersTable,
+          orderData,
+          where: 'id = ?',
+          whereArgs: <Object?>[order.id],
+        );
+
+        await txn.delete(
+          DatabaseTables.orderItemsTable,
+          where: 'orderId = ?',
+          whereArgs: <Object?>[order.id],
+        );
+
+        final Batch itemBatch = txn.batch();
+        for (final OrderItem? orderItem in order.orderItems) {
+          itemBatch.insert(DatabaseTables.orderItemsTable, <String, Object?>{
+            'orderId': order.id,
+            'itemId': orderItem!.itemId,
+            'quantity': orderItem.quantity,
+            'status': orderItem.status,
+            'isMenuItem':
+                (orderItem.isMenuItem != null && orderItem.isMenuItem == true)
+                ? 1
+                : 0,
+            'menuItemId': orderItem.menuItem?.id,
+            'selectedVariationId': orderItem.selectedVariation?.id,
+            'sellingPrice': orderItem.sellingPrice,
+            'costPrice': orderItem.costPrice,
+            'remarks': orderItem.remarks ?? '',
+            'creationDate':
+                orderItem.creationDate ??
+                DateTime.now().toUtc().toIso8601String(),
+          });
+        }
+        await itemBatch.commit(noResult: true);
+      }
+    });
+  }
+
   /// Read a Single Order by ID:
   Future<OrderModel?> getOrderInfo(int orderId) async {
     return await db.transaction<OrderModel?>((txn) async {
