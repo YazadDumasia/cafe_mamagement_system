@@ -1,9 +1,12 @@
 import 'package:cafe_mamagement_system/bloc/theme_cubit/theme_cubit.dart';
+import 'package:cafe_mamagement_system/database/database_helper.dart';
 import 'package:cafe_mamagement_system/repository/restaurant_repository.dart'
     as res_repo;
 import 'package:cafe_mamagement_system/simple_bloc_observer.dart' as sbo;
-import 'package:cafe_mamagement_system/utils/components/global.dart';
-import 'package:cafe_mamagement_system/utils/components/local_push_notifications_api.dart';
+import 'package:cafe_mamagement_system/utils/components/global.dart' as global;
+import 'package:cafe_mamagement_system/utils/components/local_push_notifications_api.dart'
+    as notification_api;
+import 'package:cafe_mamagement_system/utils/components/platform_utils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +18,6 @@ import 'app_config/config/app_config.dart';
 import 'app_config/config/app_localization.dart';
 import 'bloc/locale_cubit/locale_cubit.dart';
 import 'model/language_model/language_model.dart';
-import 'services/components/logger_navigator_observer.dart';
 import 'utils/components/constants.dart';
 import 'utils/components/local_manager.dart';
 
@@ -24,9 +26,12 @@ void main() async {
   GestureBinding.instance.resamplingEnabled = true;
   await LocalManager.preferencesInit();
   Bloc.observer = sbo.SimpleBlocObserver();
-  NotificationApi.onNotification.stream.listen((payload) async {
+  DatabaseHelper.instance;
+  notification_api.NotificationApi.onNotification.stream.listen((
+    payload,
+  ) async {
     Constants.debugLog(
-      NotificationApi,
+      notification_api.NotificationApi,
       'Notification clicked with payload: $payload',
     );
     if (payload != null) {
@@ -38,14 +43,14 @@ void main() async {
 
         default:
           Constants.debugLog(
-            NotificationApi,
+            notification_api.NotificationApi,
             'Notification clicked with payload: $payload',
           );
           break;
       }
     } else {
       Constants.debugLog(
-        NotificationApi,
+        notification_api.NotificationApi,
         'Notification clicked with payload: $payload',
       );
     }
@@ -76,14 +81,20 @@ class _MyAppState extends State<MyApp> {
     // Use with Google Fonts package to use downloadable fonts
     final TextTheme textTheme = createTextTheme(context, 'Poppins', 'Poppins');
     final MaterialTheme theme = MaterialTheme(textTheme);
+    // final repository = res_repo.RestaurantRepository();
 
     return MultiBlocProvider(
-      providers: [],
+      providers: [
+        BlocProvider(create: (context) => ThemeCubit()),
+        BlocProvider(create: (context) => LocaleCubit()),
+      ],
       child: Builder(
         builder: (context) {
           return PageStorage(
-            bucket: bucketGlobal,
-            child: MaterialApp(
+            bucket: global.bucketGlobal,
+
+            child: MaterialApp.router(
+              // routerConfig: appRouter,
               title: AppConfig.appName,
               // showPerformanceOverlay: true,
               debugShowCheckedModeBanner: false,
@@ -95,20 +106,35 @@ class _MyAppState extends State<MyApp> {
               themeAnimationCurve: Curves.linear,
               themeAnimationDuration: const Duration(milliseconds: 700),
               locale: context.watch<LocaleCubit>().state,
+              // navigatorKey: global.navigatorKey,
+              themeAnimationStyle: AnimationStyle(
+                duration: const Duration(seconds: 3),
+                curve: Curves.slowMiddle,
+                reverseCurve: Curves.slowMiddle,
+                reverseDuration: const Duration(seconds: 3),
+              ),
+              onNavigationNotification: (final notification) {
+                PlatformUtils.debugLog(MyApp, 'Navigation stack changed!');
+
+                // Check if the current state can handle a pop
+                // final canPop = notification.canHandlePop;
+
+                return true;
+              },
               builder: (context, child) {
                 return Theme(
                   data: Theme.of(context).copyWith(
-                    // elevatedButtonTheme: ElevatedButtonThemeData(
-                    //   style: ElevatedButton.styleFrom(
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(10.0),
-                    //     ),
-                    //   ),
-                    // ),
+                    elevatedButtonTheme: ElevatedButtonThemeData(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+                    ),
                     floatingActionButtonTheme: FloatingActionButtonThemeData(
                       iconSize: 25,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50.0),
+                        borderRadius: BorderRadius.circular(16.0),
                       ),
                     ),
                     inputDecorationTheme: InputDecorationTheme(
@@ -157,7 +183,7 @@ class _MyAppState extends State<MyApp> {
                     ),
                     cardTheme: Theme.of(context).cardTheme.copyWith(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(16.0),
                       ),
                     ),
                     dropdownMenuTheme: Theme.of(context).dropdownMenuTheme
@@ -167,14 +193,17 @@ class _MyAppState extends State<MyApp> {
                           ).inputDecorationTheme,
                         ),
                   ),
+                  // child: SessionTimeoutGuard(
+                  //   timeoutDuration: const Duration(minutes: 3),
+                  //   onTimeout: () {
+                  //     DialogUtils.showTimeoutDialog(context, () {});
+                  //   },
+                  //   child: child!,
+                  // ),
                   child: child!,
                 );
               },
               restorationScopeId: 'app',
-              navigatorKey: navigatorKey,
-              navigatorObservers: <NavigatorObserver>[
-                LoggerNavigatorObserver(),
-              ],
               scrollBehavior: ScrollConfiguration.of(context).copyWith(
                 multitouchDragStrategy: MultitouchDragStrategy.sumAllPointers,
                 physics: const BouncingScrollPhysics(
@@ -187,8 +216,7 @@ class _MyAppState extends State<MyApp> {
                   PointerDeviceKind.stylus,
                 },
               ),
-              // onGenerateRoute: RouteGenerator.generateRoute,
-              // initialRoute: RouteName.splashRoute,
+
               localeResolutionCallback: (locale, supportedLocales) {
                 return locale;
               },

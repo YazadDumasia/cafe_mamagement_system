@@ -1,8 +1,10 @@
+import 'global.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 
-import 'constants.dart';
+import 'platform_utils.dart';
+import 'ui_utils.dart';
 
 class LaunchReview {
   // Launch method with dynamic iOS App ID and optional custom error message
@@ -32,7 +34,7 @@ class LaunchReview {
     );
 
     try {
-      if (Constants.isIOS()) {
+      if (PlatformUtils.isIOS()) {
         // Check if the app is running in TestFlight
         final bool isTestFlight = await _isRunningInTestFlight();
 
@@ -53,7 +55,7 @@ class LaunchReview {
             throw 'Could not launch App Store';
           }
         }
-      } else if (Constants.isAndroid()) {
+      } else if (PlatformUtils.isAndroid()) {
         // Try to open the Play Store app first
         if (await canLaunchUrl(androidUri)) {
           await launchUrl(androidUri);
@@ -63,16 +65,23 @@ class LaunchReview {
         }
       } else {
         // Log for unsupported platforms
-        final String plf = await Constants.getCurrentPlatform();
-        Constants.debugLog(LaunchReview, 'Other Platform review opening: $plf');
+        final String plf = await PlatformUtils.getCurrentPlatform();
+        PlatformUtils.debugLog(
+          LaunchReview,
+          'Other Platform review opening: $plf',
+        );
       }
     } catch (e) {
       // Show user-friendly message if an error occurs
       final String message =
           customErrorMessage ??
           'Failed to launch the review page. Please try again.';
-      Constants.showToastMsg(msg: message);
-      Constants.debugLog(LaunchReview, 'Error launching review page: $e');
+      UiUtils.showSnackBar(
+        navigatorKey.currentContext!,
+        message,
+        isError: true,
+      );
+      PlatformUtils.debugLog(LaunchReview, 'Error launching review page: $e');
     }
   }
 

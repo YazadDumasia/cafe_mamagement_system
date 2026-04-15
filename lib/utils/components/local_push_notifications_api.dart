@@ -1,10 +1,9 @@
+import 'package:cafe_mamagement_system/utils/components/platform_utils.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-
-import 'constants.dart';
 
 class NotificationApi {
   static final FlutterLocalNotificationsPlugin _notifications =
@@ -36,7 +35,6 @@ class NotificationApi {
     );
 
     await _notifications.initialize(
-      
       settings: settings,
       onDidReceiveNotificationResponse: (details) async {
         onNotification.add(details.payload);
@@ -54,14 +52,14 @@ class NotificationApi {
       tz.initializeTimeZones();
       final timezoneInfo = await FlutterTimezone.getLocalTimezone();
       final locationName = timezoneInfo.identifier;
-      Constants.debugLog(
+      PlatformUtils.debugLog(
         NotificationApi,
         'FlutterTimezone location: $locationName',
       );
       tz.setLocalLocation(tz.getLocation(locationName));
       _timezoneInitialized = true;
     } catch (e, st) {
-      Constants.debugLog(
+      PlatformUtils.debugLog(
         NotificationApi,
         'FlutterTimezone init error: $e\n$st',
       );
@@ -69,19 +67,19 @@ class NotificationApi {
   }
 
   static Future<void> requestNotificationPermission() async {
-    if (Constants.isAndroid()) {
+    if (PlatformUtils.isAndroid()) {
       await _notifications
           .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin
           >()
           ?.requestNotificationsPermission();
-    } else if (Constants.isIOS()) {
+    } else if (PlatformUtils.isIOS()) {
       await _notifications
           .resolvePlatformSpecificImplementation<
             IOSFlutterLocalNotificationsPlugin
           >()
           ?.requestPermissions(alert: true, badge: true, sound: true);
-    } else if (Constants.isMacOS()) {
+    } else if (PlatformUtils.isMacOS()) {
       await _notifications
           .resolvePlatformSpecificImplementation<
             MacOSFlutterLocalNotificationsPlugin

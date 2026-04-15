@@ -1,3 +1,4 @@
+import 'package:cafe_mamagement_system/utils/components/global.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,8 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:synchronized/synchronized.dart';
 
-import '../../utils/components/constants.dart';
-import '../../utils/components/global.dart';
+import '../../utils/components/platform_utils.dart';
 
 class PermissionProvider {
   static PermissionStatus locationPermission = PermissionStatus.denied;
@@ -162,7 +162,7 @@ class PermissionProvider {
   /// This method is used to get the device information.
   static Future<Map<String, dynamic>?> initPlatformState() async {
     Map<String, dynamic> deviceInfo = <String, dynamic>{};
-    final String currentPlatform = await Constants.getCurrentPlatform();
+    final String currentPlatform = await PlatformUtils.getCurrentPlatform();
     try {
       if (currentPlatform == 'web') {
         deviceInfo = _readWebBrowserInfo(await deviceInfoPlugin.webBrowserInfo);
@@ -227,7 +227,7 @@ class PermissionProvider {
       permissionDialogRoute = myCustomDialogRoute(
         title: 'Location Service',
         text: 'To use navigation, please turn location service on.',
-        buttonText: Constants.isAndroid() ? 'Turn It On' : 'Ok',
+        buttonText: PlatformUtils.isAndroid() ? 'Turn It On' : 'Ok',
         onPressed: () {
           Navigator.of(navigatorKey.currentContext!).pop();
 
@@ -238,7 +238,7 @@ class PermissionProvider {
           //   );
           //   intent.launch();
           // } else {
-          //   
+          //
           // }
         },
       );
@@ -278,7 +278,7 @@ class PermissionProvider {
 
     final List<Permission> permissionsToCheck = <Permission>[];
 
-    if (Constants.isAndroid()) {
+    if (PlatformUtils.isAndroid()) {
       final AndroidDeviceInfo build = await deviceInfoPlugin.androidInfo;
       if (build.version.sdkInt > 32) {
         permissionsToCheck.addAll(<Permission>[

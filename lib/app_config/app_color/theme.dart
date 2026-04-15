@@ -355,10 +355,29 @@ class MaterialTheme {
       backgroundColor: colorScheme.primary,
       iconTheme: const IconThemeData(color: Colors.white, size: 24.0),
       actionsIconTheme: const IconThemeData(color: Colors.white, size: 24.0),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+      ),
+    ),
+    listTileTheme: ListTileThemeData(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      visualDensity: VisualDensity.comfortable,
+    ),
+    dataTableTheme: DataTableThemeData(
+      headingTextStyle: textTheme.titleSmall!.copyWith(
+        fontWeight: FontWeight.bold,
+      ),
+      columnSpacing: 24,
+      horizontalMargin: 20,
     ),
     scaffoldBackgroundColor: colorScheme.surface,
     canvasColor: colorScheme.surface,
-    dividerColor: colorScheme.primary,
+    dividerColor: colorScheme.outlineVariant,
+    dividerTheme: DividerThemeData(
+      thickness: 1,
+      color: colorScheme.outlineVariant,
+    ),
   );
 
   List<ExtendedColor> get extendedColors => <ExtendedColor>[];

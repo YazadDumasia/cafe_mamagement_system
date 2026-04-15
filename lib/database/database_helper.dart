@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cafe_mamagement_system/model/reservation_model.dart';
+
 import '../model/invoices/invoice_model.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
@@ -23,6 +25,7 @@ import 'database_dao/inventory_dao.dart';
 import 'database_dao/employees_dao.dart';
 import 'database_dao/invoices_dao.dart';
 import 'database_dao/reports_dao.dart';
+import 'database_dao/reservations_dao.dart';
 import 'database_tables.dart';
 import '../model/category.dart';
 import '../model/sub_category.dart';
@@ -66,6 +69,7 @@ class DatabaseHelper {
   EmployeesDao? _employeesDao;
   InvoicesDao? _invoicesDao;
   ReportsDao? _reportsDao;
+  ReservationsDao? _reservationsDao;
 
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
 
@@ -83,6 +87,7 @@ class DatabaseHelper {
       _employeesDao = EmployeesDao(_database!);
       _invoicesDao = InvoicesDao(_database!);
       _reportsDao = ReportsDao(_database!);
+      _reservationsDao = ReservationsDao(_database!);
       return _database!;
     } else {
       return _database!;
@@ -137,6 +142,7 @@ class DatabaseHelper {
     await _createRecipeTables(db);
     await _createInventoryTables(db);
     await _createEmployeeTables(db);
+    await _createReservationTables(db);
   }
 
   // [ALL YOUR EXISTING TABLE CREATION METHODS REMAIN EXACTLY THE SAME]
@@ -439,7 +445,7 @@ class DatabaseHelper {
   }
 
   Future<void> _createRecipeTables(Database db) async {
-    await db.execute(''')
+    await db.execute('''
       CREATE TABLE ${DatabaseTables.recipeModelTable} (
         recipe_id INTEGER PRIMARY KEY AUTOINCREMENT,
         id INTEGER,
@@ -573,6 +579,27 @@ class DatabaseHelper {
         reason TEXT,
         isDeleted INTEGER,
         FOREIGN KEY (employeeId) REFERENCES ${DatabaseTables.employeesTable}(id)
+      );
+    ''');
+  }
+
+  Future<void> _createReservationTables(Database db) async {
+    await db.execute('''
+      CREATE TABLE ${DatabaseTables.reservationsTable} (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        customerName TEXT,
+        phoneNumber TEXT,
+        customerId INTEGER,
+        tableId INTEGER,
+        tableName TEXT,
+        reservationDateTime TEXT,
+        numberOfPeople INTEGER,
+        status INTEGER,
+        notes TEXT,
+        creationDate TEXT,
+        modificationDate TEXT,
+        FOREIGN KEY (tableId) REFERENCES ${DatabaseTables.tableInfoTable}(id) ON DELETE SET NULL,
+        FOREIGN KEY (customerId) REFERENCES ${DatabaseTables.customersTable}(id) ON DELETE SET NULL
       );
     ''');
   }
@@ -2120,5 +2147,102 @@ class DatabaseHelper {
           topItems: [],
           paymentModes: [],
         );
+  }
+
+  // ------------------ Reservation DAO Wrappers ------------------
+  Future<int> createReservation(ReservationModel reservation) async {
+    await database;
+    return await _reservationsDao?.createReservation(reservation) ?? 0;
+  }
+
+  Future<int> createMultipleReservations(
+    List<ReservationModel> reservations,
+  ) async {
+    await database;
+    return await _reservationsDao?.createMultipleReservations(reservations) ??
+        0;
+  }
+
+  Future<ReservationModel?> getReservation(int id) async {
+    await database;
+    return await _reservationsDao?.getReservation(id);
+  }
+
+  Future<List<ReservationModel>> getReservations({
+    int pageNumber = 1,
+    int limit = 20,
+    String? search,
+  }) async {
+    await database;
+    return await _reservationsDao?.getReservations(
+          pageNumber: pageNumber,
+          limit: limit,
+          search: search,
+        ) ??
+        [];
+  }
+
+  Future<int> updateReservation(ReservationModel reservation) async {
+    await database;
+    return await _reservationsDao?.updateReservation(reservation) ?? 0;
+  }
+
+  Future<int> updateMultipleReservations(
+    List<ReservationModel> reservations,
+  ) async {
+    await database;
+    return await _reservationsDao?.updateMultipleReservations(reservations) ??
+        0;
+  }
+
+  Future<int> updateReservationStatus(
+    int id,
+    int status,
+    String modificationDate,
+  ) async {
+    await database;
+    return await _reservationsDao?.updateReservationStatus(
+          id,
+          status,
+          modificationDate,
+        ) ??
+        0;
+  }
+
+  Future<int> deleteReservation(int id) async {
+    await database;
+    return await _reservationsDao?.deleteReservation(id) ?? 0;
+  }
+
+  Future<int> deleteMultipleReservations(List<int> ids) async {
+    await database;
+    return await _reservationsDao?.deleteMultipleReservations(ids) ?? 0;
+  }
+
+  Future<List<ReservationModel>> getReservationsByDate(String date) async {
+    await database;
+    return await _reservationsDao?.getReservationsByDate(date) ?? [];
+  }
+
+  Future<List<ReservationModel>> getReservationsByDateRange(
+    String startDate,
+    String endDate,
+  ) async {
+    await database;
+    return await _reservationsDao?.getReservationsByDateRange(
+          startDate,
+          endDate,
+        ) ??
+        [];
+  }
+
+  Future<List<ReservationModel>> getReservationsByStatus(int status) async {
+    await database;
+    return await _reservationsDao?.getReservationsByStatus(status) ?? [];
+  }
+
+  Future<List<ReservationModel>> getAllReservations() async {
+    await database;
+    return await _reservationsDao?.getAllReservations() ?? [];
   }
 }

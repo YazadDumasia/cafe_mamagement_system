@@ -20,4 +20,5 @@ class DatabaseTables {
   static const String employeesTable = 'employees';
   static const String attendanceTable = 'attendance';
   static const String leavesTable = 'leaves';
+  static const String reservationsTable = 'reservations';
 }

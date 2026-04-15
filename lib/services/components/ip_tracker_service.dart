@@ -72,7 +72,10 @@ class IpTrackerService {
       if (response.statusCode == 200) {
         final Map<String, dynamic> jsonResponse = json.decode(response.body);
         final ipInfoModel = IpInfoModel.fromJson(jsonResponse);
-        Constants.debugLog(IpTrackerService, "Ipaddress: ${ipInfoModel.toString()}");
+        Constants.debugLog(
+          IpTrackerService,
+          "Ipaddress: ${ipInfoModel.toString()}",
+        );
         return ipInfoModel;
       } else {
         throw HttpException(

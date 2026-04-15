@@ -26,19 +26,20 @@ dependencies:
 
   json_annotation: ^4.10.0
   platform: ^3.1.6
-  go_router: ^17.1.0
+  go_router: ^17.2.0
 
-  flutter_bloc: ^7.0.0
+
+  flutter_bloc: ^9.1.1
   equatable: ^2.0.8
   rxdart: ^0.28.0
 
   google_fonts: ^8.0.1
-  font_awesome_flutter: ^10.12.0
+  font_awesome_flutter: ^11.0.0
   line_icons: ^2.0.3
   material_design_icons_flutter: ^7.0.7296
 
-  csv: ^7.1.0
-  flutter_localization: ^0.3.3
+  csv: ^8.0.0
+  flutter_localization: ^0.4.0
 
   pin_code_fields: ^9.1.0
   sms_autofill: ^2.4.1
@@ -54,7 +55,7 @@ dependencies:
   #
   fluttertoast: ^9.0.0
   another_flushbar: ^1.12.32
-  share_plus: ^12.0.1
+  share_plus: ^13.0.0
   #
   bubble_showcase: ^1.1.0
   showcaseview: ^5.0.1
@@ -62,7 +63,7 @@ dependencies:
   cached_network_image: ^3.4.1
   flutter_cache_manager: ^3.4.1
   flutter_image: ^4.1.13
-  image_cropper: ^11.0.0
+  image_cropper: ^12.2.0
   image_picker: ^1.2.1
   flutter_colorpicker: ^1.1.0
   duration_picker: ^1.2.0
@@ -103,10 +104,10 @@ dependencies:
   shared_preferences: ^2.5.4
   flutter_secure_storage: ^10.0.0
   crypto: ^3.0.7
-  network_info_plus: ^7.0.0
+  network_info_plus: ^8.0.0
   platform_info: ^5.0.0
-  package_info_plus: ^9.0.0
-  device_info_plus: ^12.3.0
+  package_info_plus: ^10.0.0
+  device_info_plus: ^13.0.0
   path_provider: ^2.1.5
   path: ^1.9.1
   local_auth: ^3.0.0
@@ -119,10 +120,10 @@ dependencies:
   #  store_redirect:
   feedback: ^3.2.0
   #  Range Slider
-  syncfusion_flutter_core: ^32.2.4
-  syncfusion_flutter_sliders: ^32.2.4
-  syncfusion_flutter_charts: ^32.2.4
-  syncfusion_flutter_xlsio: ^32.2.4
+  syncfusion_flutter_core: ^33.1.49
+  syncfusion_flutter_sliders: ^33.1.49
+  syncfusion_flutter_charts: ^33.1.49
+  syncfusion_flutter_xlsio: ^33.1.49
   #Notification
   flutter_local_notifications: ^21.0.0
   flutter_timezone: ^5.0.1
@@ -137,6 +138,12 @@ dependencies:
 
 dependency_overrides:
   timezone: ^0.11.0
+  device_info_plus: ^13.0.0
+  package_info_plus: ^10.0.0
+  network_info_plus: ^8.0.0
+  flutter_secure_storage: ^10.0.0
+  share_plus: ^13.0.0
+  win32: ^6.0.1
 
 dev_dependencies:
   flutter_test:
@@ -147,10 +154,12 @@ dev_dependencies:
   #  dart pub global activate build_runner build
   #  flutter packages pub run build_runner build
   #  flutter pub run build_runner build
-  build_runner: ^2.11.1
-  flutter_gen: ^5.12.0
-  flutter_gen_runner: ^5.12.0
-  json_serializable: ^6.12.0
+# dart pub global activate  go_router_builder
+  build_runner: ^2.13.1
+  flutter_gen: ^5.13.0+1
+  flutter_gen_runner: ^5.13.0+1
+  json_serializable: ^6.13.1
+  go_router_builder: ^4.2.1
 
 flutter:
   uses-material-design: true

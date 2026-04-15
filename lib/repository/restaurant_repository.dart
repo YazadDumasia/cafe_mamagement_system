@@ -21,7 +21,8 @@ import '../model/reports/payment_mode_report_model.dart';
 import '../model/reports/top_selling_item_model.dart';
 import '../model/reports/sales_forecast_model.dart';
 import '../model/reports/sales_dasdboard_model.dart';
-import '../utils/components/constants.dart';
+import '../model/reservation_model.dart';
+import '../utils/components/platform_utils.dart';
 
 class RestaurantRepository {
   final _databaseHelper = dh.DatabaseHelper.instance;
@@ -40,7 +41,7 @@ class RestaurantRepository {
     Future<T?> Function() operation, {
     bool trackExecutionTime = false,
   }) async {
-    final buildmode = await Constants.getCurrentPlatformBuildMode();
+    final buildmode = await PlatformUtils.getCurrentPlatformBuildMode();
     if (buildmode == 'release') {
       return await operation();
     } else {
@@ -51,7 +52,7 @@ class RestaurantRepository {
 
         if (stopwatch != null) {
           stopwatch.stop();
-          Constants.debugLog(
+          PlatformUtils.debugLog(
             RestaurantRepository,
             "Execution time:$methodName:${stopwatch.elapsedMilliseconds} ms",
           );
@@ -61,12 +62,15 @@ class RestaurantRepository {
       } catch (e) {
         if (stopwatch != null) {
           stopwatch.stop();
-          Constants.debugLog(
+          PlatformUtils.debugLog(
             RestaurantRepository,
             "Error in $methodName:$e, time:${stopwatch.elapsedMilliseconds} ms",
           );
         } else {
-          Constants.debugLog(RestaurantRepository, 'Error in $methodName: $e');
+          PlatformUtils.debugLog(
+            RestaurantRepository,
+            'Error in $methodName: $e',
+          );
         }
       }
     }
@@ -252,7 +256,9 @@ class RestaurantRepository {
     );
   }
 
-  Future<List<Map<String, dynamic>>?> searchIngredients(String? searchTerm) async {
+  Future<List<Map<String, dynamic>>?> searchIngredients(
+    String? searchTerm,
+  ) async {
     return await _executeWithLogging(
       'searchIngredients',
       () => _databaseHelper.searchIngredients(searchTerm),
@@ -303,9 +309,8 @@ class RestaurantRepository {
   }) async {
     return await _executeWithLogging(
       'getCategoryBasedOnCategoryId',
-      () => _databaseHelper.getCategoryBasedOnCategoryId(
-        categoryId: categoryId,
-      ),
+      () =>
+          _databaseHelper.getCategoryBasedOnCategoryId(categoryId: categoryId),
     );
   }
 
@@ -330,7 +335,9 @@ class RestaurantRepository {
     );
   }
 
-  Future<List<SubCategory>?> getSubcategoryBaseCategoryId(int categoryId) async {
+  Future<List<SubCategory>?> getSubcategoryBaseCategoryId(
+    int categoryId,
+  ) async {
     return await _executeWithLogging(
       'getSubcategoryBaseCategoryId',
       () => _databaseHelper.getSubcategoryBaseCategoryId(categoryId),
@@ -418,9 +425,10 @@ class RestaurantRepository {
 
   Future<List<MenuItem>> getAvailableMenuItems() async {
     return await _executeWithLogging(
-      'getAvailableMenuItems',
-      () => _databaseHelper.getAvailableMenuItems(),
-    ) ?? [];
+          'getAvailableMenuItems',
+          () => _databaseHelper.getAvailableMenuItems(),
+        ) ??
+        [];
   }
 
   Future<List<MenuItem>> getAvailableMenuItemsPagination({
@@ -429,13 +437,14 @@ class RestaurantRepository {
     String? searchTerm,
   }) async {
     return await _executeWithLogging(
-      'getAvailableMenuItemsPagination',
-      () => _databaseHelper.getAvailableMenuItemsPagination(
-        pageNumber: pageNumber,
-        limit: limit,
-        searchTerm: searchTerm,
-      ),
-    ) ?? [];
+          'getAvailableMenuItemsPagination',
+          () => _databaseHelper.getAvailableMenuItemsPagination(
+            pageNumber: pageNumber,
+            limit: limit,
+            searchTerm: searchTerm,
+          ),
+        ) ??
+        [];
   }
 
   Future<List<MenuItem>> fetchAllMenuItemsPaged({
@@ -444,20 +453,22 @@ class RestaurantRepository {
     String? search,
   }) async {
     return await _executeWithLogging(
-      'fetchAllMenuItemsPaged',
-      () => _databaseHelper.fetchAllMenuItemsPaged(
-        pageNumber: pageNumber,
-        limit: limit,
-        search: search,
-      ),
-    ) ?? [];
+          'fetchAllMenuItemsPaged',
+          () => _databaseHelper.fetchAllMenuItemsPaged(
+            pageNumber: pageNumber,
+            limit: limit,
+            search: search,
+          ),
+        ) ??
+        [];
   }
 
   Future<int> fetchMenuItemsCount({String? search}) async {
     return await _executeWithLogging(
-      'fetchMenuItemsCount',
-      () => _databaseHelper.fetchMenuItemsCount(search: search),
-    ) ?? 0;
+          'fetchMenuItemsCount',
+          () => _databaseHelper.fetchMenuItemsCount(search: search),
+        ) ??
+        0;
   }
 
   Future<List<MenuItem>?> fetchAvailableMenuItemsPaged({
@@ -477,23 +488,26 @@ class RestaurantRepository {
 
   Future<List<MenuItemReview>> getReviewsForMenuItem(int itemId) async {
     return await _executeWithLogging(
-      'getReviewsForMenuItem',
-      () => _databaseHelper.getReviewsForMenuItem(itemId),
-    ) ?? [];
+          'getReviewsForMenuItem',
+          () => _databaseHelper.getReviewsForMenuItem(itemId),
+        ) ??
+        [];
   }
 
   Future<double> calculateAverageRatingForMenuItem(int itemId) async {
     return await _executeWithLogging(
-      'calculateAverageRatingForMenuItem',
-      () => _databaseHelper.calculateAverageRatingForMenuItem(itemId),
-    ) ?? 0.0;
+          'calculateAverageRatingForMenuItem',
+          () => _databaseHelper.calculateAverageRatingForMenuItem(itemId),
+        ) ??
+        0.0;
   }
 
   Future<int> createCustomer(Customer customer) async {
     return await _executeWithLogging(
-      'createCustomer',
-      () => _databaseHelper.createCustomer(customer),
-    ) ?? 0;
+          'createCustomer',
+          () => _databaseHelper.createCustomer(customer),
+        ) ??
+        0;
   }
 
   // ========================================
@@ -524,9 +538,10 @@ class RestaurantRepository {
 
   Future<bool> isCustomerExist(String searchTerm) async {
     return await _executeWithLogging(
-      'isCustomerExist',
-      () => _databaseHelper.isCustomerExist(searchTerm),
-    ) ?? false;
+          'isCustomerExist',
+          () => _databaseHelper.isCustomerExist(searchTerm),
+        ) ??
+        false;
   }
 
   Future<int?> updateCustomer(Customer customer) async {
@@ -590,9 +605,10 @@ class RestaurantRepository {
 
   Future<int> getTableInfoRecordCount() async {
     return await _executeWithLogging(
-      'getTableInfoRecordCount',
-      () => _databaseHelper.getTableInfoRecordCount(),
-    ) ?? 0;
+          'getTableInfoRecordCount',
+          () => _databaseHelper.getTableInfoRecordCount(),
+        ) ??
+        0;
   }
 
   Future<int?> deleteTableInfo(TableInfoModel model) async {
@@ -647,9 +663,10 @@ class RestaurantRepository {
 
   Future<List<OrderModel>> getAllOrders() async {
     return await _executeWithLogging(
-      'getAllOrders',
-      () => _databaseHelper.getAllOrders(),
-    ) ?? [];
+          'getAllOrders',
+          () => _databaseHelper.getAllOrders(),
+        ) ??
+        [];
   }
 
   Future<List<OrderModel>> getAllOrdersWithPagination({
@@ -657,19 +674,21 @@ class RestaurantRepository {
     required int pageNo,
   }) async {
     return await _executeWithLogging(
-      'getAllOrdersWithPagination',
-      () => _databaseHelper.getAllOrdersWithPagination(
-        limit: limit,
-        pageNo: pageNo,
-      ),
-    ) ?? [];
+          'getAllOrdersWithPagination',
+          () => _databaseHelper.getAllOrdersWithPagination(
+            limit: limit,
+            pageNo: pageNo,
+          ),
+        ) ??
+        [];
   }
 
   Future<List<OrderModel>> getAllActiveOrders() async {
     return await _executeWithLogging(
-      'getAllActiveOrders',
-      () => _databaseHelper.getAllActiveOrders(),
-    ) ?? [];
+          'getAllActiveOrders',
+          () => _databaseHelper.getAllActiveOrders(),
+        ) ??
+        [];
   }
 
   Future<List<Map<String, dynamic>>> getOrderedItemsForKitchen(
@@ -677,12 +696,13 @@ class RestaurantRepository {
     int chunkSize = 100,
   }) async {
     return await _executeWithLogging(
-      'getOrderedItemsForKitchen',
-      () => _databaseHelper.getOrderedItemsForKitchen(
-        status,
-        chunkSize: chunkSize,
-      ),
-    ) ?? [];
+          'getOrderedItemsForKitchen',
+          () => _databaseHelper.getOrderedItemsForKitchen(
+            status,
+            chunkSize: chunkSize,
+          ),
+        ) ??
+        [];
   }
 
   // ========================================
@@ -691,23 +711,26 @@ class RestaurantRepository {
 
   Future<int> insertInventory(InventoryModel inventory) async {
     return await _executeWithLogging(
-      'insertInventory',
-      () => _databaseHelper.insertInventory(inventory),
-    ) ?? 0;
+          'insertInventory',
+          () => _databaseHelper.insertInventory(inventory),
+        ) ??
+        0;
   }
 
   Future<int> updateInventory(InventoryModel inventory) async {
     return await _executeWithLogging(
-      'updateInventory',
-      () => _databaseHelper.updateInventory(inventory),
-    ) ?? 0;
+          'updateInventory',
+          () => _databaseHelper.updateInventory(inventory),
+        ) ??
+        0;
   }
 
   Future<int> deleteInventory(int id) async {
     return await _executeWithLogging(
-      'deleteInventory',
-      () => _databaseHelper.deleteInventory(id),
-    ) ?? 0;
+          'deleteInventory',
+          () => _databaseHelper.deleteInventory(id),
+        ) ??
+        0;
   }
 
   Future<void> insertInventoryBatch(List<InventoryModel> items) async {
@@ -737,9 +760,10 @@ class RestaurantRepository {
 
   Future<List<InventoryModel>> getAllEnableInventory() async {
     return await _executeWithLogging(
-      'getAllEnableInventory',
-      () => _databaseHelper.getAllEnableInventory(),
-    ) ?? [];
+          'getAllEnableInventory',
+          () => _databaseHelper.getAllEnableInventory(),
+        ) ??
+        [];
   }
 
   Future<List<InventoryModel>> getAllEnableInventoryPage({
@@ -748,29 +772,33 @@ class RestaurantRepository {
     String? searchQuery,
   }) async {
     return await _executeWithLogging(
-      'getAllEnableInventoryPage',
-      () => _databaseHelper.getAllEnableInventoryPage(
-        page: page,
-        pageSize: pageSize,
-        searchQuery: searchQuery,
-      ),
-    ) ?? [];
+          'getAllEnableInventoryPage',
+          () => _databaseHelper.getAllEnableInventoryPage(
+            page: page,
+            pageSize: pageSize,
+            searchQuery: searchQuery,
+          ),
+        ) ??
+        [];
   }
 
   Future<List<InventoryModel>> searchInventoryByNameOrDescription({
     required String query,
   }) async {
     return await _executeWithLogging(
-      'searchInventoryByNameOrDescription',
-      () => _databaseHelper.searchInventoryByNameOrDescription(query: query),
-    ) ?? [];
+          'searchInventoryByNameOrDescription',
+          () =>
+              _databaseHelper.searchInventoryByNameOrDescription(query: query),
+        ) ??
+        [];
   }
 
   Future<List<InventoryModel>> getInventory() async {
     return await _executeWithLogging(
-      'getInventory',
-      () => _databaseHelper.getInventory(),
-    ) ?? [];
+          'getInventory',
+          () => _databaseHelper.getInventory(),
+        ) ??
+        [];
   }
 
   Future<List<InventoryModel>> getInventoryPage({
@@ -779,56 +807,62 @@ class RestaurantRepository {
     String? searchQuery,
   }) async {
     return await _executeWithLogging(
-      'getInventoryPage',
-      () => _databaseHelper.getInventoryPage(
-        page: page,
-        pageSize: pageSize,
-        searchQuery: searchQuery,
-      ),
-    ) ?? [];
+          'getInventoryPage',
+          () => _databaseHelper.getInventoryPage(
+            page: page,
+            pageSize: pageSize,
+            searchQuery: searchQuery,
+          ),
+        ) ??
+        [];
   }
 
   Future<List<String>> getEnabledInventoryFirstLetters({
     String? searchQuery,
   }) async {
     return await _executeWithLogging(
-      'getEnabledInventoryFirstLetters',
-      () => _databaseHelper.getEnabledInventoryFirstLetters(
-        searchQuery: searchQuery,
-      ),
-    ) ?? [];
+          'getEnabledInventoryFirstLetters',
+          () => _databaseHelper.getEnabledInventoryFirstLetters(
+            searchQuery: searchQuery,
+          ),
+        ) ??
+        [];
   }
 
   Future<List<String>> getAllInventoryFirstLetters({
     String? searchQuery,
   }) async {
     return await _executeWithLogging(
-      'getAllInventoryFirstLetters',
-      () => _databaseHelper.getAllInventoryFirstLetters(
-        searchQuery: searchQuery,
-      ),
-    ) ?? [];
+          'getAllInventoryFirstLetters',
+          () => _databaseHelper.getAllInventoryFirstLetters(
+            searchQuery: searchQuery,
+          ),
+        ) ??
+        [];
   }
 
   Future<int> insertPurchase(PurchaseModel purchase) async {
     return await _executeWithLogging(
-      'insertPurchase',
-      () => _databaseHelper.insertPurchase(purchase),
-    ) ?? 0;
+          'insertPurchase',
+          () => _databaseHelper.insertPurchase(purchase),
+        ) ??
+        0;
   }
 
   Future<int> updatePurchase(PurchaseModel purchase) async {
     return await _executeWithLogging(
-      'updatePurchase',
-      () => _databaseHelper.updatePurchase(purchase),
-    ) ?? 0;
+          'updatePurchase',
+          () => _databaseHelper.updatePurchase(purchase),
+        ) ??
+        0;
   }
 
   Future<int> deletePurchase(int id) async {
     return await _executeWithLogging(
-      'deletePurchase',
-      () => _databaseHelper.deletePurchase(id),
-    ) ?? 0;
+          'deletePurchase',
+          () => _databaseHelper.deletePurchase(id),
+        ) ??
+        0;
   }
 
   Future<void> insertPurchaseBatch(List<PurchaseModel> purchases) async {
@@ -854,16 +888,18 @@ class RestaurantRepository {
 
   Future<List<PurchaseModel>> getAllPurchases() async {
     return await _executeWithLogging(
-      'getAllPurchases',
-      () => _databaseHelper.getAllPurchases(),
-    ) ?? [];
+          'getAllPurchases',
+          () => _databaseHelper.getAllPurchases(),
+        ) ??
+        [];
   }
 
   Future<double> getDailyExpenditureCost(String currentDate) async {
     return await _executeWithLogging(
-      'getDailyExpenditureCost',
-      () => _databaseHelper.getDailyExpenditureCost(currentDate),
-    ) ?? 0.0;
+          'getDailyExpenditureCost',
+          () => _databaseHelper.getDailyExpenditureCost(currentDate),
+        ) ??
+        0.0;
   }
 
   // ========================================
@@ -872,9 +908,10 @@ class RestaurantRepository {
 
   Future<double> getMonthlyExpenditureCost(String month) async {
     return await _executeWithLogging(
-      'getMonthlyExpenditureCost',
-      () => _databaseHelper.getMonthlyExpenditureCost(month),
-    ) ?? 0.0;
+          'getMonthlyExpenditureCost',
+          () => _databaseHelper.getMonthlyExpenditureCost(month),
+        ) ??
+        0.0;
   }
 
   Future<List<PurchaseModel>> getPurchasesBetweenDates({
@@ -882,12 +919,13 @@ class RestaurantRepository {
     required String toDateTime,
   }) async {
     return await _executeWithLogging(
-      'getPurchasesBetweenDates',
-      () => _databaseHelper.getPurchasesBetweenDates(
-        fromDateTime: fromDateTime,
-        toDateTime: toDateTime,
-      ),
-    ) ?? [];
+          'getPurchasesBetweenDates',
+          () => _databaseHelper.getPurchasesBetweenDates(
+            fromDateTime: fromDateTime,
+            toDateTime: toDateTime,
+          ),
+        ) ??
+        [];
   }
 
   Future<double> getExpenditureBetweenDates({
@@ -895,12 +933,13 @@ class RestaurantRepository {
     required String toDateTime,
   }) async {
     return await _executeWithLogging(
-      'getExpenditureBetweenDates',
-      () => _databaseHelper.getExpenditureBetweenDates(
-        fromDateTime: fromDateTime,
-        toDateTime: toDateTime,
-      ),
-    ) ?? 0.0;
+          'getExpenditureBetweenDates',
+          () => _databaseHelper.getExpenditureBetweenDates(
+            fromDateTime: fromDateTime,
+            toDateTime: toDateTime,
+          ),
+        ) ??
+        0.0;
   }
 
   Future<Map<String, List<Map<String, dynamic>>>> getExpenditureGraphData({
@@ -910,21 +949,23 @@ class RestaurantRepository {
     required String toDateTime,
   }) async {
     return await _executeWithLogging(
-      'getExpenditureGraphData',
-      () => _databaseHelper.getExpenditureGraphData(
-        month: month,
-        year: year,
-        fromDateTime: fromDateTime,
-        toDateTime: toDateTime,
-      ),
-    ) ?? {};
+          'getExpenditureGraphData',
+          () => _databaseHelper.getExpenditureGraphData(
+            month: month,
+            year: year,
+            fromDateTime: fromDateTime,
+            toDateTime: toDateTime,
+          ),
+        ) ??
+        {};
   }
 
   Future<int> addEmployee(Employee employee) async {
     return await _executeWithLogging(
-      'addEmployee',
-      () => _databaseHelper.addEmployee(employee),
-    ) ?? 0;
+          'addEmployee',
+          () => _databaseHelper.addEmployee(employee),
+        ) ??
+        0;
   }
 
   // ========================================
@@ -933,30 +974,34 @@ class RestaurantRepository {
 
   Future<int> updateEmployee(Employee employee) async {
     return await _executeWithLogging(
-      'updateEmployee',
-      () => _databaseHelper.updateEmployee(employee),
-    ) ?? 0;
+          'updateEmployee',
+          () => _databaseHelper.updateEmployee(employee),
+        ) ??
+        0;
   }
 
   Future<int> deleteSoftEmployee(int id) async {
     return await _executeWithLogging(
-      'deleteSoftEmployee',
-      () => _databaseHelper.deleteSoftEmployee(id),
-    ) ?? 0;
+          'deleteSoftEmployee',
+          () => _databaseHelper.deleteSoftEmployee(id),
+        ) ??
+        0;
   }
 
   Future<int> deletePermanentEmployee(int id) async {
     return await _executeWithLogging(
-      'deletePermanentEmployee',
-      () => _databaseHelper.deletePermanentEmployee(id),
-    ) ?? 0;
+          'deletePermanentEmployee',
+          () => _databaseHelper.deletePermanentEmployee(id),
+        ) ??
+        0;
   }
 
   Future<List<Employee>> getEmployees() async {
     return await _executeWithLogging(
-      'getEmployees',
-      () => _databaseHelper.getEmployees(),
-    ) ?? [];
+          'getEmployees',
+          () => _databaseHelper.getEmployees(),
+        ) ??
+        [];
   }
 
   Future<List<Employee>> getEmployeesPaged({
@@ -964,54 +1009,61 @@ class RestaurantRepository {
     int limit = 20,
   }) async {
     return await _executeWithLogging(
-      'getEmployeesPaged',
-      () => _databaseHelper.getEmployeesPaged(
-        pageNumber: pageNumber,
-        limit: limit,
-      ),
-    ) ?? [];
+          'getEmployeesPaged',
+          () => _databaseHelper.getEmployeesPaged(
+            pageNumber: pageNumber,
+            limit: limit,
+          ),
+        ) ??
+        [];
   }
 
   Future<int> addAttendance(Attendance attendance) async {
     return await _executeWithLogging(
-      'addAttendance',
-      () => _databaseHelper.addAttendance(attendance),
-    ) ?? 0;
+          'addAttendance',
+          () => _databaseHelper.addAttendance(attendance),
+        ) ??
+        0;
   }
 
   Future<int> updateAttendance(Attendance attendance) async {
     return await _executeWithLogging(
-      'updateAttendance',
-      () => _databaseHelper.updateAttendance(attendance),
-    ) ?? 0;
+          'updateAttendance',
+          () => _databaseHelper.updateAttendance(attendance),
+        ) ??
+        0;
   }
 
   Future<int> deleteAttendance(int id) async {
     return await _executeWithLogging(
-      'deleteAttendance',
-      () => _databaseHelper.deleteAttendance(id),
-    ) ?? 0;
+          'deleteAttendance',
+          () => _databaseHelper.deleteAttendance(id),
+        ) ??
+        0;
   }
 
   Future<int> deletePermanentlyAttendance(int id) async {
     return await _executeWithLogging(
-      'deletePermanentlyAttendance',
-      () => _databaseHelper.deletePermanentlyAttendance(id),
-    ) ?? 0;
+          'deletePermanentlyAttendance',
+          () => _databaseHelper.deletePermanentlyAttendance(id),
+        ) ??
+        0;
   }
 
   Future<int> addLeave(Leave leave) async {
     return await _executeWithLogging(
-      'addLeave',
-      () => _databaseHelper.addLeave(leave),
-    ) ?? 0;
+          'addLeave',
+          () => _databaseHelper.addLeave(leave),
+        ) ??
+        0;
   }
 
   Future<int> updateLeave(Leave leave) async {
     return await _executeWithLogging(
-      'updateLeave',
-      () => _databaseHelper.updateLeave(leave),
-    ) ?? 0;
+          'updateLeave',
+          () => _databaseHelper.updateLeave(leave),
+        ) ??
+        0;
   }
 
   Future<void> updateLeavesBatch(List<Leave> leaves) async {
@@ -1023,16 +1075,18 @@ class RestaurantRepository {
 
   Future<int> deleteLeave(int id) async {
     return await _executeWithLogging(
-      'deleteLeave',
-      () => _databaseHelper.deleteLeave(id),
-    ) ?? 0;
+          'deleteLeave',
+          () => _databaseHelper.deleteLeave(id),
+        ) ??
+        0;
   }
 
   Future<int> deleteLeavePermanent(int id) async {
     return await _executeWithLogging(
-      'deleteLeavePermanent',
-      () => _databaseHelper.deleteLeavePermanent(id),
-    ) ?? 0;
+          'deleteLeavePermanent',
+          () => _databaseHelper.deleteLeavePermanent(id),
+        ) ??
+        0;
   }
 
   // ========================================
@@ -1041,9 +1095,10 @@ class RestaurantRepository {
 
   Future<int> insertInvoice(InvoiceModel invoice) async {
     return await _executeWithLogging(
-      'insertInvoice',
-      () => _databaseHelper.insertInvoice(invoice),
-    ) ?? 0;
+          'insertInvoice',
+          () => _databaseHelper.insertInvoice(invoice),
+        ) ??
+        0;
   }
 
   Future<InvoiceModel?> getInvoiceById(int id) async {
@@ -1055,30 +1110,34 @@ class RestaurantRepository {
 
   Future<List<InvoiceModel>> getAllInvoices() async {
     return await _executeWithLogging(
-      'getAllInvoices',
-      () => _databaseHelper.getAllInvoices(),
-    ) ?? [];
+          'getAllInvoices',
+          () => _databaseHelper.getAllInvoices(),
+        ) ??
+        [];
   }
 
   Future<int> updateInvoice(InvoiceModel invoice) async {
     return await _executeWithLogging(
-      'updateInvoice',
-      () => _databaseHelper.updateInvoice(invoice),
-    ) ?? 0;
+          'updateInvoice',
+          () => _databaseHelper.updateInvoice(invoice),
+        ) ??
+        0;
   }
 
   Future<int> deleteInvoice(int id) async {
     return await _executeWithLogging(
-      'deleteInvoice',
-      () => _databaseHelper.deleteInvoice(id),
-    ) ?? 0;
+          'deleteInvoice',
+          () => _databaseHelper.deleteInvoice(id),
+        ) ??
+        0;
   }
 
   Future<int> insertInvoiceItem(InvoiceItemModel item) async {
     return await _executeWithLogging(
-      'insertInvoiceItem',
-      () => _databaseHelper.insertInvoiceItem(item),
-    ) ?? 0;
+          'insertInvoiceItem',
+          () => _databaseHelper.insertInvoiceItem(item),
+        ) ??
+        0;
   }
 
   Future<void> insertInvoiceItems(List<InvoiceItemModel> items) async {
@@ -1090,44 +1149,53 @@ class RestaurantRepository {
 
   Future<List<InvoiceItemModel>> getInvoiceItems(int invoiceId) async {
     return await _executeWithLogging(
-      'getInvoiceItems',
-      () => _databaseHelper.getInvoiceItems(invoiceId),
-    ) ?? [];
+          'getInvoiceItems',
+          () => _databaseHelper.getInvoiceItems(invoiceId),
+        ) ??
+        [];
   }
 
   Future<int> deleteInvoiceItems(int invoiceId) async {
     return await _executeWithLogging(
-      'deleteInvoiceItems',
-      () => _databaseHelper.deleteInvoiceItems(invoiceId),
-    ) ?? 0;
+          'deleteInvoiceItems',
+          () => _databaseHelper.deleteInvoiceItems(invoiceId),
+        ) ??
+        0;
   }
 
   Future<int> insertPaymentTransaction(PaymentTransactionModel payment) async {
     return await _executeWithLogging(
-      'insertPaymentTransaction',
-      () => _databaseHelper.insertPaymentTransaction(payment),
-    ) ?? 0;
+          'insertPaymentTransaction',
+          () => _databaseHelper.insertPaymentTransaction(payment),
+        ) ??
+        0;
   }
 
-  Future<void> insertPaymentTransactions(List<PaymentTransactionModel> payments) async {
+  Future<void> insertPaymentTransactions(
+    List<PaymentTransactionModel> payments,
+  ) async {
     await _executeWithLogging(
       'insertPaymentTransactions',
       () => _databaseHelper.insertPaymentTransactions(payments),
     );
   }
 
-  Future<List<PaymentTransactionModel>> getInvoicePayments(int invoiceId) async {
+  Future<List<PaymentTransactionModel>> getInvoicePayments(
+    int invoiceId,
+  ) async {
     return await _executeWithLogging(
-      'getInvoicePayments',
-      () => _databaseHelper.getInvoicePayments(invoiceId),
-    ) ?? [];
+          'getInvoicePayments',
+          () => _databaseHelper.getInvoicePayments(invoiceId),
+        ) ??
+        [];
   }
 
   Future<int> deleteInvoicePayments(int invoiceId) async {
     return await _executeWithLogging(
-      'deleteInvoicePayments',
-      () => _databaseHelper.deleteInvoicePayments(invoiceId),
-    ) ?? 0;
+          'deleteInvoicePayments',
+          () => _databaseHelper.deleteInvoicePayments(invoiceId),
+        ) ??
+        0;
   }
 
   // ========================================
@@ -1140,13 +1208,14 @@ class RestaurantRepository {
     required List<PaymentTransactionModel> payments,
   }) async {
     return await _executeWithLogging(
-      'createInvoice',
-      () => _databaseHelper.createInvoice(
-        invoice: invoice,
-        items: items,
-        payments: payments,
-      ),
-    ) ?? 0;
+          'createInvoice',
+          () => _databaseHelper.createInvoice(
+            invoice: invoice,
+            items: items,
+            payments: payments,
+          ),
+        ) ??
+        0;
   }
 
   Future<Map<String, dynamic>?> getInvoiceFullDetails(int invoiceId) async {
@@ -1165,23 +1234,24 @@ class RestaurantRepository {
     String? search,
   }) async {
     return await _executeWithLogging(
-      'getFilteredInvoices',
-      () => _databaseHelper.getFilteredInvoices(
-        limit: limit,
-        pageNo: pageNo,
-        paymentMethodDetails: paymentMethodDetails,
-        sortField: sortField,
-        ascending: ascending,
-        search: search,
-      ),
-    ) ?? [];
+          'getFilteredInvoices',
+          () => _databaseHelper.getFilteredInvoices(
+            limit: limit,
+            pageNo: pageNo,
+            paymentMethodDetails: paymentMethodDetails,
+            sortField: sortField,
+            ascending: ascending,
+            search: search,
+          ),
+        ) ??
+        [];
   }
 
   Future<DailySalesSummaryModel> getTodaySalesSummary() async {
     return await _executeWithLogging(
-      'getTodaySalesSummary',
-      () => _databaseHelper.getTodaySalesSummary(),
-    ) ??
+          'getTodaySalesSummary',
+          () => _databaseHelper.getTodaySalesSummary(),
+        ) ??
         DailySalesSummaryModel(
           totalInvoices: 0,
           totalSales: 0.0,
@@ -1196,9 +1266,9 @@ class RestaurantRepository {
     String endDate,
   ) async {
     return await _executeWithLogging(
-      'getSalesSummary',
-      () => _databaseHelper.getSalesSummary(startDate, endDate),
-    ) ??
+          'getSalesSummary',
+          () => _databaseHelper.getSalesSummary(startDate, endDate),
+        ) ??
         DailySalesSummaryModel(
           totalInvoices: 0,
           totalSales: 0.0,
@@ -1213,9 +1283,10 @@ class RestaurantRepository {
     String endDate,
   ) async {
     return await _executeWithLogging(
-      'getSalesGraph',
-      () => _databaseHelper.getSalesGraph(startDate, endDate),
-    ) ?? [];
+          'getSalesGraph',
+          () => _databaseHelper.getSalesGraph(startDate, endDate),
+        ) ??
+        [];
   }
 
   Future<List<PaymentModeReportModel>> getPaymentModeTotals(
@@ -1223,9 +1294,10 @@ class RestaurantRepository {
     String endDate,
   ) async {
     return await _executeWithLogging(
-      'getPaymentModeTotals',
-      () => _databaseHelper.getPaymentModeTotals(startDate, endDate),
-    ) ?? [];
+          'getPaymentModeTotals',
+          () => _databaseHelper.getPaymentModeTotals(startDate, endDate),
+        ) ??
+        [];
   }
 
   Future<List<TopSellingItemModel>> getTopSellingItems(
@@ -1233,9 +1305,10 @@ class RestaurantRepository {
     String endDate,
   ) async {
     return await _executeWithLogging(
-      'getTopSellingItems',
-      () => _databaseHelper.getTopSellingItems(startDate, endDate),
-    ) ?? [];
+          'getTopSellingItems',
+          () => _databaseHelper.getTopSellingItems(startDate, endDate),
+        ) ??
+        [];
   }
 
   Future<List<SalesForecastModel>> getSalesForecast({
@@ -1244,20 +1317,21 @@ class RestaurantRepository {
     int forecastDays = 7,
   }) async {
     return await _executeWithLogging(
-      'getSalesForecast',
-      () => _databaseHelper.getSalesForecast(
-        startDate: startDate,
-        endDate: endDate,
-        forecastDays: forecastDays,
-      ),
-    ) ?? [];
+          'getSalesForecast',
+          () => _databaseHelper.getSalesForecast(
+            startDate: startDate,
+            endDate: endDate,
+            forecastDays: forecastDays,
+          ),
+        ) ??
+        [];
   }
 
   Future<SalesDashboardModel> loadSalesDashboard() async {
     return await _executeWithLogging(
-      'loadSalesDashboard',
-      () => _databaseHelper.loadSalesDashboard(),
-    ) ??
+          'loadSalesDashboard',
+          () => _databaseHelper.loadSalesDashboard(),
+        ) ??
         SalesDashboardModel(
           todaySummary: DailySalesSummaryModel(
             totalInvoices: 0,
@@ -1272,5 +1346,219 @@ class RestaurantRepository {
           topItems: [],
           paymentModes: [],
         );
+  }
+
+  // ========================================
+  // ATTENDANCE MANAGEMENT
+  // ========================================
+
+  Future<List<Attendance>> getAllAttendance() async {
+    return await _executeWithLogging(
+          'getAllAttendance',
+          () => _databaseHelper.getAttendance(),
+        ) ??
+        [];
+  }
+
+  Future<int> insertAttendance(Attendance attendance) async {
+    return await addAttendance(attendance);
+  }
+
+  // ========================================
+  // CUSTOMER MANAGEMENT (Extended)
+  // ========================================
+
+  Future<List<Customer>> getAllCustomers() async {
+    return await searchCustomers(pageNumber: 1, limit: 1000) ?? [];
+  }
+
+  // ========================================
+  // EMPLOYEE MANAGEMENT (Extended)
+  // ========================================
+
+  Future<List<Employee>> getAllEmployeesDetails() async {
+    return await getEmployees();
+  }
+
+  Future<int> createEmployee(Employee employee) async {
+    return await _executeWithLogging(
+          'createEmployee',
+          () => _databaseHelper.addEmployee(employee),
+        ) ??
+        0;
+  }
+
+  Future<int> deleteEmployee(int id) async {
+    return await _executeWithLogging(
+          'deleteEmployee',
+          () => _databaseHelper.deleteSoftEmployee(id),
+        ) ??
+        0;
+  }
+
+  // ========================================
+  // INVENTORY MANAGEMENT (Extended)
+  // ========================================
+
+  Future<List<InventoryModel>> getAllInventoryItems() async {
+    return await getInventory();
+  }
+
+  Future<int> createInventoryItem(InventoryModel item) async {
+    return await insertInventory(item);
+  }
+
+  Future<int> updateInventoryItem(InventoryModel item) async {
+    return await updateInventory(item);
+  }
+
+  Future<int> deleteInventoryItem(int id) async {
+    return await deleteInventory(id);
+  }
+
+  // ========================================
+  // LEAVE MANAGEMENT
+  // ========================================
+
+  Future<List<Leave>> getAllLeaves() async {
+    return await _executeWithLogging(
+          'getAllLeaves',
+          () => _databaseHelper.getLeaves(),
+        ) ??
+        [];
+  }
+
+  Future<int> insertLeave(Leave leave) async {
+    return await addLeave(leave);
+  }
+
+  // ========================================
+  // RESERVATION MANAGEMENT
+  // ========================================
+
+  Future<int> createReservation(ReservationModel reservation) async {
+    return await _executeWithLogging(
+          'createReservation',
+          () => _databaseHelper.createReservation(reservation),
+        ) ??
+        0;
+  }
+
+  Future<int> createMultipleReservations(
+    List<ReservationModel> reservations,
+  ) async {
+    return await _executeWithLogging(
+          'createMultipleReservations',
+          () => _databaseHelper.createMultipleReservations(reservations),
+        ) ??
+        0;
+  }
+
+  Future<ReservationModel?> getReservation(int id) async {
+    return await _executeWithLogging(
+      'getReservation',
+      () => _databaseHelper.getReservation(id),
+    );
+  }
+
+  Future<List<ReservationModel>> getReservations({
+    int pageNumber = 1,
+    int limit = 20,
+    String? search,
+  }) async {
+    return await _executeWithLogging(
+          'getReservations',
+          () => _databaseHelper.getReservations(
+            pageNumber: pageNumber,
+            limit: limit,
+            search: search,
+          ),
+        ) ??
+        [];
+  }
+
+  Future<int> updateReservation(ReservationModel reservation) async {
+    return await _executeWithLogging(
+          'updateReservation',
+          () => _databaseHelper.updateReservation(reservation),
+        ) ??
+        0;
+  }
+
+  Future<int> updateMultipleReservations(
+    List<ReservationModel> reservations,
+  ) async {
+    return await _executeWithLogging(
+          'updateMultipleReservations',
+          () => _databaseHelper.updateMultipleReservations(reservations),
+        ) ??
+        0;
+  }
+
+  Future<int> updateReservationStatus(
+    int id,
+    int status,
+    String modificationDate,
+  ) async {
+    return await _executeWithLogging(
+          'updateReservationStatus',
+          () => _databaseHelper.updateReservationStatus(
+            id,
+            status,
+            modificationDate,
+          ),
+        ) ??
+        0;
+  }
+
+  Future<int> deleteReservation(int id) async {
+    return await _executeWithLogging(
+          'deleteReservation',
+          () => _databaseHelper.deleteReservation(id),
+        ) ??
+        0;
+  }
+
+  Future<int> deleteMultipleReservations(List<int> ids) async {
+    return await _executeWithLogging(
+          'deleteMultipleReservations',
+          () => _databaseHelper.deleteMultipleReservations(ids),
+        ) ??
+        0;
+  }
+
+  Future<List<ReservationModel>> getReservationsByDate(String date) async {
+    return await _executeWithLogging(
+          'getReservationsByDate',
+          () => _databaseHelper.getReservationsByDate(date),
+        ) ??
+        [];
+  }
+
+  Future<List<ReservationModel>> getReservationsByDateRange(
+    String startDate,
+    String endDate,
+  ) async {
+    return await _executeWithLogging(
+          'getReservationsByDateRange',
+          () => _databaseHelper.getReservationsByDateRange(startDate, endDate),
+        ) ??
+        [];
+  }
+
+  Future<List<ReservationModel>> getReservationsByStatus(int status) async {
+    return await _executeWithLogging(
+          'getReservationsByStatus',
+          () => _databaseHelper.getReservationsByStatus(status),
+        ) ??
+        [];
+  }
+
+  Future<List<ReservationModel>> getAllReservations() async {
+    return await _executeWithLogging(
+          'getAllReservations',
+          () => _databaseHelper.getAllReservations(),
+        ) ??
+        [];
   }
 }

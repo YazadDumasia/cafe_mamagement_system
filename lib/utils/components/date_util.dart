@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-import 'constants.dart';
+import 'package:timeago/timeago.dart' as timeago;
+import 'platform_utils.dart';
 
 /// A utility class for date and time operations, providing formatting,
 /// parsing, and conversion methods for DateTime and TimeOfDay objects.
@@ -49,7 +49,7 @@ class DateUtil {
         return DateFormat(dateFormat).format(convertLocal);
       }
     } catch (e) {
-      Constants.debugLog(DateUtil, 'localFormat: error - ${e.toString()}');
+      PlatformUtils.debugLog(DateUtil, 'localFormat: error - ${e.toString()}');
     }
     return null;
   }
@@ -63,7 +63,7 @@ class DateUtil {
         return DateFormat(dateFormat).format(convertLocal);
       }
     } catch (e) {
-      Constants.debugLog(
+      PlatformUtils.debugLog(
         DateUtil,
         'localFormatDateTime: error - ${e.toString()}',
       );
@@ -79,7 +79,7 @@ class DateUtil {
         return DateFormat(dateFormat).parse(utcTime).toLocal();
       }
     } catch (e) {
-      Constants.debugLog(
+      PlatformUtils.debugLog(
         DateUtil,
         'stringToLocalDate: error - ${e.toString()}',
       );
@@ -95,7 +95,7 @@ class DateUtil {
         return DateFormat(dateFormat).parse(time);
       }
     } catch (e) {
-      Constants.debugLog(DateUtil, 'stringToDate: error - ${e.toString()}');
+      PlatformUtils.debugLog(DateUtil, 'stringToDate: error - ${e.toString()}');
     }
     return null;
   }
@@ -109,7 +109,7 @@ class DateUtil {
     try {
       return DateFormat(dateFormat).format(time);
     } catch (e) {
-      Constants.debugLog(DateUtil, 'dateToString: error - ${e.toString()}');
+      PlatformUtils.debugLog(DateUtil, 'dateToString: error - ${e.toString()}');
       return null;
     }
   }
@@ -176,7 +176,7 @@ class DateUtil {
         return parsedDateTime.toLocal();
       }
     } catch (e) {
-      Constants.debugLog(
+      PlatformUtils.debugLog(
         DateUtil,
         'stringToLocalDateTime: error - ${e.toString()}',
       );
@@ -192,7 +192,10 @@ class DateUtil {
         return DateFormat(dateFormat).tryParse(date);
       }
     } catch (e) {
-      Constants.debugLog(DateUtil, 'stringToDateTime: error - ${e.toString()}');
+      PlatformUtils.debugLog(
+        DateUtil,
+        'stringToDateTime: error - ${e.toString()}',
+      );
     }
     return null;
   }
@@ -274,7 +277,7 @@ class DateUtil {
       }
       return stringBuffer.toString();
     } catch (e) {
-      Constants.debugLog(DateUtil, 'calculateRemainingTime: error - $e');
+      PlatformUtils.debugLog(DateUtil, 'calculateRemainingTime: error - $e');
       return null;
     }
   }
@@ -289,17 +292,65 @@ class DateUtil {
       final DateTime checkInDateTime = DateFormat.jm().parse(checkInTime);
       final DateTime checkOutDateTime = DateFormat.jm().parse(checkOutTime);
       final Duration difference = checkOutDateTime.difference(checkInDateTime);
-      Constants.debugLog(
+      PlatformUtils.debugLog(
         DateUtil,
         'calculateTimeDifferenceInSeconds: difference - ${difference.inSeconds} seconds',
       );
       return difference.inSeconds;
-    } catch (error) {
-      Constants.debugLog(
+    } catch (e) {
+      PlatformUtils.debugLog(
         DateUtil,
-        'calculateTimeDifferenceInSeconds: error - $error',
+        'calculateTimeDifferenceInSeconds: error - $e',
       );
       return null;
+    }
+  }
+
+  
+  /// Converts total seconds into a human-readable string (HH Hours, MM Minutes, SS Seconds).
+  static Map<String, String > convertSecondsToHMS(int totalSeconds) {
+    final int hours = totalSeconds ~/ 3600;
+    final int remainingSeconds = totalSeconds % 3600;
+    final int minutes = remainingSeconds ~/ 60;
+    final int seconds = remainingSeconds % 60;
+    return {
+      'hours': '"${hours.toString().padLeft(2, '0')}',
+      'minutes': '"${minutes.toString().padLeft(2, '0')}',
+      'seconds': '"${seconds.toString().padLeft(2, '0')}',
+    };
+  }
+  
+  static String getTextTimeAgo({
+    required String? localizedCode,
+    String? dateStr,
+    DateTime? dateTime,
+    bool? allowFromNow,
+  }) {
+    PlatformUtils.debugLog(DateUtil, 'date:$dateStr');
+    PlatformUtils.debugLog(DateUtil, 'dateTime:$dateTime');
+    if (dateStr != null && dateStr.isNotEmpty) {
+      final DateTime? passingDate = DateTime.tryParse(dateStr)?.toLocal();
+      final DateTime now = DateTime.now().toLocal();
+      final Duration duration = now.difference(passingDate!);
+      final DateTime result = now.subtract(duration).toLocal();
+      return timeago.format(
+        result,
+        locale: localizedCode,
+        allowFromNow: allowFromNow ?? true,
+        clock: now,
+      );
+    } else if (dateTime != null) {
+      final DateTime now = DateTime.now().toLocal();
+      final Duration duration = now.difference(dateTime);
+      final DateTime result = now.subtract(duration).toLocal();
+      return timeago.format(
+        result,
+        locale: localizedCode,
+        allowFromNow: allowFromNow ?? true,
+        clock: now,
+      );
+    } else {
+      return '';
     }
   }
 }
