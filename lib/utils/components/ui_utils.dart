@@ -56,7 +56,11 @@ class UiUtils {
     );
   }
 
-  static void showToastMsg({required String? msg, bool? isForShortDuration, ft.ToastGravity? gravity=ft.ToastGravity.BOTTOM}) {
+  static void showToastMsg({
+    required String? msg,
+    bool? isForShortDuration,
+    ft.ToastGravity? gravity = ft.ToastGravity.BOTTOM,
+  }) {
     ft.Fluttertoast.showToast(
       msg: '$msg',
       gravity: gravity,

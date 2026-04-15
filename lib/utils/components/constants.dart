@@ -1,7 +1,9 @@
 import 'dart:math' as math;
-import 'package:cafe_mamagement_system/utils/components/global.dart'as global;
-import 'package:cafe_mamagement_system/utils/components/local_keys_enum.dart'as pk;
-import 'package:cafe_mamagement_system/utils/components/platform_utils.dart' as pu;
+import 'package:cafe_mamagement_system/utils/components/global.dart' as global;
+import 'package:cafe_mamagement_system/utils/components/local_keys_enum.dart'
+    as pk;
+import 'package:cafe_mamagement_system/utils/components/platform_utils.dart'
+    as pu;
 import 'package:shared_preferences/shared_preferences.dart' as sp;
 
 import '../../model/translator_language/translator_language.dart' as tlasm;
@@ -46,21 +48,21 @@ class Constants {
     }
   }
 
-static Future<bool> isFirstTime(String? str) async {
-  final prefs = await sp.SharedPreferences.getInstance();
-  final key = str ?? pk.PreferencesKeys.commonFirstTime.toString();
+  static Future<bool> isFirstTime(String? str) async {
+    final prefs = await sp.SharedPreferences.getInstance();
+    final key = str ?? pk.PreferencesKeys.commonFirstTime.toString();
 
-  // 1. Get the current value, default to true if null
-  final isFirst = prefs.getBool(key) ?? true;
+    // 1. Get the current value, default to true if null
+    final isFirst = prefs.getBool(key) ?? true;
 
-  // 2. If it's the first time, update the value to false in the background
-  if (isFirst) {
-    // We don't necessarily need to 'await' this if we want a faster UI response
-    await prefs.setBool(key, false);
+    // 2. If it's the first time, update the value to false in the background
+    if (isFirst) {
+      // We don't necessarily need to 'await' this if we want a faster UI response
+      await prefs.setBool(key, false);
+    }
+
+    return isFirst;
   }
-
-  return isFirst;
-}
 
   static int? randomNumberGenerator(int? min, int? max) {
     final int randomise = min! + math.Random().nextInt(max! - min);
@@ -72,8 +74,8 @@ static Future<bool> isFirstTime(String? str) async {
     }
   }
 
-    static List<tlasm.TranslatorLanguageModel> languages = global.jsonLanguagesData
+  static List<tlasm.TranslatorLanguageModel> languages = global
+      .jsonLanguagesData
       .map((data) => tlasm.TranslatorLanguageModel.fromJson(data))
       .toList();
-
 }

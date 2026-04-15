@@ -356,24 +356,24 @@ class DialogUtils {
     );
   }
 
-static Future<void> showTimedDialog({
-  required BuildContext context,
-  required Widget dialog,
-  Duration duration = const Duration(seconds: 3),
-  bool barrierDismissible = false,
-}) async {
-  await showDialog(
-    context: context,
-    barrierDismissible: barrierDismissible,
-    builder: (dialogContext) {
-      Future.delayed(duration, () {
-        if (dialogContext.mounted && Navigator.canPop(dialogContext)) {
-          Navigator.pop(dialogContext);
-        }
-      });
+  static Future<void> showTimedDialog({
+    required BuildContext context,
+    required Widget dialog,
+    Duration duration = const Duration(seconds: 3),
+    bool barrierDismissible = false,
+  }) async {
+    await showDialog(
+      context: context,
+      barrierDismissible: barrierDismissible,
+      builder: (dialogContext) {
+        Future.delayed(duration, () {
+          if (dialogContext.mounted && Navigator.canPop(dialogContext)) {
+            Navigator.pop(dialogContext);
+          }
+        });
 
-      return dialog;
-    },
-  );
-}
+        return dialog;
+      },
+    );
+  }
 }

@@ -1,4 +1,3 @@
-import 'package:cafe_mamagement_system/bloc/theme_cubit/theme_cubit.dart';
 import 'package:cafe_mamagement_system/database/database_helper.dart';
 import 'package:cafe_mamagement_system/repository/restaurant_repository.dart'
     as res_repo;
@@ -17,6 +16,7 @@ import 'app_config/app_color/util.dart';
 import 'app_config/config/app_config.dart';
 import 'app_config/config/app_localization.dart';
 import 'bloc/locale_cubit/locale_cubit.dart';
+import 'bloc/theme_bloc/theme_bloc.dart';
 import 'model/language_model/language_model.dart';
 import 'utils/components/constants.dart';
 import 'utils/components/local_manager.dart';
@@ -85,14 +85,16 @@ class _MyAppState extends State<MyApp> {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => ThemeCubit()),
+        BlocProvider(
+          create: (context) => ThemeBloc()..add(ThemeLoadRequested()),
+        ),
         BlocProvider(create: (context) => LocaleCubit()),
       ],
       child: Builder(
         builder: (context) {
+          //final themeMode = context.read<ThemeBloc>().state.themeMode;
           return PageStorage(
             bucket: global.bucketGlobal,
-
             child: MaterialApp.router(
               // routerConfig: appRouter,
               title: AppConfig.appName,
@@ -102,7 +104,7 @@ class _MyAppState extends State<MyApp> {
               darkTheme: theme.dark(),
               highContrastDarkTheme: theme.darkHighContrast(),
               highContrastTheme: theme.lightHighContrast(),
-              themeMode: context.watch<ThemeCubit>().state.themeMode,
+              themeMode: context.watch<ThemeBloc>().state.themeMode,
               themeAnimationCurve: Curves.linear,
               themeAnimationDuration: const Duration(milliseconds: 700),
               locale: context.watch<LocaleCubit>().state,

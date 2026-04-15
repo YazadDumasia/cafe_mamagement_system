@@ -306,9 +306,8 @@ class DateUtil {
     }
   }
 
-  
   /// Converts total seconds into a human-readable string (HH Hours, MM Minutes, SS Seconds).
-  static Map<String, String > convertSecondsToHMS(int totalSeconds) {
+  static Map<String, String> convertSecondsToHMS(int totalSeconds) {
     final int hours = totalSeconds ~/ 3600;
     final int remainingSeconds = totalSeconds % 3600;
     final int minutes = remainingSeconds ~/ 60;
@@ -319,7 +318,7 @@ class DateUtil {
       'seconds': '"${seconds.toString().padLeft(2, '0')}',
     };
   }
-  
+
   static String getTextTimeAgo({
     required String? localizedCode,
     String? dateStr,
