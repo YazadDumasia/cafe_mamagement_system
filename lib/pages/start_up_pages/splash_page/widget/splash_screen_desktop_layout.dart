@@ -88,7 +88,6 @@ class _SplashScreenDesktopLayoutState extends State<SplashScreenDesktopLayout> {
               right: 0,
               child: OrientationBuilder(
                 builder: (context, orientation) {
-                  print('orientation:$orientation');
                   if (orientation == Orientation.landscape) {
                     return Center(
                       child: Row(
