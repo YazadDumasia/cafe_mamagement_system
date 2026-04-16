@@ -2,6 +2,8 @@ import 'package:cafe_mamagement_system/utils/components/global.dart' as global;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart' as ft;
 import 'package:lottie/lottie.dart' as lottie;
+import '../../app_config/config/app_localizations.dart';
+import '../../app_config/config/app_string_value.dart';
 import '../../gen/assets.gen.dart';
 
 class UiUtils {
@@ -76,6 +78,32 @@ class UiUtils {
       backgroundColor: Theme.of(
         global.navigatorKey.currentContext!,
       ).colorScheme.primaryContainer,
+    );
+  }
+
+  static MaterialBanner showErrorMaterialBanner(
+    final BuildContext context,
+    String? msg, {
+    final Widget? leadingWidget,
+    final List<Widget>? actions,
+  }) {
+    return MaterialBanner(
+      leading: leadingWidget ?? const Icon(Icons.error),
+      content: Row(children: [Expanded(child: Text(msg ?? ''))]),
+      actions:
+          actions ??
+          <Widget>[
+            TextButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentMaterialBanner(
+                  reason: MaterialBannerClosedReason.hide,
+                );
+              },
+              child: Text(
+                context.tr(AppStringValue.commonOk, track: 'common') ?? 'Ok',
+              ),
+            ),
+          ],
     );
   }
 }

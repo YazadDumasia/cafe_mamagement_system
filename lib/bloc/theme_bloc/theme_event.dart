@@ -22,6 +22,5 @@ class ThemeSelected extends ThemeEvent {
   const ThemeSelected(this.themeMode);
 
   @override
-  // TODO: implement props
   List<Object?> get props => [themeMode];
 }

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
-class HoverScaleWidget extends StatefulWidget {
-  const HoverScaleWidget({
+class HoverUpDownWidget extends StatefulWidget {
+  const HoverUpDownWidget({
     required this.child,
     super.key,
     this.scaleFactor = 0.9,
-    this.duration = const Duration(milliseconds: 200),
+    this.animationDuration = const Duration(milliseconds: 200),
   });
   final Widget? child;
   final double scaleFactor;
-  final Duration duration;
+  final Duration animationDuration;
 
   @override
-  State<HoverScaleWidget> createState() => _HoverScaleWidgetState();
+  State<HoverUpDownWidget> createState() => _HoverUpDownWidgetState();
 }
 
-class _HoverScaleWidgetState extends State<HoverScaleWidget> {
+class _HoverUpDownWidgetState extends State<HoverUpDownWidget> {
   final ValueNotifier<bool> _isHovering = ValueNotifier<bool>(false);
 
   @override
@@ -26,7 +26,7 @@ class _HoverScaleWidgetState extends State<HoverScaleWidget> {
       child: ValueListenableBuilder<bool>(
         valueListenable: _isHovering,
         builder: (context, isHovering, child) => AnimatedContainer(
-          duration: widget.duration,
+          duration: widget.animationDuration,
           transform: Matrix4.diagonal3Values(
             isHovering ? widget.scaleFactor : 1.0,
             isHovering ? widget.scaleFactor : 1.0,

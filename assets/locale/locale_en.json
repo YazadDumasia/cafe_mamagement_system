@@ -200,7 +200,7 @@
         "permission_location_service_turn_on_msg": "To use navigation, please turn location service on."
     },
     "settings_page": {},
-    "Utils": {
+    "utils": {
         "database_daily_backup_body": "Coozy The Café database is backing up now.",
         "database_daily_backup_title": "Daily Backup",
         "phone_number_invalid_number_message": "Invalid Mobile Number",

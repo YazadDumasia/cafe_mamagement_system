@@ -17,10 +17,10 @@ library;
 
 import 'package:flutter/widgets.dart';
 
-class InvertoryIcon {
-  InvertoryIcon._();
+class InventoryIcon {
+  InventoryIcon._();
 
-  static const String _kFontFam = 'InvertoryIcon';
+  static const String _kFontFam = 'InventoryIcon';
 
   static const IconData borderPurchaseList = IconData(
     0xe800,

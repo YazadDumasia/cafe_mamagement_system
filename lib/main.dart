@@ -1,3 +1,4 @@
+import 'package:cafe_mamagement_system/bloc/bloc.dart';
 import 'package:cafe_mamagement_system/database/database_helper.dart';
 import 'package:cafe_mamagement_system/repository/restaurant_repository.dart'
     as res_repo;
@@ -14,9 +15,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'app_config/app_color/theme.dart';
 import 'app_config/app_color/util.dart';
 import 'app_config/config/app_config.dart';
-import 'app_config/config/app_localization.dart';
-import 'bloc/locale_cubit/locale_cubit.dart';
-import 'bloc/theme_bloc/theme_bloc.dart';
+import 'app_config/config/app_localizations.dart';
 import 'model/language_model/language_model.dart';
 import 'utils/components/constants.dart';
 import 'utils/components/local_manager.dart';
@@ -89,6 +88,13 @@ class _MyAppState extends State<MyApp> {
           create: (context) => ThemeBloc()..add(ThemeLoadRequested()),
         ),
         BlocProvider(create: (context) => LocaleCubit()),
+
+        BlocProvider(
+          create: (context) => LoginScreenCubit()
+            ..fetchInitialInfo()
+            ..dispose(),
+
+        ),
       ],
       child: Builder(
         builder: (context) {

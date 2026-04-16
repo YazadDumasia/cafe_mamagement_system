@@ -20,10 +20,14 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-
+  google_fonts: ^8.0.1
+  font_awesome_flutter: ^11.0.0
+  line_icons: ^2.0.3
+  material_design_icons_flutter: ^7.0.7296
+#
   encrypt:
   synchronized:
-
+#
   json_annotation: ^4.10.0
   platform: ^3.1.6
   go_router: ^17.2.0
@@ -32,12 +36,7 @@ dependencies:
   flutter_bloc: ^9.1.1
   equatable: ^2.0.8
   rxdart: ^0.28.0
-
-  google_fonts: ^8.0.1
-  font_awesome_flutter: ^11.0.0
-  line_icons: ^2.0.3
-  material_design_icons_flutter: ^7.0.7296
-
+#
   csv: ^8.0.0
   flutter_localization: ^0.4.0
 
