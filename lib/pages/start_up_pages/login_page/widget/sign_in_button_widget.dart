@@ -47,7 +47,6 @@ class _SignInButtonWidgetState extends State<SignInButtonWidget> {
                         key: PreferencesKeys.isLoggedIn,
                         value: false,
                       );
-                      
 
                       if (context.mounted) {
                         context.read<LoginScreenCubit>().updateButtonLoading(

@@ -191,6 +191,9 @@ flutter:
           weight: 700
         - asset: assets/font/BwAletaNo10/BwAletaNo10_ExtraBold.ttf
           weight: 800
+    - family: AppLogoIcon
+      fonts:
+        - asset: assets/icons/AppLogoIcon.ttf
     - family: CustomIcon
       fonts:
         - asset: assets/icons/CustomIcon.ttf

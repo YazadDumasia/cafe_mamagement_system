@@ -149,8 +149,8 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
 extension LocalizationExt on BuildContext {
   String? tr(String key, {Map<String, String>? params, String? track}) {
     return AppLocalizations.of(
-          this,
-        )?.translate(key, params: params, track: track);
+      this,
+    )?.translate(key, params: params, track: track);
   }
 }
 

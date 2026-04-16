@@ -106,7 +106,7 @@ class _TextFormEmailFieldWidgetState extends State<TextFormEmailFieldWidget> {
           },
           onFieldSubmitted: (value) async {
             Future.microtask(
-             () => FocusScope.of(
+              () => FocusScope.of(
                 context.mounted ? context : navigatorKey.currentContext!,
               ).requestFocus(widget.nextFocusNode ?? FocusNode()),
             );

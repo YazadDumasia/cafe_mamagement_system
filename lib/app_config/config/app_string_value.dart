@@ -32,8 +32,7 @@ abstract class AppStringValue {
   static String commonPasswordValidatorErrorMsg =
       'common_password_validator_error_msg';
   static String commonPhoneNumberLabel = 'common_phoneNumber_label';
-  static String commonCommonPhoneNumberHint =
-      'common_common_phoneNumber_hint';
+  static String commonCommonPhoneNumberHint = 'common_common_phoneNumber_hint';
   static String commonCommonPhoneNumberValidatorErrorEmptyMsg =
       'common_common_phoneNumber_validator_error_empty_msg';
   static String commonCopiedClipboardMsg = 'common_copied_clipboard_msg';
@@ -46,8 +45,7 @@ abstract class AppStringValue {
   static String loginOr = 'login_or';
   static String loginEmailLabel = 'login_email_label';
   static String loginEmailHint = 'login_email_hint';
-  static String loginEmailValidatorErrorMsg =
-      'login_email_validator_error_msg';
+  static String loginEmailValidatorErrorMsg = 'login_email_validator_error_msg';
   static String loginEmailValidatorEmptyErrorMsg =
       'login_email_validator_empty_error_msg';
   static String loginPasswordLabel = 'login_password_label';
@@ -62,8 +60,7 @@ abstract class AppStringValue {
   static String loginLoadingInactiveBtn = 'login_loading_inactive_btn';
   static String loginViaFacebookTooltip = 'login_via_facebook_tooltip';
   static String loginViaGoogleTooltip = 'login_via_google_tooltip';
-  static String loginViaPhoneNumberTooltip =
-      'login_via_phone_number_tooltip';
+  static String loginViaPhoneNumberTooltip = 'login_via_phone_number_tooltip';
   static String loginGoogleLoginError = 'login_google_login_error';
   static String loginOk = 'login_Ok';
 
@@ -72,8 +69,7 @@ abstract class AppStringValue {
   static String tableNameLabelText = 'table_name_label_text';
   static String tableNameHintText = 'table_name_hint_text';
   static String tableNameErrorText = 'table_name_error_text';
-  static String tableNosOfChairsLabelText =
-      'table_nos_of_chairs_label_text';
+  static String tableNosOfChairsLabelText = 'table_nos_of_chairs_label_text';
   static String tableNosOfChairsHintText = 'table_nos_of_chairs_hint_text';
   static String tableInfoAppBarTitle = 'table_info_app_bar_title';
   static String commonListViewTooltip = 'common_list_view_tooltip';
@@ -86,8 +82,7 @@ abstract class AppStringValue {
   static String tableFailedToDeletedText = 'table_failed_to_deleted_text';
   static String colorIndicatorTableLabelText =
       'color_indicator_table_label_text';
-  static String colorIndicatorTableHintText =
-      'color_indicator_table_hint_text';
+  static String colorIndicatorTableHintText = 'color_indicator_table_hint_text';
   static String tableColorIndicatorLabelText =
       'table_color_indicator_label_text';
   static String tableScreenDeleteTitleTxt = 'table_screen_delete_title_txt';
@@ -105,10 +100,8 @@ abstract class AppStringValue {
   static String menuCategoryAppbarTitle = 'menu_category_appbar_title';
   static String addMenuCategoryIconTooltipText =
       'add_menu_category_icon_tooltip_text';
-  static String menuCategoryEmptyTitleText =
-      'menu_category_empty_title_text';
-  static String menuCategoryAddNewCategory =
-      'menu_category_add_new_category';
+  static String menuCategoryEmptyTitleText = 'menu_category_empty_title_text';
+  static String menuCategoryAddNewCategory = 'menu_category_add_new_category';
   static String menuCategorySearchNoSuggestions =
       'menu_category_search_no_suggestions';
 
@@ -117,8 +110,7 @@ abstract class AppStringValue {
   static String menuCategoryLabelText = 'menu_category_label_text';
   static String menuCategoryHintText = 'menu_category_hint_text';
   static String menuCategoryErrorText = 'menu_category_error_text';
-  static String addMenuSubCategoryBtnText =
-      'add_menu_sub_category_btn_text';
+  static String addMenuSubCategoryBtnText = 'add_menu_sub_category_btn_text';
   static String menuCategoryAddedSuccessfullyText =
       'menu_category_added_successfully_text';
   static String menuCategoryAddedFailedSuccessfullyText =
@@ -133,10 +125,8 @@ abstract class AppStringValue {
       'menu_sub_category_new_added_failed_successfully_text';
 
   //edit_menu_category_screen
-  static String editMenuCategoryAppbarText =
-      'edit_menu_category_appbar_text';
-  static String menuSubCategoryAppbarTitle =
-      'menu_sub_category_appbar_title';
+  static String editMenuCategoryAppbarText = 'edit_menu_category_appbar_text';
+  static String menuSubCategoryAppbarTitle = 'menu_sub_category_appbar_title';
   static String menuSubCategoryUnderCategory =
       'menu_sub_category_under_category';
   static String editMenuCategoryFailedToUpdateCategoryMsg =
@@ -147,8 +137,7 @@ abstract class AppStringValue {
       'menu_category_updated_successfully_text';
   static String menuSubCategoryUpdateSuccessfully =
       'menu_subCategory_update_successfully';
-  static String menuSubCategoryUpdateFailed =
-      'menu_subCategory_update_failed';
+  static String menuSubCategoryUpdateFailed = 'menu_subCategory_update_failed';
   static String menuCategoryFullListEnableToUpdateCategoryMsg =
       'menu_category_full_list_enable_to_update_category_msg';
   static String menuCategoryFullListUnableToUpdateCategoryMsg =
@@ -184,8 +173,7 @@ abstract class AppStringValue {
       'attendace_screen_delete_dialog_subTitle';
 
   static String leaveScreenOptionNew = 'leave_screen_option_new';
-  static String leaveScreenOptionInProgress =
-      'leave_screen_option_in_progress';
+  static String leaveScreenOptionInProgress = 'leave_screen_option_in_progress';
   static String leaveScreenOptionCompleted = 'leave_screen_option_completed';
   static String leaveScreenOptionCanceled = 'leave_screen_option_canceled';
 

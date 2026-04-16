@@ -11,6 +11,3 @@ export 'config/app_localizations.dart';
 export 'config/language_preferences.dart';
 export 'config/app_extensions.dart';
 export 'config/app_string_value.dart';
-
-
-

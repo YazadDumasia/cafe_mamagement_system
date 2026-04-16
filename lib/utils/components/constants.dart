@@ -9,20 +9,18 @@ import 'package:shared_preferences/shared_preferences.dart' as sp;
 import '../../model/translator_language/translator_language.dart' as tlasm;
 
 class Constants {
-
-  static const String commonTrack='common';
-  static const String errorMsgTrack='error_msg';
-  static const String loginPageTrack='login_page';
-  static const String tablePageTrack='table_page';
-  static const String menuCategoryPageTrack='menu_category_page';
-  static const String menuSubCategoryPageTrack='menu_subCategory_page';
-  static const String menuMainPageTrack='menu_main_page';
-  static const String employeeTrack='employee';
-  static const String utilsTrack='utils';
-  static const String permissionPageTrack='permission_page';
-  static const String settingsPageTrack='settings_page';
-  static const String recipesTrack='recipes';
-
+  static const String commonTrack = 'common';
+  static const String errorMsgTrack = 'error_msg';
+  static const String loginPageTrack = 'login_page';
+  static const String tablePageTrack = 'table_page';
+  static const String menuCategoryPageTrack = 'menu_category_page';
+  static const String menuSubCategoryPageTrack = 'menu_subCategory_page';
+  static const String menuMainPageTrack = 'menu_main_page';
+  static const String employeeTrack = 'employee';
+  static const String utilsTrack = 'utils';
+  static const String permissionPageTrack = 'permission_page';
+  static const String settingsPageTrack = 'settings_page';
+  static const String recipesTrack = 'recipes';
 
   static Map<String, String> hashMap = <String, String>{};
   static const String kValidHexPattern = r'^#?[0-9a-fA-F]{1,8}';

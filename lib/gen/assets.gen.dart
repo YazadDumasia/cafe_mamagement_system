@@ -51,6 +51,10 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/app_logo.png
+  AssetGenImage get appLogo =>
+      const AssetGenImage('assets/images/app_logo.png');
+
   /// File path: assets/images/contact_us.jpg
   AssetGenImage get contactUs =>
       const AssetGenImage('assets/images/contact_us.jpg');
@@ -77,9 +81,6 @@ class $AssetsImagesGen {
   /// File path: assets/images/image_placeholder.png
   AssetGenImage get imagePlaceholder =>
       const AssetGenImage('assets/images/image_placeholder.png');
-
-  /// File path: assets/images/logo.png
-  AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
   /// File path: assets/images/profile_user.png
   AssetGenImage get profileUser =>
@@ -112,13 +113,13 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
+    appLogo,
     contactUs,
     emptyMenuCategoryPlaceholder,
     emptyMenuCategoryPlaceholder1,
     hill,
     icContactUs,
     imagePlaceholder,
-    logo,
     profileUser,
     signUp,
     signUp2,

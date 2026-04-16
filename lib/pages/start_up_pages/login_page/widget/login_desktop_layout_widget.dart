@@ -1,6 +1,6 @@
 import 'package:cafe_mamagement_system/app_config/app_config.dart';
-import 'package:cafe_mamagement_system/pages/start_up_pages/login_screen/widget/social_media_login_row_widget.dart';
-import 'package:cafe_mamagement_system/pages/start_up_pages/login_screen/widget/text_form_password_field_widget.dart';
+import 'package:cafe_mamagement_system/pages/start_up_pages/login_page/widget/social_media_login_row_widget.dart';
+import 'package:cafe_mamagement_system/pages/start_up_pages/login_page/widget/text_form_password_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

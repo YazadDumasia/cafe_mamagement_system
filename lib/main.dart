@@ -93,7 +93,6 @@ class _MyAppState extends State<MyApp> {
           create: (context) => LoginScreenCubit()
             ..fetchInitialInfo()
             ..dispose(),
-
         ),
       ],
       child: Builder(

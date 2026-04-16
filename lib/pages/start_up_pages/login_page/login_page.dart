@@ -1,22 +1,17 @@
-import 'dart:math';
-import 'package:cafe_mamagement_system/pages/start_up_pages/login_screen/widget/social_media_login_row_widget.dart';
+import 'dart:math' as math;
 
 import '../../../utils/components/local_keys_enum.dart';
 import '../../../utils/components/local_manager.dart';
 import '../../../utils/components/local_push_notifications_api.dart';
 
-import '../../../app_config/config/app_localizations.dart';
-import '../../../app_config/config/app_string_value.dart';
 import '../../../gen/assets.gen.dart' as assets_gen;
 import '../../../bloc/bloc.dart';
-import '../../../utils/components/animate_gradient.dart';
 import '../../../widgets/widgets.dart';
 
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../no_internet_page/no_internet_page.dart';
 import 'widget/login_desktop_layout_widget.dart';
 import 'widget/login_mobile_layout_widget.dart';
 import 'widget/login_tablet_layout_widget.dart';
@@ -64,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
     passwordFocusNode = FocusNode();
     for (int i = 0; i < 30; i++) {
       listParticleColor.add(
-        Color(Random().nextInt(0xffffffff)).withAlpha(0xff),
+        Color(math.Random().nextInt(0xffffffff)).withAlpha(0xff),
       );
     }
     // _googleSignIn.onCurrentUserChanged
@@ -134,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 passwordTextEditingController: passwordTextEditingController,
                 callLoginApi: callLoginApi,
               ),
-              desktop:  LoginDesktopLayoutWidget(
+              desktop: LoginDesktopLayoutWidget(
                 formKey: _formKey,
                 isFirstTime: widget.isFirstTime,
                 listParticleColor: listParticleColor,
@@ -151,7 +146,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
 
   @override
   void didChangeDependencies() {

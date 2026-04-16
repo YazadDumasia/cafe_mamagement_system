@@ -2,7 +2,6 @@ import '../../../gen/assets.gen.dart' as assets_gen;
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart' as lottie;
 
-
 class LoadingPage extends StatefulWidget {
   const LoadingPage({super.key});
 
@@ -35,7 +34,7 @@ class _LoadingPageState extends State<LoadingPage> {
                       child: lottie.Lottie.asset(
                         assets_gen.Assets.lottie.loading,
                         fit: BoxFit.scaleDown,
-                        width:  MediaQuery.sizeOf(context).width * .65,
+                        width: MediaQuery.sizeOf(context).width * .65,
                         // height: MediaQuery.of(context).size.height * .5,
                       ),
                     ),
@@ -54,7 +53,7 @@ class _LoadingPageState extends State<LoadingPage> {
                       child: lottie.Lottie.asset(
                         assets_gen.Assets.lottie.loading,
                         fit: BoxFit.scaleDown,
-                        width:  MediaQuery.sizeOf(context).width * .65,
+                        width: MediaQuery.sizeOf(context).width * .65,
                         height: MediaQuery.sizeOf(context).height * .45,
                       ),
                     ),

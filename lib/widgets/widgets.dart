@@ -28,6 +28,4 @@ export 'package:cafe_mamagement_system/widgets/responsive_layout/responsive_layo
 export 'package:cafe_mamagement_system/widgets/particles_flutter/component/painter.dart';
 export 'package:cafe_mamagement_system/widgets/particles_flutter/particles_flutter.dart';
 
-
-
 export 'package:cafe_mamagement_system/widgets/pager/pager.dart';

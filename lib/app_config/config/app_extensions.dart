@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 extension ExpandedRowExt on Widget {
   Widget inExpandedRow({
     MainAxisSize mainAxisSize = MainAxisSize.min,
@@ -9,9 +10,7 @@ extension ExpandedRowExt on Widget {
       mainAxisSize: mainAxisSize,
       crossAxisAlignment: crossAxisAlignment,
       mainAxisAlignment: mainAxisAlignment,
-      children: [
-        Expanded(child: this),
-      ],
+      children: [Expanded(child: this)],
     );
   }
 }
@@ -26,25 +25,25 @@ extension ExpandedColumnExt on Widget {
       mainAxisSize: mainAxisSize,
       crossAxisAlignment: crossAxisAlignment,
       mainAxisAlignment: mainAxisAlignment,
-      children: [
-        Expanded(child: this),
-      ],
+      children: [Expanded(child: this)],
     );
   }
 }
 
 extension PaddingExt on Widget {
   /// Adds padding to all sides
-  Widget paddingAll(double value) => Padding(
-    padding: EdgeInsets.all(value),
-    child: this,
-  );
+  Widget paddingAll(double value) =>
+      Padding(padding: EdgeInsets.all(value), child: this);
 
   /// Adds symmetric horizontal and vertical padding
-  Widget paddingSymmetric({double horizontal = 0, double vertical = 0}) => Padding(
-    padding: EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
-    child: this,
-  );
+  Widget paddingSymmetric({double horizontal = 0, double vertical = 0}) =>
+      Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontal,
+          vertical: vertical,
+        ),
+        child: this,
+      );
 
   /// Adds padding to specific sides
   Widget paddingOnly({
@@ -53,7 +52,12 @@ extension PaddingExt on Widget {
     double right = 0,
     double bottom = 0,
   }) => Padding(
-    padding: EdgeInsets.only(left: left, top: top, right: right, bottom: bottom),
+    padding: EdgeInsets.only(
+      left: left,
+      top: top,
+      right: right,
+      bottom: bottom,
+    ),
     child: this,
   );
 }
