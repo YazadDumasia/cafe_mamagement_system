@@ -40,9 +40,7 @@ class SignUpPhoneNumberField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5),
               ),
               disabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).disabledColor,
-                ),
+                borderSide: BorderSide(color: Theme.of(context).disabledColor),
                 borderRadius: BorderRadius.circular(5),
               ),
               enabledBorder: OutlineInputBorder(
@@ -96,8 +94,8 @@ class SignUpPhoneNumberField extends StatelessWidget {
                 'Please enter a valid phone number.',
             onChanged: (number) {
               context.read<SignUpCubit>().updatePhoneNumber(
-                    number.completeNumber,
-                  );
+                number.completeNumber,
+              );
             },
             initialCountryCode: phoneIosCodeSnapshot.data?.isoCode ?? 'IN',
             priorityList: <Country>[

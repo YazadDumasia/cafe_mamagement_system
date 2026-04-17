@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart' show Colors; // For some subtle colors
+// For some subtle colors
 import '../countries.dart';
 import '../country.dart';
 import '../utils/utils.dart';
@@ -42,7 +42,8 @@ class CountryGroupedCupertinoDialog extends StatefulWidget {
       _CountryGroupedCupertinoDialogState();
 }
 
-class _CountryGroupedCupertinoDialogState extends State<CountryGroupedCupertinoDialog> {
+class _CountryGroupedCupertinoDialogState
+    extends State<CountryGroupedCupertinoDialog> {
   late List<Country> _allCountries;
   late List<Country> _filteredCountries;
   Map<String, List<Country>> _groupedCountries = {};
@@ -51,7 +52,9 @@ class _CountryGroupedCupertinoDialogState extends State<CountryGroupedCupertinoD
   @override
   void initState() {
     super.initState();
-    _allCountries = countryList.where(widget.itemFilter ?? acceptAllCountries).toList();
+    _allCountries = countryList
+        .where(widget.itemFilter ?? acceptAllCountries)
+        .toList();
 
     if (widget.sortComparator != null) {
       _allCountries.sort(widget.sortComparator);
@@ -70,7 +73,7 @@ class _CountryGroupedCupertinoDialogState extends State<CountryGroupedCupertinoD
 
   void _updateLists() {
     _flatList = [];
-    
+
     // 1. Identify priority matches
     List<Country> priorityMatches = [];
     if (widget.priorityList != null && widget.priorityList!.isNotEmpty) {
@@ -90,7 +93,7 @@ class _CountryGroupedCupertinoDialogState extends State<CountryGroupedCupertinoD
     }).toList();
 
     _groupedCountries = CountryPickerUtils.groupCountries(nonPriorityCountries);
-    
+
     final keys = _groupedCountries.keys.toList()..sort();
     for (var key in keys) {
       _flatList.add(key); // Header
@@ -101,7 +104,8 @@ class _CountryGroupedCupertinoDialogState extends State<CountryGroupedCupertinoD
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      backgroundColor: widget.backgroundColor ?? CupertinoColors.systemBackground,
+      backgroundColor:
+          widget.backgroundColor ?? CupertinoColors.systemBackground,
       navigationBar: CupertinoNavigationBar(
         middle: widget.title ?? const Text('Select Country'),
         previousPageTitle: 'Back',
@@ -119,9 +123,15 @@ class _CountryGroupedCupertinoDialogState extends State<CountryGroupedCupertinoD
                       _filteredCountries = _allCountries
                           .where(
                             (Country country) => widget.searchFilter == null
-                                ? country.name.toLowerCase().contains(value.toLowerCase()) ||
-                                    country.phoneCode.startsWith(value.toLowerCase()) ||
-                                    country.isoCode.toLowerCase().startsWith(value.toLowerCase())
+                                ? country.name.toLowerCase().contains(
+                                        value.toLowerCase(),
+                                      ) ||
+                                      country.phoneCode.startsWith(
+                                        value.toLowerCase(),
+                                      ) ||
+                                      country.isoCode.toLowerCase().startsWith(
+                                        value.toLowerCase(),
+                                      )
                                 : widget.searchFilter!(country, value),
                           )
                           .toList();
@@ -156,12 +166,12 @@ class _CountryGroupedCupertinoDialogState extends State<CountryGroupedCupertinoD
                       },
                     )
                   : widget.searchEmptyView ??
-                      const Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(20.0),
-                          child: Text('No country found.'),
+                        const Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Text('No country found.'),
+                          ),
                         ),
-                      ),
             ),
           ],
         ),
@@ -191,10 +201,7 @@ class _CountryGroupedCupertinoDialogState extends State<CountryGroupedCupertinoD
       padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
       decoration: const BoxDecoration(
         border: Border(
-          bottom: BorderSide(
-            color: CupertinoColors.separator,
-            width: 0.5,
-          ),
+          bottom: BorderSide(color: CupertinoColors.separator, width: 0.5),
         ),
       ),
       child: Row(

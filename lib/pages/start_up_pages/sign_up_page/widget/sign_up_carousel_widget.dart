@@ -40,9 +40,7 @@ class SignUpCarouselWidget extends StatelessWidget {
                     pauseAutoPlayOnTouch: true,
                     initialPage: 0,
                     pauseAutoPlayInFiniteScroll: false,
-                    autoPlayAnimationDuration: const Duration(
-                      seconds: 1,
-                    ),
+                    autoPlayAnimationDuration: const Duration(seconds: 1),
                     viewportFraction: 1.0,
                     height: size.height,
                   ),
@@ -50,19 +48,14 @@ class SignUpCarouselWidget extends StatelessWidget {
                     return Builder(
                       builder: (BuildContext context) {
                         return ClipRRect(
-                          borderRadius: BorderRadius.circular(
-                            5.0,
-                          ),
+                          borderRadius: BorderRadius.circular(5.0),
                           child: Container(
                             width: size.width,
                             height: size.height,
                             decoration: const BoxDecoration(
                               color: Colors.white,
                             ),
-                            child: Image.asset(
-                              image,
-                              fit: BoxFit.fill,
-                            ),
+                            child: Image.asset(image, fit: BoxFit.fill),
                           ),
                         );
                       },
@@ -76,17 +69,12 @@ class SignUpCarouselWidget extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5.0),
               child: BackdropFilter(
-                filter: ImageFilter.blur(
-                  sigmaX: 10.0,
-                  sigmaY: 10.0,
-                ),
+                filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
                 child: Container(
                   height: size.height * .35,
                   width: size.width * .4,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade200.withValues(
-                      alpha: 0.5,
-                    ),
+                    color: Colors.grey.shade200.withValues(alpha: 0.5),
                   ),
                   child: Center(
                     child: Padding(

@@ -17,11 +17,7 @@ class SignUpHeaderWidget extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 10,
-                  right: 10,
-                  top: 15,
-                ),
+                padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
                 child: Text(
                   context.tr(
                         AppStringValue.signUpWelcomeTitleMessage,
@@ -42,11 +38,7 @@ class SignUpHeaderWidget extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 10,
-                  right: 10,
-                  top: 15,
-                ),
+                padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
                 child: Text(
                   context.tr(
                         AppStringValue.createAnAccountMsg,

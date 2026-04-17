@@ -45,7 +45,8 @@ class CountryGroupedMaterialDialog extends StatefulWidget {
       _CountryGroupedMaterialDialogState();
 }
 
-class _CountryGroupedMaterialDialogState extends State<CountryGroupedMaterialDialog> {
+class _CountryGroupedMaterialDialogState
+    extends State<CountryGroupedMaterialDialog> {
   late List<Country> _allCountries;
   late List<Country> _filteredCountries;
   Map<String, List<Country>> _groupedCountries = {};
@@ -54,7 +55,9 @@ class _CountryGroupedMaterialDialogState extends State<CountryGroupedMaterialDia
   @override
   void initState() {
     super.initState();
-    _allCountries = countryList.where(widget.itemFilter ?? acceptAllCountries).toList();
+    _allCountries = countryList
+        .where(widget.itemFilter ?? acceptAllCountries)
+        .toList();
 
     if (widget.sortComparator != null) {
       _allCountries.sort(widget.sortComparator);
@@ -73,7 +76,7 @@ class _CountryGroupedMaterialDialogState extends State<CountryGroupedMaterialDia
 
   void _updateLists() {
     _flatList = [];
-    
+
     // 1. Identify priority matches
     List<Country> priorityMatches = [];
     if (widget.priorityList != null && widget.priorityList!.isNotEmpty) {
@@ -99,7 +102,7 @@ class _CountryGroupedMaterialDialogState extends State<CountryGroupedMaterialDia
     }).toList();
 
     _groupedCountries = CountryPickerUtils.groupCountries(nonPriorityCountries);
-    
+
     final keys = _groupedCountries.keys.toList()..sort();
     for (var key in keys) {
       _flatList.add(key); // The header
@@ -146,10 +149,12 @@ class _CountryGroupedMaterialDialogState extends State<CountryGroupedMaterialDia
                     },
                   )
                 : widget.searchEmptyView ??
-                    const Center(child: Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Text('No country found.'),
-                    )),
+                      const Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: Text('No country found.'),
+                        ),
+                      ),
           ),
         ],
       ),
@@ -161,11 +166,15 @@ class _CountryGroupedMaterialDialogState extends State<CountryGroupedMaterialDia
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
       child: TextField(
         cursorColor: widget.searchCursorColor,
-        decoration: widget.searchInputDecoration ??
+        decoration:
+            widget.searchInputDecoration ??
             InputDecoration(
               hintText: 'Search',
               prefixIcon: const Icon(Icons.search),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 12,
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
                 borderSide: BorderSide(color: Colors.grey.shade300),
@@ -180,9 +189,13 @@ class _CountryGroupedMaterialDialogState extends State<CountryGroupedMaterialDia
             _filteredCountries = _allCountries
                 .where(
                   (Country country) => widget.searchFilter == null
-                      ? country.name.toLowerCase().contains(value.toLowerCase()) ||
-                          country.phoneCode.startsWith(value.toLowerCase()) ||
-                          country.isoCode.toLowerCase().startsWith(value.toLowerCase())
+                      ? country.name.toLowerCase().contains(
+                              value.toLowerCase(),
+                            ) ||
+                            country.phoneCode.startsWith(value.toLowerCase()) ||
+                            country.isoCode.toLowerCase().startsWith(
+                              value.toLowerCase(),
+                            )
                       : widget.searchFilter!(country, value),
                 )
                 .toList();
@@ -215,7 +228,9 @@ class _CountryGroupedMaterialDialogState extends State<CountryGroupedMaterialDia
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: Colors.grey.shade300, width: 0.5)),
+        border: Border(
+          bottom: BorderSide(color: Colors.grey.shade300, width: 0.5),
+        ),
       ),
       child: Row(
         children: <Widget>[
@@ -227,10 +242,7 @@ class _CountryGroupedMaterialDialogState extends State<CountryGroupedMaterialDia
           ),
           const SizedBox(width: 16.0),
           Expanded(
-            child: Text(
-              country.name,
-              style: const TextStyle(fontSize: 16),
-            ),
+            child: Text(country.name, style: const TextStyle(fontSize: 16)),
           ),
         ],
       ),

@@ -26,7 +26,8 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(SignUpLoadingState());
     if (PlatformUtils.isMobileApp() == true) {
       try {
-       final List<Locale> systemLocales = WidgetsBinding.instance.platformDispatcher.locales;
+        final List<Locale> systemLocales =
+            WidgetsBinding.instance.platformDispatcher.locales;
         final String? isoCountryCode = systemLocales.first.countryCode;
         PlatformUtils.debugLog(
           SignUpCubit,
@@ -144,7 +145,8 @@ class SignUpCubit extends Cubit<SignUpState> {
     if (country == null) {
       if (PlatformUtils.isMobileApp() == true) {
         try {
-        final List<Locale> systemLocales = WidgetsBinding.instance.platformDispatcher.locales;
+          final List<Locale> systemLocales =
+              WidgetsBinding.instance.platformDispatcher.locales;
           final String? isoCountryCode = systemLocales.first.countryCode;
           PlatformUtils.debugLog(
             SignUpCubit,
@@ -250,7 +252,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   Future<void> updateConfirmPassword(String? confirmPassword) async {
-    if (confirmPassword?.isNotEmpty??false) {
+    if (confirmPassword?.isNotEmpty ?? false) {
       String? password = '';
       try {
         password = _passwordController.valueOrNull;
@@ -259,7 +261,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       }
       // print("password:$password");
       if (confirmPassword?.compareTo(password ?? '') == 0) {
-        _confirmPasswordController.sink.add(confirmPassword??'');
+        _confirmPasswordController.sink.add(confirmPassword ?? '');
       } else {
         _confirmPasswordController.sink.addError('Password is not match up..');
       }

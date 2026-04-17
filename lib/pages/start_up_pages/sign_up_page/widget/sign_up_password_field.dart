@@ -45,8 +45,9 @@ class SignUpPasswordField extends StatelessWidget {
                           keyboardType: TextInputType.text,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           textInputAction: TextInputAction.next,
-                          onFieldSubmitted: (value) =>
-                              FocusScope.of(context).requestFocus(nextFocusNode),
+                          onFieldSubmitted: (value) => FocusScope.of(
+                            context,
+                          ).requestFocus(nextFocusNode),
                           validator: (value) {
                             if (snapshot.hasError) {
                               return snapshot.error.toString();
@@ -64,16 +65,16 @@ class SignUpPasswordField extends StatelessWidget {
                             contentPadding: const EdgeInsets.all(20),
                             hintText:
                                 context.tr(
-                                      AppStringValue.commonPasswordLabel,
-                                      track: Constants.commonTrack,
-                                    ) ??
-                                    'Password',
+                                  AppStringValue.commonPasswordLabel,
+                                  track: Constants.commonTrack,
+                                ) ??
+                                'Password',
                             labelText:
                                 context.tr(
-                                      AppStringValue.commonPasswordHint,
-                                      track: Constants.commonTrack,
-                                    ) ??
-                                    'Password',
+                                  AppStringValue.commonPasswordHint,
+                                  track: Constants.commonTrack,
+                                ) ??
+                                'Password',
                             isDense: true,
                             suffixIcon: IconButton(
                               onPressed: () async {
@@ -151,8 +152,11 @@ class SignUpPasswordField extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         _RequirementItem(
-                          stream: context.watch<SignUpCubit>().isPasswordSizeRequire,
-                          label: context.tr(
+                          stream: context
+                              .watch<SignUpCubit>()
+                              .isPasswordSizeRequire,
+                          label:
+                              context.tr(
                                 AppStringValue.signUpPasswordSizeRequireText,
                                 track: Constants.signUpTrack,
                               ) ??
@@ -160,8 +164,11 @@ class SignUpPasswordField extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         _RequirementItem(
-                          stream: context.watch<SignUpCubit>().isPasswordOneLowerCase,
-                          label: context.tr(
+                          stream: context
+                              .watch<SignUpCubit>()
+                              .isPasswordOneLowerCase,
+                          label:
+                              context.tr(
                                 AppStringValue.signUpPasswordOneLowerCaseText,
                                 track: Constants.signUpTrack,
                               ) ??
@@ -169,8 +176,11 @@ class SignUpPasswordField extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         _RequirementItem(
-                          stream: context.watch<SignUpCubit>().isPasswordOneUpperCase,
-                          label: context.tr(
+                          stream: context
+                              .watch<SignUpCubit>()
+                              .isPasswordOneUpperCase,
+                          label:
+                              context.tr(
                                 AppStringValue.signUpPasswordOneUpperCaseText,
                                 track: Constants.signUpTrack,
                               ) ??
@@ -178,8 +188,11 @@ class SignUpPasswordField extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         _RequirementItem(
-                          stream: context.watch<SignUpCubit>().isPasswordOneNumCase,
-                          label: context.tr(
+                          stream: context
+                              .watch<SignUpCubit>()
+                              .isPasswordOneNumCase,
+                          label:
+                              context.tr(
                                 AppStringValue.signUpPasswordOneNumCaseText,
                                 track: Constants.signUpTrack,
                               ) ??
@@ -187,8 +200,11 @@ class SignUpPasswordField extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         _RequirementItem(
-                          stream: context.watch<SignUpCubit>().isPasswordOneSpecialChar,
-                          label: 'Contains at least 1 special character like !@#\$&*~+-',
+                          stream: context
+                              .watch<SignUpCubit>()
+                              .isPasswordOneSpecialChar,
+                          label:
+                              'Contains at least 1 special character like !@#\$&*~+-',
                         ),
                         const SizedBox(height: 5),
                       ],
@@ -205,10 +221,7 @@ class SignUpPasswordField extends StatelessWidget {
 }
 
 class _RequirementItem extends StatelessWidget {
-  const _RequirementItem({
-    required this.stream,
-    required this.label,
-  });
+  const _RequirementItem({required this.stream, required this.label});
 
   final Stream stream;
   final String label;
@@ -228,28 +241,22 @@ class _RequirementItem extends StatelessWidget {
               width: 20,
               height: 20,
               decoration: BoxDecoration(
-                color: snapshot.data ?? false ? Colors.green : Colors.transparent,
+                color: snapshot.data ?? false
+                    ? Colors.green
+                    : Colors.transparent,
                 border: snapshot.data ?? false
                     ? Border.all(color: Colors.transparent)
-                    : Border.all(
-                        color: Colors.grey.shade400,
-                      ),
+                    : Border.all(color: Colors.grey.shade400),
                 borderRadius: BorderRadius.circular(50),
               ),
               child: const Center(
-                child: Icon(
-                  Icons.check,
-                  color: Colors.white,
-                  size: 15,
-                ),
+                child: Icon(Icons.check, color: Colors.white, size: 15),
               ),
             );
           },
         ),
         const SizedBox(width: 10),
-        Flexible(
-          child: Text(label),
-        ),
+        Flexible(child: Text(label)),
       ],
     );
   }
