@@ -12,6 +12,7 @@ class Constants {
   static const String commonTrack = 'common';
   static const String errorMsgTrack = 'error_msg';
   static const String loginPageTrack = 'login_page';
+  static const String signUpTrack = 'sign_up';
   static const String tablePageTrack = 'table_page';
   static const String menuCategoryPageTrack = 'menu_category_page';
   static const String menuSubCategoryPageTrack = 'menu_subCategory_page';

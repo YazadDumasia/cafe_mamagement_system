@@ -15,7 +15,7 @@ abstract class AppStringValue {
   static String commonSubmit = 'common_submit';
   static String commonUpdate = 'common_update';
   static String commonDelete = 'common_delete';
-  static String commonSearchHintText = 'common_search_hint_text';
+  static String commonSearchHint = 'common_search_hint';
   static String commonAlertTitleText = 'common_alert_title_text';
   static String commonActive = 'common_active';
   static String commonInactive = 'common_inactive';
@@ -27,6 +27,8 @@ abstract class AppStringValue {
   static String commonPasswordHint = 'common_password_hint';
   static String commonEmailValidatorErrorMsg =
       'common_email_validator_error_msg';
+  static String commonEmailValidatorEmptyErrorMsg =
+      'common_email_validator_empty_error_msg';
   static String commonPasswordValidatorErrorEmptyMsg =
       'common_password_validator_error_empty_msg';
   static String commonPasswordValidatorErrorMsg =
@@ -63,6 +65,10 @@ abstract class AppStringValue {
   static String loginViaPhoneNumberTooltip = 'login_via_phone_number_tooltip';
   static String loginGoogleLoginError = 'login_google_login_error';
   static String loginOk = 'login_Ok';
+
+  //SignUpScreen
+  static String signUpWelcomeTitleMessage = 'sign_up_welcome_title_message';
+  static String createAnAccountMsg = 'create_an_account_msg';
 
   //TableScreen
   static String addNewTableTitle = 'add_new_table_title';
@@ -177,8 +183,6 @@ abstract class AppStringValue {
   static String leaveScreenOptionCompleted = 'leave_screen_option_completed';
   static String leaveScreenOptionCanceled = 'leave_screen_option_canceled';
 
-  static String todayAvailable = 'today_available';
-
   static String addEditMenuItemScreenCreateSuccessfully =
       'add_edit_menu_item_screen_create_successfully';
   static String addEditMenuItemScreenUpdateSuccessfully =
@@ -191,4 +195,60 @@ abstract class AppStringValue {
       'menu_category_full_list_delete_dialog_subTitle';
   static String dateFormaterScreenTitleLabel =
       'date_formater_screen_title_label';
+
+  static String commonLastNameFieldLabel = "common_last_name_field_label";
+  static String commonLastNameFieldHint = "common_last_name_field_hint";
+  static String commonLastNameFieldValidatorErrorMsg =
+      "common_last_name_field_validator_error_msg";
+  static String signUpPasswordSizeRequireText =
+      "sign_up_password_size_require_text";
+  static String commonfirstNameFieldValidatorErrorMsg =
+      "common_first_name_field_validator_error_msg";
+  static String commonfirstNameFieldLabel = "common_first_name_field_label";
+  static String commonfirstNameFieldHint = "common_first_name_field_hint";
+  static String commonUserNameFieldLabel = "common_user_name_field_label";
+  static String commonUserNameFieldHint = "common_user_name_field_hint";
+  static String commonUserNameFieldValidatorErrorMsg =
+      "common_user_name_field_validator_error_msg";
+  static String commonDobFieldLabel = "common_dob_field_label";
+  static String commonDobFieldHint = "common_dob_field_hint";
+  static String commonDobFieldValidatorEmptyErrorMsg =
+      "common_dob_field_validator_empty_error_msg";
+  static String commonDobFieldValidatorErrorMsg =
+      "common_dob_field_validator_error_msg";
+  static String signUpPasswordOneLowerCaseText =
+      "sign_up_password_one_lower_case_text";
+  static String signUpPasswordOneUpperCaseText =
+      "sign_up_password_one_upper_case_text";
+  static String signUpPasswordOneNumCaseText =
+      "sign_up_password_one_num_case_text";
+  static String commonComfirmPasswordHint = "common_comfirm_password_hint";
+  static String commonComfirmPasswordLabel = "common_comfirm_password_label";
+  static String commonGenderLabel = "common_gender_label";
+  static String commonGenderFemaleLabel = "common_gender_female_label";
+  static String commonGenderMaleLabel = "common_gender_male_label";
+  static String commonSearchLabel = "common_search_label";
+  static String signUpAgeRestrictionMessage = "sign_up_age_restriction_message";
+  static String commonBack = 'common_back';
+  static String commonNil = 'common_nil';
+  static String commonClose = 'common_close';
+  static String commonConfirm = 'common_confirm';
+  static String commonDismiss = 'common_dismiss';
+  static String commonRetry = 'common_retry';
+  static String commonPleaseWait = 'common_please_wait';
+  static String commonNoDataFoundMsg = 'common_no_data_found_msg';
+  static String commonNoSearchResultFoundMsg =
+      'common_no_search_result_found_msg';
+  static String pagerFirstPage = 'pager_first_page';
+  static String pagerLastPage = 'pager_last_page';
+  static String pagerNextPage = 'pager_next_page';
+  static String pagerPrevious = 'pager_previous';
+  static String pagerNext = 'pager_next';
+  static String todayAvailable = 'today_available';
+  static String commonPasswordSizeRequireText =
+      'common_password_size_require_text';
+
+  static String commonGenderOtherLabel = 'common_gender_other_label';
+
+  static String signUsSubmitBtn = 'sign_up_submit_btn';
 }

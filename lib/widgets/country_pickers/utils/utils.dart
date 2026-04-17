@@ -11,6 +11,8 @@ class CountryPickerUtils {
       iso3Code: 'AFG',
       minLength: 9,
       maxLength: 9,
+      currencySymbol: '؋',
+      continent: 'Asia',
     );
   }
 
@@ -113,5 +115,27 @@ class CountryPickerUtils {
         'The initialValue provided is not a supported phone code!',
       );
     }
+  }
+
+  static List<Country>? getAllCountriesBycontinent(String continent) {
+    try {
+      return countryList
+          .where((final Country country) => country.continent == continent)
+          .toList();
+    } catch (error) {
+      throw Exception(
+        'The initialValue provided is not a supported phone code!',
+      );
+    }
+  }
+
+  static Map<String, List<Country>> groupCountries(List<Country> countryList) {
+    final Map<String, List<Country>> countriesByContinent = {};
+    for (var country in countryList) {
+      final continent = country.continent ?? 'Unknown';
+      countriesByContinent.putIfAbsent(continent, () => []);
+      countriesByContinent[continent]!.add(country);
+    }
+    return countriesByContinent;
   }
 }

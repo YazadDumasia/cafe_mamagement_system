@@ -174,6 +174,7 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
                             name: 'United States',
                             minLength: 10,
                             maxLength: 10,
+                            continent: 'North America',
                           ),
                         )
                       : Text(

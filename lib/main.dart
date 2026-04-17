@@ -94,6 +94,11 @@ class _MyAppState extends State<MyApp> {
             ..fetchInitialInfo()
             ..dispose(),
         ),
+        BlocProvider(
+          create: (context) => SignUpCubit()
+            ..fetchInitialInfo()
+            ..dispose(),
+        ),
       ],
       child: Builder(
         builder: (context) {

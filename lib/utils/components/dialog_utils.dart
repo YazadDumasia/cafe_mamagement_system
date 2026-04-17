@@ -175,23 +175,33 @@ class DialogUtils {
                   visible: (descriptions == null || descriptions.isEmpty)
                       ? false
                       : true,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          descriptions ?? '',
-                          style: Theme.of(context).textTheme.titleMedium!
-                              .copyWith(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                fontWeight: FontWeight.w700,
-                              ),
-                          textAlign: TextAlign.start,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: 5,
+                      right: 5,
+                      bottom: 0,
+                      top: (title?.isNotEmpty ?? false) ? 0 : 10,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          child: Text(
+                            descriptions ?? '',
+                            style: Theme.of(context).textTheme.titleMedium!
+                                .copyWith(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onPrimary,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                            textAlign: TextAlign.start,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],

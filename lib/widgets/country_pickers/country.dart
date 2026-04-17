@@ -10,6 +10,7 @@ class Country {
     required this.maxLength,
     this.currencySymbol = '',
     this.regionCode = '',
+    required this.continent,
   });
 
   factory Country.fromMap(Map<String, dynamic> map) {
@@ -24,6 +25,7 @@ class Country {
       minLength: map['minLength']!,
       maxLength: map['maxLength']!,
       regionCode: map['regionCode'] ?? '',
+      continent: map['continent'] ?? '',
     );
   }
   final String name;
@@ -32,6 +34,7 @@ class Country {
   final String currencySymbol;
   final String phoneCode;
   final String regionCode;
+  final String? continent;
   final int minLength;
   final int maxLength;
 
@@ -43,6 +46,7 @@ class Country {
       'currencySymbol': currencySymbol,
       'phoneCode': phoneCode,
       'regionCode': regionCode,
+      'continent': continent,
       'minLength': minLength,
       'maxLength': maxLength,
     }..removeWhere((key, Object? value) => value == null);
