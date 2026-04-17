@@ -123,8 +123,9 @@ class _SignUpPageState extends State<SignUpPage> {
           context: context,
           builder: (BuildContext builder) {
             return Container(
+              width: MediaQuery.of(context).copyWith().size.width,
               height: MediaQuery.of(context).copyWith().size.height / 3,
-              color: Colors.white,
+              color: Theme.of(context).dialogTheme.backgroundColor,
               child: CupertinoDatePicker(
                 mode: CupertinoDatePickerMode.date,
                 onDateTimeChanged: (DateTime picker) {
@@ -132,7 +133,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 },
                 initialDateTime: DateTime.now(),
                 minimumYear: 1900,
-                maximumYear: 2101,
+                maximumYear: DateTime.now().year + 150,
               ),
             );
           },
