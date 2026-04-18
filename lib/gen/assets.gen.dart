@@ -32,6 +32,9 @@ class $AssetsDataGen {
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/AppLogoIcon.ttf
+  String get appLogoIcon => 'assets/icons/AppLogoIcon.ttf';
+
   /// File path: assets/icons/CustomIcon.ttf
   String get customIcon => 'assets/icons/CustomIcon.ttf';
 
@@ -45,7 +48,13 @@ class $AssetsIconsGen {
   String get menuSearch => 'assets/icons/Menu_search.ttf';
 
   /// List of all assets
-  List<String> get values => [customIcon, inventoryIcon, menuIcons, menuSearch];
+  List<String> get values => [
+    appLogoIcon,
+    customIcon,
+    inventoryIcon,
+    menuIcons,
+    menuSearch,
+  ];
 }
 
 class $AssetsImagesGen {

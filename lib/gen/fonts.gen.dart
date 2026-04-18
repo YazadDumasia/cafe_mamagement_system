@@ -11,6 +11,9 @@
 class FontFamily {
   FontFamily._();
 
+  /// Font family: AppLogoIcon
+  static const String appLogoIcon = 'AppLogoIcon';
+
   /// Font family: BwAletaNo10
   static const String bwAletaNo10 = 'BwAletaNo10';
 

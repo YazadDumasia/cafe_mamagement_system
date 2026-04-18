@@ -19,6 +19,8 @@ import 'app_config/config/app_localizations.dart';
 import 'model/language_model/language_model.dart';
 import 'utils/components/constants.dart';
 import 'utils/components/local_manager.dart';
+import 'routing/routing.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -106,7 +108,8 @@ class _MyAppState extends State<MyApp> {
           return PageStorage(
             bucket: global.bucketGlobal,
             child: MaterialApp.router(
-              // routerConfig: appRouter,
+              routerConfig: goRouter,
+
               title: AppConfig.appName,
               // showPerformanceOverlay: true,
               debugShowCheckedModeBanner: false,
@@ -118,7 +121,8 @@ class _MyAppState extends State<MyApp> {
               themeAnimationCurve: Curves.linear,
               themeAnimationDuration: const Duration(milliseconds: 700),
               locale: context.watch<LocaleCubit>().state,
-              // navigatorKey: global.navigatorKey,
+              // locale: context.watch<LocaleCubit>().state,
+
               themeAnimationStyle: AnimationStyle(
                 duration: const Duration(seconds: 3),
                 curve: Curves.slowMiddle,
