@@ -1,14 +1,3 @@
-// import '../../routing/routs.dart';
-import 'package:flutter/material.dart';
-
-// final NavigationRoutes navigationRoutes = NavigationRoutes.getInstance();
-
-final PageStorageBucket bucketGlobal = PageStorageBucket();
-
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>(
-  debugLabel: 'navigatorKey',
-);
-
 // Define a list of language objects
 List<Map<String, String>> jsonLanguagesData = <Map<String, String>>[
   <String, String>{'name': 'Afrikaans', 'code_2': 'af'},

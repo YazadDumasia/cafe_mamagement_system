@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:cafe_mamagement_system/gen/assets.gen.dart' as asts;
-import 'package:cafe_mamagement_system/utils/components/global.dart' as global;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart' as spinkit;
 import 'package:lottie/lottie.dart' as lottie;
+
+import '../../routing/navigation_service.dart';
 
 class DialogUtils {
   static Future<void> showAutoDismissDialog({
@@ -227,9 +228,7 @@ class DialogUtils {
 
     counter = Timer(showForHowDuration ?? const Duration(seconds: 3), () {
       counter?.cancel();
-      Navigator.of(
-        context.mounted ? context : global.navigatorKey.currentContext!,
-      ).pop();
+      Navigator.of(context.mounted ? context : NavigationService.context).pop();
     });
 
     await showDialog(

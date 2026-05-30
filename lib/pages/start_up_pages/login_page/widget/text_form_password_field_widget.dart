@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../app_config/app_config.dart';
 import '../../../../bloc/login_cubit/login_screen_cubit.dart';
-import '../../../../utils/components/global.dart';
+import '../../../../routing/navigation_service.dart';
 import '../../../../utils/components/platform_utils.dart';
 
 class TextFormPasswordFieldWidget extends StatefulWidget {
@@ -116,7 +116,7 @@ class _TextFormPasswordFieldWidgetState
           onFieldSubmitted: (value) {
             Future.microtask(
               () => FocusScope.of(
-                context.mounted ? context : navigatorKey.currentContext!,
+                context.mounted ? context : NavigationService.context,
               ).unfocus(),
             );
           },

@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart' as faf;
 
 import '../../../../app_config/app_config.dart' as config;
 import '../../../../app_config/config/app_localizations.dart' as localizations;
+import '../../../../routing/routing.dart';
 import '../../../../utils/components/constants.dart' as ct;
 import '../../../../widgets/widgets.dart' as widgets;
 
@@ -100,9 +101,9 @@ class SocialMediaLoginRowWidget extends StatelessWidget {
               animationDuration: const Duration(milliseconds: 2000),
               child: ElevatedButton.icon(
                 onPressed: () async {
-                  // navigationRoutes.navigateToSignInViaPhoneNumberPage(
-                  //   isForLogin: true,
-                  // );
+                  AppNavigation.pushLoginViaPhoneNumberRoute(
+                    isUseForLogin: true,
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   elevation: 3,

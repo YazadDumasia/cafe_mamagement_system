@@ -1,4 +1,3 @@
-import 'package:cafe_mamagement_system/utils/components/global.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:synchronized/synchronized.dart';
 
+import '../../routing/navigation_service.dart';
 import '../../utils/components/platform_utils.dart';
 
 class PermissionProvider {
@@ -209,13 +209,13 @@ class PermissionProvider {
             text: 'To use navigation, please allow location usage in settings.',
             buttonText: 'Go To Settings',
             onPressed: () {
-              Navigator.of(navigatorKey.currentContext!).pop();
+              if (!NavigationService.context.mounted) return;
+              Navigator.of(NavigationService.context).pop();
               openAppSettings();
             },
           );
-          Navigator.of(
-            navigatorKey.currentContext!,
-          ).push(permissionDialogRoute!);
+          if (!NavigationService.context.mounted) return;
+          Navigator.of(NavigationService.context).push(permissionDialogRoute!);
         case PermissionStatus.denied:
           Permission.location.request().then((value) {
             locationPermission = value;
@@ -229,7 +229,7 @@ class PermissionProvider {
         text: 'To use navigation, please turn location service on.',
         buttonText: PlatformUtils.isAndroid() ? 'Turn It On' : 'Ok',
         onPressed: () {
-          Navigator.of(navigatorKey.currentContext!).pop();
+          Navigator.of(NavigationService.context).pop();
 
           // if (Constants.isAndroid()) {
           //
@@ -242,7 +242,9 @@ class PermissionProvider {
           // }
         },
       );
-      Navigator.of(navigatorKey.currentContext!).push(permissionDialogRoute!);
+
+      if (!NavigationService.context.mounted) return;
+      Navigator.of(NavigationService.context).push(permissionDialogRoute!);
     }
   }
 
@@ -337,7 +339,7 @@ DialogRoute myCustomDialogRoute({
   required VoidCallback onPressed,
 }) {
   return DialogRoute(
-    context: navigatorKey.currentContext!,
+    context: NavigationService.context,
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text(title),

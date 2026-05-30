@@ -19,16 +19,19 @@ class AppLocalizations {
   Map<String, dynamic>? _localizedStrings;
 
   Future<bool> load() async {
-    final String jsonString = await rootBundle.loadString(
-      'assets/locale/${language!.file}',
-    );
-    final Map<String, dynamic> jsonMap = json.decode(jsonString);
-
-    _localizedStrings = jsonMap.map((key, value) {
-      return MapEntry(key, value.toString());
-    });
-
-    return true;
+    try {
+      final String jsonString = await rootBundle.loadString(
+        'assets/locale/${language!.file}',
+      );
+      _localizedStrings = json.decode(jsonString);
+      return true;
+    } catch (e) {
+      Constants.debugLog(
+        AppLocalizations,
+        "Error loading localization file: $e",
+      );
+      return false;
+    }
   }
 
   String translate(String key, {Map<String, String>? params, String? track}) {
@@ -37,70 +40,76 @@ class AppLocalizations {
       return key;
     }
 
-    dynamic current = _localizedStrings;
+    String? translated;
 
-    // 1) Track provided: search inside track section
+    // 1) Handle track if provided
     if (track != null && track.isNotEmpty) {
-      if (current is Map<String, dynamic> && current.containsKey(track)) {
-        final trackMap = current[track];
-
-        if (trackMap is Map<String, dynamic> && trackMap.containsKey(key)) {
-          String translated = trackMap[key].toString();
-
-          if (params != null) {
-            params.forEach((paramKey, paramValue) {
-              translated = translated.replaceAll('\${$paramKey}', paramValue);
-            });
+      if (_localizedStrings!.containsKey(track)) {
+        final trackData = _localizedStrings![track];
+        if (trackData is Map<String, dynamic>) {
+          // If key is 'common.common_back' and track is 'common',
+          // we check for 'common_back' inside 'common'
+          String subKey = key;
+          if (key.startsWith('$track.')) {
+            subKey = key.substring(track.length + 1);
           }
 
-          return translated;
+          if (trackData.containsKey(subKey)) {
+            translated = trackData[subKey].toString();
+          } else if (trackData.containsKey(key)) {
+            translated = trackData[key].toString();
+          }
         }
       }
+    }
 
-      Constants.debugLog(
-        AppLocalizations,
-        "Missing key: $key in track: $track",
-      );
+    // 2) If not found and key contains a dot, try parsing it as section.key
+    if (translated == null && key.contains('.')) {
+      final parts = key.split('.');
+      if (parts.length >= 2) {
+        final section = parts[0];
+        final subKey = parts.sublist(1).join('.');
+        if (_localizedStrings!.containsKey(section)) {
+          final sectionData = _localizedStrings![section];
+          if (sectionData is Map<String, dynamic> &&
+              sectionData.containsKey(subKey)) {
+            translated = sectionData[subKey].toString();
+          }
+        }
+      }
+    }
+
+    // 3) Search root
+    if (translated == null && _localizedStrings!.containsKey(key)) {
+      translated = _localizedStrings![key].toString();
+    }
+
+    // 4) Search inside all sections
+    if (translated == null) {
+      for (final entry in _localizedStrings!.entries) {
+        if (entry.value is Map<String, dynamic>) {
+          final map = entry.value as Map<String, dynamic>;
+          if (map.containsKey(key)) {
+            translated = map[key].toString();
+            break;
+          }
+        }
+      }
+    }
+
+    if (translated == null) {
+      Constants.debugLog(AppLocalizations, "Missing key: $key");
       return key;
     }
 
-    // 2) No track: search root first
-    if (current is Map<String, dynamic> && current.containsKey(key)) {
-      String translated = current[key].toString();
-
-      if (params != null) {
-        params.forEach((paramKey, paramValue) {
-          translated = translated.replaceAll('\${$paramKey}', paramValue);
-        });
-      }
-
-      return translated;
+    if (params != null) {
+      params.forEach((paramKey, paramValue) {
+        // Correct placeholder replacement: targets {paramKey} in the string
+        translated = translated!.replaceAll('{$paramKey}', paramValue);
+      });
     }
 
-    // 3) No track: search inside all sections (common, recipes, login_page etc.)
-    if (current is Map<String, dynamic>) {
-      for (final entry in current.entries) {
-        final value = entry.value;
-
-        if (value is Map<String, dynamic> && value.containsKey(key)) {
-          String translated = value[key].toString();
-
-          if (params != null) {
-            params.forEach((paramKey, paramValue) {
-              translated = translated.replaceAll('\${$paramKey}', paramValue);
-            });
-          }
-
-          return translated;
-        }
-      }
-    }
-
-    Constants.debugLog(
-      AppLocalizations,
-      "Missing key: $key (searched all tracks)",
-    );
-    return key;
+    return translated!;
   }
 
   static String getCurrentLanguageCode(BuildContext context) {
@@ -108,10 +117,9 @@ class AppLocalizations {
 
     if (appLocalizations != null) {
       final String? currentLanguageCode = appLocalizations.locale?.languageCode;
-      return currentLanguageCode ??
-          'en'; // Default to "en" if the language code is not available
+      return currentLanguageCode ?? 'en';
     } else {
-      return 'en'; // Default to "en" if AppLocalizations instance is not available
+      return 'en';
     }
   }
 }
@@ -132,12 +140,34 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   Future<AppLocalizations> load(Locale locale) async {
     final String languageCode =
         await language_preferences.LanguagePreferences.getLanguageCode();
-    final language_model.LanguageModel language = languages.firstWhere(
-      (language) => language.code == languageCode,
-      orElse: () => languages.firstWhere((language) => language.code == 'en'),
-    );
 
-    final AppLocalizations localizations = AppLocalizations(locale, language);
+    // Attempt to match language code and country code if available
+    language_model.LanguageModel? selectedLanguage;
+
+    try {
+      selectedLanguage = languages.firstWhere(
+        (lang) =>
+            lang.code == languageCode &&
+            (lang.countryCode == null ||
+                lang.countryCode == locale.countryCode),
+      );
+    } catch (_) {
+      try {
+        selectedLanguage = languages.firstWhere(
+          (lang) => lang.code == languageCode,
+        );
+      } catch (_) {
+        selectedLanguage = languages.firstWhere(
+          (lang) => lang.code == 'en',
+          orElse: () => languages.first,
+        );
+      }
+    }
+
+    final AppLocalizations localizations = AppLocalizations(
+      locale,
+      selectedLanguage,
+    );
     await localizations.load();
     return localizations;
   }
@@ -153,8 +183,3 @@ extension LocalizationExt on BuildContext {
     )?.translate(key, params: params, track: track);
   }
 }
-
-// context.tr("common.common_back", track:"common");
-
-//
-// AppLocalizations.of(context).translate('Key_name'),

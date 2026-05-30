@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:synchronized/synchronized.dart';
 
 import '../../../gen/assets.gen.dart';
-import '../../../utils/components/local_manager.dart';
-import '../../../utils/components/platform_utils.dart';
+import '../../../routing/routing.dart';
+import '../../../utils/utils.dart';
 import '../../../widgets/widgets.dart';
 import 'widget/splash_screen_desktop_layout.dart';
 import 'widget/splash_screen_mobile_layout.dart';
@@ -22,8 +22,9 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {});
-    checkFirstTime();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      checkFirstTime();
+    });
   }
 
   Future<void> preloadImages() async {
@@ -50,18 +51,21 @@ class _SplashPageState extends State<SplashPage> {
     if (isUserLogin == false) {
       Future.delayed(const Duration(seconds: 3)).then((value) async {
         await preloadImages();
-
-        // Navigator.pushNamedAndRemoveUntil(
-        //   navigatorKey.currentContext!,
-        //   RouteName.loginRoute,
-        //   arguments: true,
-        //   (route) => false,
-        // );
+        final bool isloginFirstTime = LocalManager.instance.getBoolValue(
+          key: PreferencesKeys.isAppLoginForFirstTime,
+        );
+        if (isloginFirstTime) {
+          await LocalManager.instance.setBoolValue(
+            key: PreferencesKeys.isAppLoginForFirstTime,
+            value: false,
+          );
+        }
+        AppNavigation.goLogin(isFirstTime: isloginFirstTime);
       });
     } else {
       Future.delayed(const Duration(seconds: 3)).then((value) async {
         await preloadImages();
-
+        // const HomeScreenRoute().go(context);
         // Navigator.pushNamedAndRemoveUntil(
         //   navigatorKey.currentContext!,
         //   RouteName.homeScreenRoute,
@@ -76,7 +80,7 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: const SafeArea(
+      child: SafeArea(
         child: Scaffold(
           resizeToAvoidBottomInset: true,
           body: ResponsiveLayout(

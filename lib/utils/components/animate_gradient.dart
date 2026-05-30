@@ -102,6 +102,8 @@ class _AnimateGradientState extends State<AnimateGradient>
       animation: _animation,
       builder: (BuildContext context, Widget? child) {
         return Container(
+          width: double.infinity,
+          height: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: widget.animateAlignments

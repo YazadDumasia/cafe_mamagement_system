@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../bloc/login_cubit/login_screen_cubit.dart';
+import '../../../../routing/routing.dart';
 import '../../../../utils/components/animate_gradient.dart';
 import '../../../../utils/components/constants.dart';
 import '../../../../widgets/hover_up_down_widget/hover_up_down_widget.dart';
@@ -158,287 +159,296 @@ class _LoginTabletLayoutWidgetState extends State<LoginTabletLayoutWidget> {
                                                 elevation: 2,
                                                 child: Theme(
                                                   data: Theme.of(context),
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      AutofillGroup(
-                                                        child: Form(
-                                                          key: widget.formKey,
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .start,
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: <Widget>[
-                                                              Row(
-                                                                children: <Widget>[
-                                                                  Expanded(
-                                                                    child: Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.fromLTRB(
-                                                                            10,
-                                                                            5,
-                                                                            10,
-                                                                            0,
-                                                                          ),
-                                                                      child: Text(
-                                                                        widget.isFirstTime ==
-                                                                                true
-                                                                            ? context.tr(
-                                                                                    AppStringValue.loginWelcome,
-                                                                                    track: Constants.loginPageTrack,
-                                                                                  ) ??
-                                                                                  'Welcome'
-                                                                            : context.tr(
-                                                                                    AppStringValue.loginWelcomeBack,
-                                                                                    track: Constants.loginPageTrack,
-                                                                                  ) ??
-                                                                                  'Welcome Back',
-                                                                        style:
-                                                                            Theme.of(
-                                                                              context,
-                                                                            ).textTheme.headlineMedium!.copyWith(
-                                                                              fontWeight: FontWeight.w600,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                          10.0,
+                                                        ),
+                                                    child: Column(
+                                                      children: <Widget>[
+                                                        AutofillGroup(
+                                                          child: Form(
+                                                            key: widget.formKey,
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              children: <Widget>[
+                                                                Row(
+                                                                  children: <Widget>[
+                                                                    Expanded(
+                                                                      child: Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.fromLTRB(
+                                                                              10,
+                                                                              5,
+                                                                              10,
+                                                                              10,
                                                                             ),
+                                                                        child: Text(
+                                                                          widget.isFirstTime ==
+                                                                                  true
+                                                                              ? context.tr(
+                                                                                      AppStringValue.loginWelcome,
+                                                                                      track: Constants.loginPageTrack,
+                                                                                    ) ??
+                                                                                    'Welcome'
+                                                                              : context.tr(
+                                                                                      AppStringValue.loginWelcomeBack,
+                                                                                      track: Constants.loginPageTrack,
+                                                                                    ) ??
+                                                                                    'Welcome Back',
+                                                                          style:
+                                                                              Theme.of(
+                                                                                context,
+                                                                              ).textTheme.headlineMedium!.copyWith(
+                                                                                fontWeight: FontWeight.w600,
+                                                                              ),
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Row(
-                                                                children: <Widget>[
-                                                                  Expanded(
-                                                                    child: Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.fromLTRB(
-                                                                            10,
-                                                                            10,
-                                                                            10,
-                                                                            0,
-                                                                          ),
-                                                                      child: TextFormEmailFieldWidget(
-                                                                        emailTextEditingController:
-                                                                            widget.emailTextEditingController,
-                                                                        emailFocusNode:
-                                                                            widget.emailFocusNode,
-                                                                        nextFocusNode:
-                                                                            widget.passwordFocusNode,
+                                                                  ],
+                                                                ),
+                                                                Row(
+                                                                  children: <Widget>[
+                                                                    Expanded(
+                                                                      child: Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.fromLTRB(
+                                                                              10,
+                                                                              10,
+                                                                              10,
+                                                                              0,
+                                                                            ),
+                                                                        child: TextFormEmailFieldWidget(
+                                                                          emailTextEditingController:
+                                                                              widget.emailTextEditingController,
+                                                                          emailFocusNode:
+                                                                              widget.emailFocusNode,
+                                                                          nextFocusNode:
+                                                                              widget.passwordFocusNode,
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Row(
-                                                                children: <Widget>[
-                                                                  Expanded(
-                                                                    child: Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.fromLTRB(
-                                                                            10,
-                                                                            10,
-                                                                            10,
-                                                                            10,
-                                                                          ),
-                                                                      child: TextFormPasswordFieldWidget(
-                                                                        passwordTextEditingController:
-                                                                            widget.passwordTextEditingController,
-                                                                        passwordFocusNode:
-                                                                            widget.passwordFocusNode,
+                                                                  ],
+                                                                ),
+                                                                Row(
+                                                                  children: <Widget>[
+                                                                    Expanded(
+                                                                      child: Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.fromLTRB(
+                                                                              10,
+                                                                              10,
+                                                                              10,
+                                                                              10,
+                                                                            ),
+                                                                        child: TextFormPasswordFieldWidget(
+                                                                          passwordTextEditingController:
+                                                                              widget.passwordTextEditingController,
+                                                                          passwordFocusNode:
+                                                                              widget.passwordFocusNode,
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              SignInButtonWidget(
-                                                                formKey: widget
-                                                                    .formKey,
-                                                                callLoginApi: widget
-                                                                    .callLoginApi,
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 25,
-                                                              ),
-                                                            ],
+                                                                  ],
+                                                                ),
+                                                                SignInButtonWidget(
+                                                                  formKey: widget
+                                                                      .formKey,
+                                                                  callLoginApi:
+                                                                      widget
+                                                                          .callLoginApi,
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 25,
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
                                                         ),
-                                                      ),
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: <Widget>[
-                                                          Expanded(
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets.only(
-                                                                    left: 5,
-                                                                    right: 5,
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: <Widget>[
+                                                            Expanded(
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets.only(
+                                                                      left: 5,
+                                                                      right: 5,
+                                                                    ),
+                                                                child: Text(
+                                                                  context.tr(
+                                                                        AppStringValue
+                                                                            .loginDidAccount,
+                                                                        track: Constants
+                                                                            .loginPageTrack,
+                                                                      ) ??
+                                                                      "Don't have an account ?",
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: Theme.of(
+                                                                    context,
+                                                                  ).textTheme.bodyLarge!,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 5,
+                                                        ),
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: <Widget>[
+                                                            Expanded(
+                                                              child: Center(
+                                                                child: TextButton(
+                                                                  onPressed:
+                                                                      () async {
+                                                                        AppNavigation.pushRegistration();
+                                                                      },
+                                                                  style: ButtonStyle(
+                                                                    padding:
+                                                                        WidgetStateProperty.all<
+                                                                          EdgeInsets
+                                                                        >(
+                                                                          const EdgeInsets.only(
+                                                                            left:
+                                                                                30,
+                                                                            right:
+                                                                                30,
+                                                                            bottom:
+                                                                                5,
+                                                                            top:
+                                                                                5,
+                                                                          ),
+                                                                        ),
+                                                                  ),
+                                                                  child: Text(
+                                                                    context.tr(
+                                                                          AppStringValue
+                                                                              .loginSignUpBtn,
+                                                                          track:
+                                                                              Constants.loginPageTrack,
+                                                                        ) ??
+                                                                        'Sign Up',
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: <Widget>[
+                                                            Expanded(
+                                                              child: Divider(
+                                                                color:
+                                                                    Theme.of(
+                                                                          context,
+                                                                        ).brightness ==
+                                                                        Brightness
+                                                                            .dark
+                                                                    ? Colors
+                                                                          .white
+                                                                    : Colors
+                                                                          .black,
+                                                                height: 1,
+                                                                endIndent: 25,
+                                                                indent: 25,
+                                                                thickness: 1,
+                                                              ),
+                                                            ),
+                                                            HoverUpDownWidget(
+                                                              animationDuration:
+                                                                  const Duration(
+                                                                    milliseconds:
+                                                                        1500,
                                                                   ),
                                                               child: Text(
                                                                 context.tr(
                                                                       AppStringValue
-                                                                          .loginDidAccount,
-                                                                      track: Constants
-                                                                          .loginPageTrack,
+                                                                          .loginOr,
                                                                     ) ??
-                                                                    "Don't have an account ?",
+                                                                    'Or',
                                                                 textAlign:
                                                                     TextAlign
                                                                         .center,
-                                                                style: Theme.of(
-                                                                  context,
-                                                                ).textTheme.bodyLarge!,
+                                                                style: Theme.of(context)
+                                                                    .textTheme
+                                                                    .bodyMedium!
+                                                                    .copyWith(
+                                                                      color:
+                                                                          Theme.of(
+                                                                                context,
+                                                                              ).brightness ==
+                                                                              Brightness.dark
+                                                                          ? Colors.white
+                                                                          : Colors.black,
+                                                                    ),
                                                               ),
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      const SizedBox(height: 5),
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: <Widget>[
-                                                          Expanded(
-                                                            child: Center(
-                                                              child: TextButton(
-                                                                onPressed: () {
-                                                                  // navigationRoutes
-                                                                  //     .navigateToSignUpPage();
-                                                                },
-                                                                style: ButtonStyle(
-                                                                  padding:
-                                                                      WidgetStateProperty.all<
-                                                                        EdgeInsets
-                                                                      >(
-                                                                        const EdgeInsets.only(
-                                                                          left:
-                                                                              30,
-                                                                          right:
-                                                                              30,
-                                                                          bottom:
-                                                                              5,
-                                                                          top:
-                                                                              5,
-                                                                        ),
-                                                                      ),
-                                                                ),
-                                                                child: Text(
-                                                                  context.tr(
-                                                                        AppStringValue
-                                                                            .loginSignUpBtn,
-                                                                        track: Constants
-                                                                            .loginPageTrack,
-                                                                      ) ??
-                                                                      'Sign Up',
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                ),
+                                                            Expanded(
+                                                              child: Divider(
+                                                                color:
+                                                                    Theme.of(
+                                                                          context,
+                                                                        ).brightness ==
+                                                                        Brightness
+                                                                            .dark
+                                                                    ? Colors
+                                                                          .white
+                                                                    : Colors
+                                                                          .black,
+                                                                height: 1,
+                                                                endIndent: 25,
+                                                                indent: 25,
+                                                                thickness: 1,
                                                               ),
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: <Widget>[
-                                                          Expanded(
-                                                            child: Divider(
-                                                              color:
-                                                                  Theme.of(
-                                                                        context,
-                                                                      ).brightness ==
-                                                                      Brightness
-                                                                          .dark
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                        .black,
-                                                              height: 1,
-                                                              endIndent: 25,
-                                                              indent: 25,
-                                                              thickness: 1,
-                                                            ),
-                                                          ),
-                                                          HoverUpDownWidget(
-                                                            animationDuration:
-                                                                const Duration(
-                                                                  milliseconds:
-                                                                      1500,
-                                                                ),
-                                                            child: Text(
-                                                              context.tr(
-                                                                    AppStringValue
-                                                                        .loginOr,
-                                                                  ) ??
-                                                                  'Or',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: Theme.of(context)
-                                                                  .textTheme
-                                                                  .bodyMedium!
-                                                                  .copyWith(
-                                                                    color:
-                                                                        Theme.of(
-                                                                              context,
-                                                                            ).brightness ==
-                                                                            Brightness.dark
-                                                                        ? Colors
-                                                                              .white
-                                                                        : Colors
-                                                                              .black,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            child: Divider(
-                                                              color:
-                                                                  Theme.of(
-                                                                        context,
-                                                                      ).brightness ==
-                                                                      Brightness
-                                                                          .dark
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                        .black,
-                                                              height: 1,
-                                                              endIndent: 25,
-                                                              indent: 25,
-                                                              thickness: 1,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 15,
-                                                      ),
-                                                      SocialMediaLoginRowWidget(),
-                                                      const SizedBox(
-                                                        height: 15,
-                                                      ),
-                                                    ],
+                                                          ],
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 15,
+                                                        ),
+                                                        SocialMediaLoginRowWidget(),
+                                                        const SizedBox(
+                                                          height: 15,
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),

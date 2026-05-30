@@ -1,47 +1,84 @@
-import 'package:cafe_mamagement_system/pages/pages.dart';
-import 'package:cafe_mamagement_system/routing/app_route_name.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import '../utils/utils.dart';
+import 'app_route_path.dart';
+import '../pages/pages.dart';
 
-part 'app_router.g.dart';
+class AppRouter {
+  AppRouter._();
 
-final goRouter = GoRouter(
-  initialLocation: AppRouteName.splashRoute,
-  routes: $appRoutes,
-  debugLogDiagnostics: true,
-);
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    final args = settings.arguments;
+    PlatformUtils.debugLog(AppRouter, 'Route Name:${settings.name}');
+    PlatformUtils.debugLog(AppRouter, 'Route arguments:$args');
 
-@TypedGoRoute<SplashRoute>(
-  path: AppRouteName.splashRoute,
-)
-class SplashRoute extends GoRouteData with $SplashRoute {
+    switch (settings.name) {
+      case '/':
+        return MaterialPageRoute<dynamic>(builder: (_) => const SplashPage());
 
-  const SplashRoute();
+      case AppRoutePath.splashRoute:
+        return MaterialPageRoute<dynamic>(builder: (_) => const SplashPage());
+      case AppRoutePath.loginRoute:
+        return PageTransition(
+          type: PageTransitionType.rightToLeftWithFade,
+          settings: settings,
+          curve: Curves.easeInOut,
+          child: LoginScreen(isFirstTime: args as bool?),
+        );
+      case AppRoutePath.registrationRoute:
+        return MaterialPageRoute<dynamic>(builder: (_) => const SignUpPage());
 
-  @override
-  Widget build(BuildContext context, GoRouterState state) => const SplashPage();
-}
+      case AppRoutePath.loginViaPhoneNumberRoute:
+        final bool isForLogin = args as bool;
+        return PageTransition(
+          type: PageTransitionType.rightToLeftWithFade,
+          settings: settings,
+          curve: Curves.easeInOut,
+          child: LoginViaPhoneNumberPage(isUseForLogin: isForLogin),
+        );
 
-@TypedGoRoute<LoginRoute>(
-  path: AppRouteName.loginRoute,
-)
-class LoginRoute extends GoRouteData with $LoginRoute {
+      case AppRoutePath.otpScreenRoute:
+        return PageTransition(
+          type: PageTransitionType.rightToLeftWithFade,
+          settings: settings,
+          curve: Curves.easeInOut,
+          child: Container(),
+        );
 
-  const LoginRoute({this.isFirstTime = false});
-  final bool isFirstTime;
+      case AppRoutePath.licenseRoute:
+        final argMap = args as Map<String, dynamic>?;
+        final String? applicationName = argMap?['applicationName'] ?? '';
+        final String? applicationVersion = argMap?['applicationVersion'] ?? '';
+        final Widget? applicationIcon = argMap?['applicationIcon'];
+        final String? applicationLegalese =
+            argMap?['applicationLegalese'] ?? '';
+        return PageTransition(
+          type: PageTransitionType.rightToLeftWithFade,
+          settings: settings,
+          curve: Curves.easeInOut,
+          child: LicensePage(
+            key: UniqueKey(),
+            applicationName: applicationName,
+            applicationVersion: applicationVersion,
+            applicationIcon: applicationIcon,
+            applicationLegalese: applicationLegalese,
+          ),
+        );
 
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      LoginScreen(isFirstTime: isFirstTime);
-}
+      default:
+        return _errorRoute();
+    }
+  }
 
-@TypedGoRoute<SignUpRoute>(
-  path: AppRouteName.registrationRoute,
-)
-class SignUpRoute extends GoRouteData with $SignUpRoute {
-
-  const SignUpRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) => const SignUpPage();
+  static Route<dynamic> _errorRoute() {
+    return MaterialPageRoute<dynamic>(
+      builder: (_) {
+        return SafeArea(
+          child: Scaffold(
+            appBar: AppBar(leadingWidth: 24, title: const Text('Error')),
+            body: const Center(child: Text('ERROR')),
+          ),
+        );
+      },
+    );
+  }
 }

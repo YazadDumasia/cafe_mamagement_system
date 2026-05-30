@@ -61,3 +61,22 @@ extension PaddingExt on Widget {
     child: this,
   );
 }
+
+extension ResponsiveContext on BuildContext {
+  /// The full screen width (swaps automatically on rotation)
+  double get width => MediaQuery.sizeOf(this).width;
+
+  /// The full screen height (swaps automatically on rotation)
+  double get height => MediaQuery.sizeOf(this).height;
+
+  /// The width MINUS the safe area (notches, etc.)
+  /// Useful for ensuring content doesn't get cut off in landscape
+  double get safeWidth => width - MediaQuery.paddingOf(this).horizontal;
+
+  /// The height MINUS the safe area (status bar, home indicator)
+  double get safeHeight => height - MediaQuery.paddingOf(this).vertical;
+
+  /// Quick check for landscape orientation
+  bool get isLandscape =>
+      MediaQuery.orientationOf(this) == Orientation.landscape;
+}

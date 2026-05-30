@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import '../../model/ip_info_model.dart';
-import '../../utils/components/constants.dart';
+import '../../utils/components/platform_utils.dart';
 
 class IpTrackerService {
   // Base URL for the IP API
@@ -72,7 +72,7 @@ class IpTrackerService {
       if (response.statusCode == 200) {
         final Map<String, dynamic> jsonResponse = json.decode(response.body);
         final ipInfoModel = IpInfoModel.fromJson(jsonResponse);
-        Constants.debugLog(
+        PlatformUtils.debugLog(
           IpTrackerService,
           "Ipaddress: ${ipInfoModel.toString()}",
         );

@@ -1,5 +1,6 @@
 enum PreferencesKeys {
   token,
+  isAppLoginForFirstTime,
   isFirstApp,
   isLoggedIn,
   appEnableDarkTheme,

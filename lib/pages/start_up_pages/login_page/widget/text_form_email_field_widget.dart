@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../app_config/app_config.dart';
 import '../../../../bloc/login_cubit/login_screen_cubit.dart';
-import '../../../../utils/components/global.dart';
+import '../../../../routing/navigation_service.dart';
 
 class TextFormEmailFieldWidget extends StatefulWidget {
   final FocusNode? emailFocusNode, nextFocusNode;
@@ -107,7 +107,7 @@ class _TextFormEmailFieldWidgetState extends State<TextFormEmailFieldWidget> {
           onFieldSubmitted: (value) async {
             Future.microtask(
               () => FocusScope.of(
-                context.mounted ? context : navigatorKey.currentContext!,
+                context.mounted ? context : NavigationService.context,
               ).requestFocus(widget.nextFocusNode ?? FocusNode()),
             );
           },

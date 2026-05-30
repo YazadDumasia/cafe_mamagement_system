@@ -24,3 +24,4 @@ export 'start_up_pages/splash_page/splash_page.dart';
 export 'start_up_pages/splash_page/widget/splash_screen_desktop_layout.dart';
 export 'start_up_pages/splash_page/widget/splash_screen_mobile_layout.dart';
 export 'start_up_pages/splash_page/widget/splash_screen_tablet_layout.dart';
+export 'start_up_pages/login_via_phone_number_page/login_via_phone_number_page.dart';

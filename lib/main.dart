@@ -3,7 +3,6 @@ import 'package:cafe_mamagement_system/database/database_helper.dart';
 import 'package:cafe_mamagement_system/repository/restaurant_repository.dart'
     as res_repo;
 import 'package:cafe_mamagement_system/simple_bloc_observer.dart' as sbo;
-import 'package:cafe_mamagement_system/utils/components/global.dart' as global;
 import 'package:cafe_mamagement_system/utils/components/local_push_notifications_api.dart'
     as notification_api;
 import 'package:cafe_mamagement_system/utils/components/platform_utils.dart';
@@ -11,6 +10,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 import 'app_config/app_color/theme.dart';
 import 'app_config/app_color/util.dart';
@@ -20,7 +20,6 @@ import 'model/language_model/language_model.dart';
 import 'utils/components/constants.dart';
 import 'utils/components/local_manager.dart';
 import 'routing/routing.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -93,36 +92,73 @@ class _MyAppState extends State<MyApp> {
 
         BlocProvider(
           create: (context) => LoginScreenCubit()
-            ..fetchInitialInfo()
-            ..dispose(),
+            ..dispose()
+            ..fetchInitialInfo(),
         ),
         BlocProvider(
           create: (context) => SignUpCubit()
             ..fetchInitialInfo()
             ..dispose(),
         ),
+        BlocProvider(
+          create: (context) =>
+              LoginWithPhoneBloc()..add(LoginWithPhoneFetchInitialInfoEvent()),
+        ),
       ],
       child: Builder(
         builder: (context) {
           //final themeMode = context.read<ThemeBloc>().state.themeMode;
           return PageStorage(
-            bucket: global.bucketGlobal,
-            child: MaterialApp.router(
-              routerConfig: goRouter,
+            bucket: NavigationService.bucketGlobal,
+            child: MaterialApp(
+              restorationScopeId: 'app',
+              initialRoute: AppRoutePath.splashRoute,
+              onGenerateRoute: AppRouter.generateRoute,
+              navigatorObservers: [MyRouteObserver()],
+              navigatorKey: NavigationService.navigatorKey,
 
               title: AppConfig.appName,
               // showPerformanceOverlay: true,
               debugShowCheckedModeBanner: false,
-              theme: theme.light(),
-              darkTheme: theme.dark(),
-              highContrastDarkTheme: theme.darkHighContrast(),
-              highContrastTheme: theme.lightHighContrast(),
+              theme: theme.light().copyWith(
+                extensions: [
+                  MaterialPinThemeExtension(
+                    theme: MaterialPinTheme(shape: MaterialPinShape.outlined),
+                  ),
+                ],
+              ),
+              darkTheme: theme.dark().copyWith(
+                extensions: [
+                  MaterialPinThemeExtension(
+                    theme: MaterialPinTheme(
+                      shape: MaterialPinShape.outlined,
+                      animateCursor: true,
+
+                      borderColor: theme.dark().colorScheme.primary,
+                    ),
+                  ),
+                ],
+              ),
+              highContrastDarkTheme: theme.darkHighContrast().copyWith(
+                extensions: [
+                  MaterialPinThemeExtension(
+                    theme: MaterialPinTheme(shape: MaterialPinShape.outlined),
+                  ),
+                ],
+              ),
+              highContrastTheme: theme.lightHighContrast().copyWith(
+                extensions: [
+                  MaterialPinThemeExtension(
+                    theme: MaterialPinTheme(shape: MaterialPinShape.outlined),
+                  ),
+                ],
+              ),
               themeMode: context.watch<ThemeBloc>().state.themeMode,
               themeAnimationCurve: Curves.linear,
               themeAnimationDuration: const Duration(milliseconds: 700),
               locale: context.watch<LocaleCubit>().state,
-              // locale: context.watch<LocaleCubit>().state,
 
+              // locale: context.watch<LocaleCubit>().state,
               themeAnimationStyle: AnimationStyle(
                 duration: const Duration(seconds: 3),
                 curve: Curves.slowMiddle,
@@ -219,7 +255,6 @@ class _MyAppState extends State<MyApp> {
                   child: child!,
                 );
               },
-              restorationScopeId: 'app',
               scrollBehavior: ScrollConfiguration.of(context).copyWith(
                 multitouchDragStrategy: MultitouchDragStrategy.sumAllPointers,
                 physics: const BouncingScrollPhysics(

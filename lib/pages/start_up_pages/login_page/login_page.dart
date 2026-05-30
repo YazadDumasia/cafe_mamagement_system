@@ -1,5 +1,7 @@
 import 'dart:math' as math;
 
+import 'package:flutter/services.dart';
+
 import '../../../utils/components/local_keys_enum.dart';
 import '../../../utils/components/local_manager.dart';
 import '../../../utils/components/local_push_notifications_api.dart';
@@ -78,30 +80,44 @@ class _LoginScreenState extends State<LoginScreen> {
     size = MediaQuery.of(context).size;
     orientation = MediaQuery.of(context).orientation;
     return SafeArea(
-      child: PopScope(
-        canPop: false,
-        onPopInvokedWithResult: (didPop, result) async {
-          final shouldExit = await showDialog<bool>(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: const Text("Exit"),
-              content: const Text("Do you want to go back?"),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context, false),
-                  child: const Text("No"),
-                ),
-                TextButton(
-                  onPressed: () => Navigator.pop(context, true),
-                  child: const Text("Yes"),
-                ),
-              ],
-            ),
-          );
+      child: AnimatedBuilder(
+        animation:
+            ModalRoute.of(context)!.secondaryAnimation ??
+            const AlwaysStoppedAnimation(0.0),
+        builder: (context, child) {
+          final isCurrent =
+              ModalRoute.of(context)?.secondaryAnimation?.status ==
+              AnimationStatus.dismissed;
+          return PopScope(
+            canPop: !isCurrent,
+            onPopInvokedWithResult: (didPop, result) async {
+              if (didPop) return;
+              if (!isCurrent) return;
 
-          if (shouldExit == true && context.mounted) {
-            Navigator.pop(context);
-          }
+              final shouldExit = await showDialog<bool>(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text("Exit"),
+                  content: const Text("Do you want to go back?"),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, false),
+                      child: const Text("No"),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, true),
+                      child: const Text("Yes"),
+                    ),
+                  ],
+                ),
+              );
+
+              if (shouldExit == true && context.mounted) {
+                SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+              }
+            },
+            child: child!,
+          );
         },
         child: Scaffold(
           resizeToAvoidBottomInset: true,

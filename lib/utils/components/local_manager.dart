@@ -33,6 +33,10 @@ class LocalManager {
     await setBoolValue(key: PreferencesKeys.isLoggedIn, value: false);
     await setBoolValue(key: PreferencesKeys.commonFirstTime, value: false);
     await setBoolValue(key: PreferencesKeys.appEnableDarkTheme, value: false);
+    await setBoolValue(
+      key: PreferencesKeys.isAppLoginForFirstTime,
+      value: true,
+    );
   }
 
   Future<void> clearAllSaveFirst() async {
@@ -51,6 +55,10 @@ class LocalManager {
       await setBoolValue(key: PreferencesKeys.isLoggedIn, value: false);
       await setBoolValue(key: PreferencesKeys.commonFirstTime, value: false);
       await setBoolValue(key: PreferencesKeys.appEnableDarkTheme, value: false);
+      await setBoolValue(
+        key: PreferencesKeys.isAppLoginForFirstTime,
+        value: true,
+      );
     }
   }
 

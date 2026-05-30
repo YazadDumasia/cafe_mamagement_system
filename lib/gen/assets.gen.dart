@@ -91,6 +91,14 @@ class $AssetsImagesGen {
   AssetGenImage get imagePlaceholder =>
       const AssetGenImage('assets/images/image_placeholder.png');
 
+  /// File path: assets/images/login_otp1.jpg
+  AssetGenImage get loginOtp1 =>
+      const AssetGenImage('assets/images/login_otp1.jpg');
+
+  /// File path: assets/images/login_otp2.jpg
+  AssetGenImage get loginOtp2 =>
+      const AssetGenImage('assets/images/login_otp2.jpg');
+
   /// File path: assets/images/profile_user.png
   AssetGenImage get profileUser =>
       const AssetGenImage('assets/images/profile_user.png');
@@ -129,6 +137,8 @@ class $AssetsImagesGen {
     hill,
     icContactUs,
     imagePlaceholder,
+    loginOtp1,
+    loginOtp2,
     profileUser,
     signUp,
     signUp2,

@@ -1,10 +1,10 @@
-import 'package:cafe_mamagement_system/utils/components/global.dart' as global;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart' as ft;
 import 'package:lottie/lottie.dart' as lottie;
 import '../../app_config/config/app_localizations.dart';
 import '../../app_config/config/app_string_value.dart';
 import '../../gen/assets.gen.dart';
+import '../../routing/navigation_service.dart';
 
 class UiUtils {
   static Future<void> showTransparentLoader(
@@ -37,20 +37,20 @@ class UiUtils {
     bool isError = false,
   }) {
     ScaffoldMessenger.of(
-      context.mounted ? context : global.navigatorKey.currentContext!,
+      context.mounted ? context : NavigationService.context,
     ).clearSnackBars();
     ScaffoldMessenger.of(
-      context.mounted ? context : global.navigatorKey.currentContext!,
+      context.mounted ? context : NavigationService.context,
     ).showSnackBar(
       SnackBar(
         content: Text(message),
 
         backgroundColor: isError
             ? Theme.of(
-                context.mounted ? context : global.navigatorKey.currentContext!,
+                context.mounted ? context : NavigationService.context,
               ).colorScheme.error
             : Theme.of(
-                context.mounted ? context : global.navigatorKey.currentContext!,
+                context.mounted ? context : NavigationService.context,
               ).colorScheme.secondary,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -73,10 +73,10 @@ class UiUtils {
           : ft.Toast.LENGTH_LONG,
       fontSize: 16,
       textColor: Theme.of(
-        global.navigatorKey.currentContext!,
+        NavigationService.context,
       ).colorScheme.onPrimaryContainer,
       backgroundColor: Theme.of(
-        global.navigatorKey.currentContext!,
+        NavigationService.context,
       ).colorScheme.primaryContainer,
     );
   }

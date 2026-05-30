@@ -1,4 +1,5 @@
-import 'global.dart';
+import 'package:flutter/cupertino.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -12,6 +13,7 @@ class LaunchReview {
     required String iOSAppId,
     bool writeReview = false,
     String? customErrorMessage,
+    required final BuildContext context,
   }) async {
     // Fetch app package info
     final PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -72,15 +74,12 @@ class LaunchReview {
         );
       }
     } catch (e) {
+      if (!context.mounted) return;
       // Show user-friendly message if an error occurs
       final String message =
           customErrorMessage ??
           'Failed to launch the review page. Please try again.';
-      UiUtils.showSnackBar(
-        navigatorKey.currentContext!,
-        message,
-        isError: true,
-      );
+      UiUtils.showSnackBar(context, message, isError: true);
       PlatformUtils.debugLog(LaunchReview, 'Error launching review page: $e');
     }
   }
